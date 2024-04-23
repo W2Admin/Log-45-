@@ -38,7 +38,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPagePG />} />
-          {/* <Route path="/" element={<OrgRegistrationForm />} /> */}
           <Route path="/dashboard" element={<Dashboard />} />
           {/* invoce */}
           <Route path="/invoices" element={<Invoices />} />
@@ -62,6 +61,10 @@ function App() {
           {/* others */}
           <Route path="/login" element={<Login />} />
           <Route path="/registrationForm" element={<RegistrationForm />} />
+          <Route
+            path="/orgRegistrationForm"
+            element={<OrgRegistrationForm />}
+          />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/campaigns" element={<Campaings />} />
           <Route path="/medicine" element={<Medicine />} />

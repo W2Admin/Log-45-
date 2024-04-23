@@ -1,186 +1,229 @@
 import React, { useState } from "react";
+import logo from "../images/logo.png";
+import { useNavigate } from "react-router-dom";
 
-const OrgRegistrationForm = () => {
+const RegistrationForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     organizationName: "",
     contactEmail: "",
     phoneNumber: "",
     industryType: "",
     address: "",
-    emailError: "",
-    requiredError: "",
   });
+
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-      emailError:
-        name === "contactEmail" && !validateEmail(value)
-          ? "Invalid email format"
-          : "",
-      requiredError: "",
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Check for required fields
-    const requiredFields = [
-      "organizationName",
-      "contactEmail",
-      "phoneNumber",
-      "industryType",
-      "address",
-    ];
-    const hasEmptyField = requiredFields.some((field) => !formData[field]);
-    if (hasEmptyField) {
-      setFormData({
-        ...formData,
-        requiredError: "All fields are required",
-      });
-    } else if (formData.emailError) {
-      // Email format error
-      // Handle email format error
-    } else {
-      // Form submission logic
-      sendConfirmationEmail();
-      redirectToWelcomePage();
-      clearFormData();
+    const errors = validateForm(formData);
+    setErrors(errors);
+    if (Object.keys(errors).length === 0) {
+      // Perform form submission (e.g., send data to backend)
+      // Simulate submission success
+      setSubmitted(true);
+      // Simulate sending confirmation email
+      sendConfirmationEmail(formData.contactEmail);
+      // Redirect to Dashboard component
+      setTimeout(() => {
+        navigate.push("/dashboard");
+      }, 3000); // Redirect after 3 seconds
     }
   };
 
-  const validateEmail = (email) => {
+  const validateForm = (data) => {
+    let errors = {};
+    if (!data.organizationName) {
+      errors.organizationName = "Organization name is required";
+    }
+    if (!data.contactEmail) {
+      errors.contactEmail = "Contact email is required";
+    } else if (!isValidEmail(data.contactEmail)) {
+      errors.contactEmail = "Invalid email format";
+    }
+    if (!data.phoneNumber) {
+      errors.phoneNumber = "Phone number is required";
+    }
+    if (!data.industryType) {
+      errors.industryType = "Industry type is required";
+    }
+    if (!data.address) {
+      errors.address = "Address is required";
+    }
+    return errors;
+  };
+
+  const isValidEmail = (email) => {
     // Basic email format validation
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
 
-  const sendConfirmationEmail = () => {
-    // Send confirmation email logic
-  };
-
-  const redirectToWelcomePage = () => {
-    // Redirect logic to welcome page
-  };
-
-  const clearFormData = () => {
-    setFormData({
-      organizationName: "",
-      contactEmail: "",
-      phoneNumber: "",
-      industryType: "",
-      address: "",
-      emailError: "",
-      requiredError: "",
-    });
+  const sendConfirmationEmail = (email) => {
+    // Simulate sending confirmation email
+    console.log(`Confirmation email sent to ${email}`);
   };
 
   return (
-    <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
-      <div
-        className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
-        aria-hidden="true"
-      >
-        <div
-          className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
-          style={{
-            clipPath:
-              "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-          }}
-        ></div>
-      </div>
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Organization Registration
-        </h2>
-        <p className="mt-2 text-lg leading-8 text-gray-600">
-          Register your organization to access our services.
-        </p>
-      </div>
-      <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
-        <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-          <div>
+    <div>
+      {!submitted ? (
+        <form
+          className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md"
+          onSubmit={handleSubmit}
+        >
+          <div className="mb-4">
             <label
+              className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="organizationName"
-              className="block text-sm font-semibold leading-6 text-black"
             >
               Organization Name
             </label>
-            <div className="mt-2.5">
-              <input
-                type="text"
-                name="organizationName"
-                id="organizationName"
-                value={formData.organizationName}
-                onChange={handleChange}
-                autoComplete="organization"
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm shadow-blue-500 ring-1 ring-inset ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
-              />
-            </div>
+            <input
+              className={`w-full px-3 py-2 border ${
+                errors.organizationName ? "border-red-500" : "border-gray-300"
+              } rounded-md focus:outline-none focus:${
+                errors.organizationName ? "border-red-500" : "border-indigo-500"
+              }`}
+              type="text"
+              id="organizationName"
+              name="organizationName"
+              value={formData.organizationName}
+              onChange={handleChange}
+            />
+            {errors.organizationName && (
+              <div className="error">{errors.organizationName}</div>
+            )}
           </div>
-          <div>
+          <div className="mb-4">
             <label
+              className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="contactEmail"
-              className="block text-sm font-semibold leading-6 text-black"
             >
               Contact Email
             </label>
-            <div className="mt-2.5">
-              <input
-                type="email"
-                name="contactEmail"
-                id="contactEmail"
-                value={formData.contactEmail}
-                onChange={handleChange}
-                autoComplete="email"
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm shadow-blue-500 ring-1 ring-inset ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
-              />
-              {formData.emailError && (
-                <p className="text-red-600 mt-1">{formData.emailError}</p>
-              )}
-            </div>
+            <input
+              className={`w-full px-3 py-2 border ${
+                errors.contactEmail ? "border-red-500" : "border-gray-300"
+              } rounded-md focus:outline-none focus:${
+                errors.contactEmail ? "border-red-500" : "border-indigo-500"
+              }`}
+              type="email"
+              id="contactEmail"
+              name="contactEmail"
+              value={formData.contactEmail}
+              onChange={handleChange}
+            />
+            {errors.contactEmail && (
+              <div className="error">{errors.contactEmail}</div>
+            )}
           </div>
-          <div>
-            <div>
-              <label
-                htmlFor="contactEmail"
-                className="block text-sm font-semibold leading-6 text-black"
-              >
-                Phone Number
-              </label>
-              <div className="mt-2.5">
-                <input
-                  type="email"
-                  name="phoneNumber"
-                  id="c phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  autoComplete="phoneNumber"
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm shadow-blue-500 ring-1 ring-inset ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
-                />
-                {formData.emailError && (
-                  <p className="text-red-600 mt-1">{formData.emailError}</p>
-                )}
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="phoneNumber"
+            >
+              Phone Number
+            </label>
+            <input
+              className={`w-full px-3 py-2 border ${
+                errors.phoneNumber ? "border-red-500" : "border-gray-300"
+              } rounded-md focus:outline-none focus:${
+                errors.phoneNumber ? "border-red-500" : "border-indigo-500"
+              }`}
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+            />
+            {errors.phoneNumber && (
+              <div className="error">{errors.phoneNumber}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="industryType"
+            >
+              Industry Type
+            </label>
+            <select
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none"
+              id="industryType"
+              name="industryType"
+              value={formData.industryType}
+              onChange={handleChange}
+            >
+              <option value="">Select Industry Type</option>
+              <option value="Fish Farming">Fish Farming</option>
+              <option value="Pig Farming">Pig Farming</option>
+              <option value="Crop Framing">Crop Framing</option>
+              <option value="Animal Husbandry">Animal Husbandry</option>
+              <option value="Laboratory Specialist">
+                Laboratory Specialist
+              </option>
+              <option value="HealthCare">HealthCare</option>
+            </select>
+            {errors.industryType && (
+              <div className="error">{errors.industryType}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="address"
+            >
+              Address
+            </label>
+            <textarea
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+            {errors.address && <div className="error">{errors.address}</div>}
+          </div>
+          <button
+            className="w-full bg-[#66B5A3] text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-[#216c5a] transition duration-300"
+            type="submit"
+          >
+            Submit
+          </button>
+        </form>
+      ) : (
+        <div>
+          <div className="flex h-screen w-full items-center justify-center">
+            <div className="rounded-xl bg-[#66B5A3] bg-opacity-70 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
+              <div className="text-white">
+                <div className="mb-8 flex flex-col items-center">
+                  <img src={logo} width="150" alt="logo" />
+                  <h2 className="text-gray-700 text-lg mt-5 font-bold">
+                    Registration Successful!
+                  </h2>
+                </div>
+                <p className="text-center">
+                  A confirmation email has been sent to {formData.contactEmail}.
+                </p>
+                <p>Redirecting to the welcome page...</p>
               </div>
-
-              {/* Add more input fields */}
             </div>
           </div>
+
+          {/* <h2>Registration Successful!</h2>
+          <p>A confirmation email has been sent to {formData.contactEmail}.</p>
+          <p>Redirecting to the welcome page...</p> */}
+          {/* Implement redirection logic here */}
         </div>
-        <button
-          type="submit"
-          className="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-8"
-        >
-          Register
-        </button>
-        {formData.requiredError && (
-          <p className="text-red-600 mt-2">{formData.requiredError}</p>
-        )}
-      </form>
+      )}
     </div>
   );
 };
 
-export default OrgRegistrationForm;
+export default RegistrationForm;

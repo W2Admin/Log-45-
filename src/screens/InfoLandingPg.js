@@ -75,12 +75,12 @@ const HeroSection = () => {
             comprehensive application to streamline the data intake processes
             for farms and laboratories.
           </p>
-          <a
-            href="#"
+          <Link
+            to="/orgRegistrationForm"
             className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800   "
           >
             Get started
-          </a>
+          </Link>
           {/* <a
             href="#"
             className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
