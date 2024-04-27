@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../images/logo.png";
 import { useNavigate } from "react-router-dom";
 
-const RegistrationForm = () => {
+const OrgRegistrationForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     organizationName: "",
@@ -32,8 +32,8 @@ const RegistrationForm = () => {
       sendConfirmationEmail(formData.contactEmail);
       // Redirect to Dashboard component
       setTimeout(() => {
-        navigate.push("/dashboard");
-      }, 3000); // Redirect after 3 seconds
+        navigate("/");
+      }, 2000); // Redirect after 2 seconds
     }
   };
 
@@ -71,12 +71,15 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
+    <div className="w-full h-screen absolute inset-0 bg-gray-900 bg-opacity-40 flex-colo flex-colo">
       {!submitted ? (
         <form
           className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md"
           onSubmit={handleSubmit}
         >
+          <h1 className="text-2xl font-bold mb-6 bg-white text-center">
+            Registration Form
+          </h1>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -226,4 +229,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default OrgRegistrationForm;

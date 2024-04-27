@@ -1,5 +1,6 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
 import Aos from "aos";
 import LandingPagePG from "./screens/InfoLandingPg";
 import RegistrationForm from "./screens/RegistrationForm";
@@ -27,7 +28,8 @@ import Receptions from "./screens/Receptions";
 import NewMedicalRecode from "./screens/Patients/NewMedicalRecode";
 import NotFound from "./screens/NotFound";
 import Login from "./screens/Login";
-function App() {
+
+const App = () => {
   Aos.init();
 
   return (
@@ -38,6 +40,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPagePG />} />
+
           <Route path="/dashboard" element={<Dashboard />} />
           {/* invoce */}
           <Route path="/invoices" element={<Invoices />} />
@@ -75,6 +78,6 @@ function App() {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

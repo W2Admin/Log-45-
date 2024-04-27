@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactTyped } from "react-typed";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
+import RegistrationForm from "./RegistrationForm";
+import OrgRegistrationForm from "./OrgRegistrationForm";
 
 const Header = () => {
+  const [showModal, setShowModal] = React.useState(false);
   return (
     <header>
       <nav className="bg-[#F6F6F6] border-gray-200 px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
-            {" "}
-            {/* Use Link instead of <a> */}
             <img src={logo} className="mr-3 h-6 sm:h-9" alt="Logo" />
             <span className="self-center text-xl font-semibold whitespace-nowrap text-grey-500">
               Log45
@@ -23,12 +24,24 @@ const Header = () => {
             >
               Log in
             </Link>
-            <Link
-              to="/registrationForm"
+
+            <button
+              onClick={() => setShowModal(true)}
               className="text-white bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:bg-[#216c5a] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
             >
               Get started
-            </Link>
+            </button>
+            {showModal && (
+              <div className="fixed top-0 left-0 w-full h-screen flex-colo bg-dry bg-opacity-50 flex justify-center items-center">
+                <div className="rounded-lg">
+                  {/* Close button */}
+                  <button onClick={() => setShowModal(false)}>Close</button>
+
+                  {/* Registration form */}
+                  <RegistrationForm />
+                </div>
+              </div>
+            )}
             <button
               data-collapse-toggle="mobile-menu-2"
               type="button"
@@ -62,6 +75,7 @@ const Header = () => {
 };
 
 const HeroSection = () => {
+  const [showModal, setShowModal] = React.useState(false);
   return (
     <section className="bg-white">
       <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
@@ -75,18 +89,23 @@ const HeroSection = () => {
             comprehensive application to streamline the data intake processes
             for farms and laboratories.
           </p>
-          <Link
-            to="/orgRegistrationForm"
+          <button
+            onClick={() => setShowModal(true)}
             className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800   "
           >
             Get started
-          </Link>
-          {/* <a
-            href="#"
-            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-          >
-            Speak to Sales
-          </a> */}
+          </button>
+          {showModal && (
+            <div className="fixed top-0 left-0 w-full h-screen flex-colo bg-dry bg-opacity-50 flex justify-center items-center">
+              <div className="rounded-lg">
+                {/* Close button */}
+                <button onClick={() => setShowModal(false)}>Close</button>
+
+                {/* Registration form */}
+                <OrgRegistrationForm />
+              </div>
+            </div>
+          )}
         </div>
         <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
           <img
