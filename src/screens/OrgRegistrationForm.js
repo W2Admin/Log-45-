@@ -32,8 +32,8 @@ const OrgRegistrationForm = () => {
       sendConfirmationEmail(formData.contactEmail);
       // Redirect to Dashboard component
       setTimeout(() => {
-        navigate("/");
-      }, 2000); // Redirect after 2 seconds
+        navigate("/dashboard");
+      }, 3000); // Redirect after 3 seconds
     }
   };
 
