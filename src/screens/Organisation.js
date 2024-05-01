@@ -54,7 +54,7 @@ function Organisation() {
           <div className="md:col-span-5 grid lg:grid-cols-4 xs:grid-cols-2 items-center gap-2">
             <input
               type="text"
-              placeholder='Search "teeth cleaning"'
+              placeholder='Search "Organisation Name"'
               className="h-14 w-full text-sm text-main rounded-md bg-dry border border-border px-4"
             />
             <Select
