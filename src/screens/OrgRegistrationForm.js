@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../images/logo.png";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,29 @@ const OrgRegistrationForm = () => {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  // const [loading, setLoading] = useState(true);
+  // const [apiData, setApiData] = useState(null);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "https://med-farm.onrender.com/api/organisations/"
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       const data = await response.json();
+  //       setApiData(data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -25,15 +47,11 @@ const OrgRegistrationForm = () => {
     const errors = validateForm(formData);
     setErrors(errors);
     if (Object.keys(errors).length === 0) {
-      // Perform form submission (e.g., send data to backend)
-      // Simulate submission success
       setSubmitted(true);
-      // Simulate sending confirmation email
       sendConfirmationEmail(formData.contactEmail);
-      // Redirect to Dashboard component
       setTimeout(() => {
         navigate("/dashboard");
-      }, 3000); // Redirect after 3 seconds
+      }, 3000);
     }
   };
 
@@ -69,7 +87,13 @@ const OrgRegistrationForm = () => {
     // Simulate sending confirmation email
     console.log(`Confirmation email sent to ${email}`);
   };
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
+  // if (!loading && !apiData) {
+  //   return <div>Error fetching data.</div>;
+  // }
   return (
     <div className="w-full h-screen absolute inset-0 bg-gray-900 bg-opacity-40 flex-colo flex-colo">
       {!submitted ? (

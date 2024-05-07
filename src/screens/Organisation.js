@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { toast } from "react-hot-toast";
 import { BiChevronDown, BiPlus } from "react-icons/bi";
 import Layout from "../Layout";
 import { Button, Select } from "../components/Form";
 import { OrganisationTable } from "../components/Tables";
-import { organisationData, sortsDatas } from "../components/Datas";
 import AddEditOrgainisationModal from "../components/Modals/AddEditOrganisationModal";
 
 function Organisation() {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [data, setData] = React.useState({});
-  const [status, setStatus] = React.useState(sortsDatas.organisation[0]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    // Fetch data from the API
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://med-farm.onrender.com/api/organisations/{id}/"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const responseData = await response.json();
+        setData(responseData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error (e.g., display error message)
+        toast.error("Failed to fetch data from the API");
+      }
+    };
+
+    fetchData(); // Call the function to fetch data when the component mounts
+  }, []); // Empty dependency array ensures this effect runs only once on mount
 
   const onCloseModal = () => {
     setIsOpen(false);
@@ -22,7 +43,6 @@ function Organisation() {
     setIsOpen(true);
     setData(datas);
   };
-
   return (
     <Layout>
       {isOpen && (
@@ -60,7 +80,7 @@ function Organisation() {
             <Select
               selectedPerson={status}
               setSelectedPerson={setStatus}
-              datas={sortsDatas.organisation}
+              datas={data} // Update with the fetched data
             >
               <div className="w-full flex-btn text-main text-sm p-4 border bg-dry border-border font-light rounded-lg focus:border focus:border-subMain">
                 {status.name} <BiChevronDown className="text-xl" />
@@ -79,7 +99,7 @@ function Organisation() {
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
           <OrganisationTable
-            data={organisationData.slice(1, 100)}
+            data={data} // Update with the fetched data
             onEdit={onEdit}
           />
         </div>
