@@ -29,6 +29,7 @@ import NewMedicalRecode from "./screens/Patients/NewMedicalRecode";
 import NotFound from "./screens/NotFound";
 import Login from "./screens/Login";
 import Organisation from "./screens/Organisation";
+import Laboratory from "./screens/Laboratory/LabTech";
 const App = () => {
   Aos.init();
 
@@ -54,6 +55,7 @@ const App = () => {
           {/* patient */}
           <Route path="/patients" element={<Patients />} />
           <Route path="/organisation" element={<Organisation />} />
+          <Route path="/laboratory" element={<Laboratory />} />
           <Route path="/patients/preview/:id" element={<PatientProfile />} />
           <Route path="/patients/create" element={<CreatePatient />} />
           <Route path="/patients/visiting/:id" element={<NewMedicalRecode />} />

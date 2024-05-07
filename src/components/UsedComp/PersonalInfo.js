@@ -56,16 +56,19 @@ function PersonalInfo({ titles }) {
               </div>
             </Select>
           </div>
-          {/* emergancy contact */}
-          <Input label="Emergency Cotact" color={true} type="number" />
           {/* date */}
           <DatePickerComp
-            label="Date of Birth"
+            label="Age(Weeks)"
             startDate={date}
             onChange={(date) => setDate(date)}
           />
+          <Input label="Animal Type" color={true} type="text" />
           {/* address */}
-          <Input label="Address" color={true} type="text" />
+          <Input label="Breed" color={true} type="text" />
+          <Input label="Species" color={true} type="text" />
+          <Input label="Sex" color={true} type="text" />
+          <Input label="Weight" color={true} type="text" />
+          <Input label="Type of Feed/Food" color={true} type="text" />
           <div className="flex w-full flex-col gap-3">
             {" "}
             <p className="text-black text-sm">Sample details</p>{" "}
