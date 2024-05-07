@@ -362,6 +362,7 @@ export function OrganisationTable({ data, onEdit }) {
             <td className={tdclass}>{item?.email}</td>
             <td className={{ tdclass }}>{item?.phonenumber}</td>
             <td className={{ tdclass }}>{item?.industry}</td>
+
             <td className={{ tdclass }}>{item?.address}</td>
             <td className={tdclass}>
               <span

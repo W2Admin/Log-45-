@@ -37,11 +37,22 @@ function AddEditOrgainisationModal({ closeModal, isOpen, datas }) {
           color={true}
           placeholder={datas?.phonenumber && datas.phonenumber}
         />
-        <Input
+        <select
+          className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none"
           label="Industry"
           color={true}
           placeholder={datas?.industry && datas.industry}
-        />
+        >
+          {" "}
+          <option value="">Select Industry Type</option>
+          <option value="Fish Farming">Fish Farming</option>
+          <option value="Pig Farming">Pig Farming</option>
+          <option value="Crop Framing">Crop Framing</option>
+          <option value="Animal Husbandry">Animal Husbandry</option>
+          <option value="Laboratory Specialist">Laboratory Specialist</option>
+          <option value="HealthCare">HealthCare</option>
+        </select>
+
         <Input
           label="Address"
           color={true}

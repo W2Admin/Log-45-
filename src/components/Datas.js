@@ -531,6 +531,7 @@ export const organisationData = [
   {
     id: 1,
     name: "Select service.. ",
+    industry: "Select industry..",
   },
   {
     id: 2,
