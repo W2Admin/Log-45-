@@ -533,8 +533,8 @@ export function LaboratoryTable({ data, functions, used }) {
           <th className={thclasse}>Gender</th>
           {!used && (
             <>
-              <th className={thclasse}>Blood Group</th>
-              <th className={thclasse}>Age</th>
+              <th className={thclasse}>Animal Type</th>
+              <th className={thclasse}>Breed</th>
             </>
           )}
 

@@ -5,7 +5,7 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { Button, Checkbox, Select, Textarea } from "../../components/Form";
 import { BiChevronDown, BiPlus } from "react-icons/bi";
 import {
-  medicineData,
+  laboratoryData,
   technicianData,
   memberData,
   servicesData,
@@ -82,11 +82,6 @@ function NewMedicalRecode() {
           data-aos-offset="200"
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
-          {/* <img
-            src="/images/user7.png"
-            alt="setting"
-            className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
-          /> */}
           <h4 className="px-2 text-xl font-bold text-navy-700">Information</h4>
           <div className="grid grid-cols-2 gap-4 px-2 w-full">
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
@@ -231,11 +226,11 @@ function NewMedicalRecode() {
               </div>
             </div>
             {/* medicine */}
-            {/* <div className="flex w-full flex-col gap-4 mb-6">
+            <div className="flex w-full flex-col gap-4 mb-6">
               <p className="text-black text-sm">Medicine</p>
               <div className="w-full overflow-x-scroll">
                 <MedicineDosageTable
-                  data={medicineData?.slice(0, 3)}
+                  data={laboratoryData?.slice(0, 3)}
                   functions={{
                     delete: (id) => {
                       toast.error("This feature is not available yet");
@@ -252,7 +247,7 @@ function NewMedicalRecode() {
               >
                 <BiPlus /> Add Medicine
               </button>
-            </div> */}
+            </div>
             {/* attachment */}
             <div className="flex w-full flex-col gap-4">
               <p className="text-black text-sm">Attachments</p>

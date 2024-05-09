@@ -46,46 +46,46 @@ export const MenuDatas = [
     icon: TbUsers,
   },
   {
-    title: "Receptions",
+    title: "Onboarding",
     path: "/receptions",
     icon: HiOutlineUsers,
   },
-  {
-    title: "Doctors",
-    path: "/doctors",
-    icon: RiUserHeartLine,
-  },
+  // {
+  //   title: "Doctors",
+  //   path: "/doctors",
+  //   icon: RiUserHeartLine,
+  // },
 
-  {
-    title: "Appointments",
-    path: "/appointments",
-    icon: FaRegCalendarAlt,
-  },
+  // {
+  //   title: "Appointments",
+  //   path: "/appointments",
+  //   icon: FaRegCalendarAlt,
+  // },
   {
     title: "Payments",
     path: "/payments",
     icon: MdListAlt,
   },
-  {
-    title: "Invoices",
-    path: "/invoices",
-    icon: TbFileInvoice,
-  },
+  // {
+  //   title: "Invoices",
+  //   path: "/invoices",
+  //   icon: TbFileInvoice,
+  // },
   {
     title: "Services",
     path: "/services",
     icon: MdOutlineInventory2,
   },
-  {
-    title: "Medicine",
-    path: "/medicine",
-    icon: RiMedicineBottleLine,
-  },
-  {
-    title: "Campaigns",
-    path: "/campaigns",
-    icon: MdOutlineCampaign,
-  },
+  // {
+  //   title: "Medicine",
+  //   path: "/medicine",
+  //   icon: RiMedicineBottleLine,
+  // },
+  // {
+  //   title: "Campaigns",
+  //   path: "/campaigns",
+  //   icon: MdOutlineCampaign,
+  // },
   {
     title: "Settings",
     path: "/settings",
@@ -1087,6 +1087,80 @@ export const shareData = [
 ];
 
 export const medicineData = [
+  {
+    id: 1,
+    name: "Paracetamol",
+    measure: "Tablet",
+    stock: 400,
+    price: 1000,
+    status: "Available",
+    instraction: "After meal",
+  },
+  {
+    id: 2,
+    name: "Amoxicillin",
+    measure: "Capsule",
+    stock: 200,
+    price: 2300,
+    status: "Available",
+    instraction: "After meal",
+  },
+  {
+    id: 3,
+    name: "Ibuprofen",
+    measure: "mm",
+    stock: 0,
+    price: 5000,
+    status: "Out of stock",
+    instraction: "Before meal",
+  },
+  {
+    id: 4,
+    name: "Aspirin",
+    measure: "cm",
+    stock: 370,
+    price: 3500,
+    status: "Available",
+    instraction: "After meal",
+  },
+  {
+    id: 5,
+    name: "Diazepam",
+    measure: "gm",
+    stock: 0,
+    price: 12000,
+    status: "Out of stock",
+    instraction: "Before meal",
+  },
+  {
+    id: 6,
+    name: "Lorazepam",
+    measure: "mg",
+    stock: 123,
+    price: 15500,
+    status: "Available",
+    instraction: "Before meal",
+  },
+  {
+    id: 7,
+    name: "Codeine",
+    measure: "ml",
+    stock: 1,
+    price: 30000,
+    status: "Available",
+    instraction: "After meal",
+  },
+  {
+    id: 8,
+    name: "Tramadol",
+    measure: "lb",
+    stock: 0,
+    price: 200,
+    status: "Out of stock",
+    instraction: "Before meal",
+  },
+];
+export const laboratoryData = [
   {
     id: 1,
     name: "Paracetamol",
