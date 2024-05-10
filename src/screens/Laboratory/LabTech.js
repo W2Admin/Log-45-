@@ -67,7 +67,7 @@ function NewMedicalRecode() {
       }
       <div className="flex items-center gap-4">
         <Link
-          to={`/patients/preview/1`}
+          to={`/laboratory`}
           className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
         >
           <IoArrowBackOutline />

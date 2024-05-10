@@ -9,24 +9,24 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    // Fetch data from API
-    fetch("https://med-farm.onrender.com/api/users/activation/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => application.json())
-      .then((data) => {
-        // Handle fetched data here
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, [email, password]);
+  // useEffect(() => {
+  //   // Fetch data from API
+  //   fetch("https://med-farm.onrender.com/api/users/activation/", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ email, password }),
+  //   })
+  //     .then((response) => application.json())
+  //     .then((data) => {
+  //       // Handle fetched data here
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, [email, password]);
 
   const handleLogin = () => {
     // Navigate to home page or handle login logic

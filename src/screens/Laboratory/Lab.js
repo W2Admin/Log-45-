@@ -34,22 +34,22 @@ function Patients() {
   const boxes = [
     {
       id: 1,
-      title: "Today Patients",
-      value: "10",
+      title: "Today Lab Request",
+      value: "3",
       color: ["bg-subMain", "text-subMain"],
       icon: BiTime,
     },
     {
       id: 2,
-      title: "Monthly Patients",
-      value: "230",
+      title: "Monthly Lab Request",
+      value: "60",
       color: ["bg-orange-500", "text-orange-500"],
       icon: BsCalendarMonth,
     },
     {
       id: 3,
-      title: "Yearly Patients",
-      value: "1,500",
+      title: "Yearly Lab Request",
+      value: "500",
       color: ["bg-green-500", "text-green-500"],
       icon: MdOutlineCalendarMonth,
     },
@@ -141,7 +141,7 @@ function Patients() {
             }}
           />
         </div>
-        <div className="mt-8 w-full overflow-x-scroll">
+        {/* <div className="mt-8 w-full overflow-x-scroll">
           <LaboratoryTable
             data={memberData}
             functions={{
@@ -149,6 +149,84 @@ function Patients() {
             }}
             used={false}
           />
+        </div> */}
+
+        <div className="mt-8 w-full overflow-x-auto">
+          <table className="table-auto w-full">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="px-4 py-2">Name </th>
+                <th className="px-4 py-2">Animal Type</th>
+                <th className="px-4 py-2">Species</th>
+                <th className="px-4 py-2">Examination request</th>
+                <th className="px-4 py-2">Progress</th>
+                <th className="px-4 py-2"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border px-4 py-2">
+                  <div className="flex items-center"> Abraham Adesanya</div>
+                </td>
+                <td className="border px-4 py-2">German Shepherd</td>
+                <td className="border px-4 py-2"> White fowl</td>
+                <td className="border px-4 py-2">
+                  <div className="flex"> Culture</div>
+                </td>
+                <td className="border px-4 py-2">
+                  <div className="flex items-center">
+                    <span className="mr-2">60%</span>
+                    <div className="w-full">
+                      <div className="bg-gray-200 h-2 rounded-full">
+                        <div
+                          className="bg-red-500 h-2 rounded-full"
+                          style={{ width: "60%" }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td className="border px-4 py-2">
+                  <div className="flex justify-end">
+                    <button className="text-gray-500 hover:text-gray-800">
+                      <i className="fas fa-ellipsis-v"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="border px-4 py-2">
+                  <div className="flex items-center"> Abraham Adesanya</div>
+                </td>
+                <td className="border px-4 py-2">German Shepherd</td>
+                <td className="border px-4 py-2"> White fowl</td>
+                <td className="border px-4 py-2">
+                  <div className="flex"> Culture</div>
+                </td>
+                <td className="border px-4 py-2">
+                  <div className="flex items-center">
+                    <span className="mr-2">40%</span>
+                    <div className="w-full">
+                      <div className="bg-gray-200 h-2 rounded-full">
+                        <div
+                          className="bg-red-500 h-2 rounded-full"
+                          style={{ width: "40%" }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td className="border px-4 py-2">
+                  <div className="flex justify-end">
+                    <button className="text-gray-500 hover:text-gray-800">
+                      <i className="fas fa-ellipsis-v"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              {/* Add more table rows here */}
+            </tbody>
+          </table>
         </div>
       </div>
     </Layout>

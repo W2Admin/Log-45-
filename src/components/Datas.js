@@ -1480,7 +1480,7 @@ export const LaboratoryData = [
   {
     id: 1,
     date: "13, Jan 2021",
-    amount: 150000,
+    // amount: 150000,
     data: [
       {
         id: 1,
