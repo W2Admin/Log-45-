@@ -1,14 +1,14 @@
-import React from 'react';
-import { MdOutlineCloudDownload } from 'react-icons/md';
-import { toast } from 'react-hot-toast';
-import { BiPlus } from 'react-icons/bi';
-import Layout from '../Layout';
-import { Button } from '../components/Form';
-import { DoctorsTable } from '../components/Tables';
-import AddDoctorModal from '../components/Modals/AddDoctorModal';
-import { receptionsData } from '../components/Datas';
+import React from "react";
+import { MdOutlineCloudDownload } from "react-icons/md";
+import { toast } from "react-hot-toast";
+import { BiPlus } from "react-icons/bi";
+import Layout from "../Layout";
+import { Button } from "../components/Form";
+import { DoctorsTable } from "../components/Tables";
+import AddDoctorModal from "../components/Modals/AddDoctorModal";
+import { onboardingData } from "../components/Datas";
 
-function Receptions() {
+function Onboarding() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [data, setData] = React.useState({});
 
@@ -43,7 +43,7 @@ function Receptions() {
         <BiPlus className="text-2xl" />
       </button>
       {/*  */}
-      <h1 className="text-xl font-semibold">Receptions</h1>
+      <h1 className="text-xl font-semibold">Onboarding</h1>
       <div
         data-aos="fade-up"
         data-aos-duration="1000"
@@ -67,14 +67,14 @@ function Receptions() {
             label="Export"
             Icon={MdOutlineCloudDownload}
             onClick={() => {
-              toast.error('Exporting is not available yet');
+              toast.error("Exporting is not available yet");
             }}
           />
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
           <DoctorsTable
             doctor={false}
-            data={receptionsData}
+            data={onboardingData}
             functions={{
               preview: preview,
             }}
@@ -85,4 +85,4 @@ function Receptions() {
   );
 }
 
-export default Receptions;
+export default Onboarding;

@@ -24,7 +24,7 @@ import PatientProfile from "./screens/Patients/PatientProfile";
 import CreatePatient from "./screens/Patients/CreatePatient";
 import Doctors from "./screens/Doctors/Doctors";
 import DoctorProfile from "./screens/Doctors/DoctorProfile";
-import Receptions from "./screens/Receptions";
+import Onboarding from "./screens/Onboarding";
 import NewMedicalRecode from "./screens/Patients/NewMedicalRecode";
 import NotFound from "./screens/NotFound";
 import Login from "./screens/Login";
@@ -65,7 +65,7 @@ const App = () => {
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctors/preview/:id" element={<DoctorProfile />} />
           {/* reception */}
-          <Route path="/receptions" element={<Receptions />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           {/* others */}
           <Route path="/login" element={<Login />} />
           <Route path="/registrationForm" element={<RegistrationForm />} />

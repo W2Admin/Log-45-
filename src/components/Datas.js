@@ -47,7 +47,7 @@ export const MenuDatas = [
   },
   {
     title: "Onboarding",
-    path: "/receptions",
+    path: "/onboarding",
     icon: HiOutlineUsers,
   },
   // {
@@ -61,16 +61,16 @@ export const MenuDatas = [
   //   path: "/appointments",
   //   icon: FaRegCalendarAlt,
   // },
-  {
-    title: "Payments",
-    path: "/payments",
-    icon: MdListAlt,
-  },
   // {
-  //   title: "Invoices",
-  //   path: "/invoices",
-  //   icon: TbFileInvoice,
+  //   title: "Payments",
+  //   path: "/payments",
+  //   icon: MdListAlt,
   // },
+  {
+    title: "Invoices",
+    path: "/invoices",
+    icon: TbFileInvoice,
+  },
   {
     title: "Services",
     path: "/services",
@@ -252,12 +252,12 @@ export const sortsDatas = {
     },
     {
       id: 3,
-      name: "EUR (Euro)",
+      name: "Naira (Naira)",
     },
-    {
-      id: 4,
-      name: "TSH (Tanzanian Shilling)",
-    },
+    // {
+    //   id: 4,
+    //   name: "TSH (Tanzanian Shilling)",
+    // },
   ],
   instractions: [
     {
@@ -1681,7 +1681,7 @@ export const technicianData = [
   },
 ];
 
-export const receptionsData = [
+export const onboardingData = [
   {
     id: 1,
     user: memberData[6],

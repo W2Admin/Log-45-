@@ -140,7 +140,7 @@ export function InvoiceTable({ data }) {
           <th className={thclass}>Created Date</th>
           <th className={thclass}>Due Date</th>
           <th className={thclass}>
-            Amout <span className="text-xs font-light">(Tsh)</span>
+            Amout <span className="text-xs font-light">(Naira)</span>
           </th>
           <th className={thclass}>Actions</th>
         </tr>
@@ -280,7 +280,7 @@ export function ServiceTable({ data, onEdit }) {
           <th className={thclass}>Name</th>
           <th className={thclass}>Created At</th>
           <th className={thclass}>
-            Price <span className="text-xs font-light">(Tsh)</span>
+            Price <span className="text-xs font-light">(Naira)</span>
           </th>
           <th className={thclass}>Status</th>
           <th className={thclass}>Actions</th>
@@ -670,7 +670,6 @@ export function DoctorsTable({ data, functions, doctor }) {
     </table>
   );
 }
-
 // appointment table
 export function AppointmentTable({ data, functions, doctor }) {
   return (
@@ -856,12 +855,12 @@ export function InvoiceProductsTable({ data, functions, button }) {
           <th className={thclass}>Item</th>
           <th className={thclass}>
             Item Price
-            <span className="text-xs font-light ml-1">(Tsh)</span>
+            <span className="text-xs font-light ml-1">(Naira)</span>
           </th>
           <th className={thclass}>Quantity</th>
           <th className={thclass}>
             Amout
-            <span className="text-xs font-light ml-1">(Tsh)</span>
+            <span className="text-xs font-light ml-1">(Naira)</span>
           </th>
           {button && <th className={thclass}>Actions</th>}
         </tr>

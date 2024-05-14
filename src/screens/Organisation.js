@@ -9,30 +9,59 @@ import AddEditOrgainisationModal from "../components/Modals/AddEditOrganisationM
 
 function Organisation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      id: 1,
+      name: "Ridlabs",
+      email: "ridlab@gmail.com",
+      phonenumber: "+2345768976554",
+      industry: "Pig Farming",
+      address: "65, opebi, Lagos",
+      status: "Active",
+      action: "",
+    },
+    {
+      id: 2,
+      name: "Ridlabs",
+      email: "ridlab@gmail.com",
+      phonenumber: "+2345768976554",
+      industry: "Pig Farming",
+      address: "65, opebi, Lagos",
+      status: "Active",
+      action: "",
+    },
+    {
+      id: 3,
+      name: "Ridlabs",
+      email: "ridlab@gmail.com",
+      phonenumber: "+2345768976554",
+      industry: "Pig Farming",
+      address: "65, opebi, Lagos",
+      status: "Active",
+      action: "",
+    },
+    {
+      id: 4,
+      name: "Ridlabs",
+      email: "ridlab@gmail.com",
+      phonenumber: "+2345768976554",
+      industry: "Pig Farming",
+      address: "65, opebi, Lagos",
+      status: "Active",
+      action: "",
+    },
+    {
+      id: 5,
+      name: "Ridlabs",
+      email: "ridlab@gmail.com",
+      phonenumber: "+2345768976554",
+      industry: "Pig Farming",
+      address: "65, opebi, Lagos",
+      status: "Active",
+      action: "",
+    },
+  ]);
   const [status, setStatus] = useState("");
-
-  useEffect(() => {
-    // Fetch data from the API
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://med-farm.onrender.com/api/organisations/{id}/"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const responseData = await response.json();
-        setData(responseData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        // Handle error (e.g., display error message)
-        toast.error("Failed to fetch data from the API");
-      }
-    };
-
-    fetchData(); // Call the function to fetch data when the component mounts
-  }, []); // Empty dependency array ensures this effect runs only once on mount
 
   const onCloseModal = () => {
     setIsOpen(false);
@@ -80,7 +109,7 @@ function Organisation() {
             <Select
               selectedPerson={status}
               setSelectedPerson={setStatus}
-              datas={data} // Update with the fetched data
+              datas={data}
             >
               <div className="w-full flex-btn text-main text-sm p-4 border bg-dry border-border font-light rounded-lg focus:border focus:border-subMain">
                 {status.name} <BiChevronDown className="text-xl" />
@@ -98,10 +127,7 @@ function Organisation() {
           />
         </div>
         <div className="mt-8 w-full overflow-x-scroll">
-          <OrganisationTable
-            data={data} // Update with the fetched data
-            onEdit={onEdit}
-          />
+          <OrganisationTable data={data} onEdit={onEdit} />
         </div>
       </div>
     </Layout>
