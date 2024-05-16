@@ -32,12 +32,12 @@ import { BiCalendar, BiUserPlus } from "react-icons/bi";
 export const MenuDatas = [
   {
     title: "Dashboard",
-    path: "/",
+    path: "/dashboard",
     icon: HiOutlineHome,
   },
   {
-    title: "Patients",
-    path: "/patients",
+    title: "Customers",
+    path: "/customers",
     icon: TbUsers,
   },
   {
@@ -1238,14 +1238,14 @@ export const laboratoryData = [
 export const patientTab = [
   {
     id: 1,
-    title: "Medical Records",
+    title: "Investigation Records",
     icon: TbChartHistogram,
   },
-  {
-    id: 2,
-    title: "Appointments",
-    icon: BiCalendar,
-  },
+  // {
+  //   id: 2,
+  //   title: "Appointments",
+  //   icon: BiCalendar,
+  // },
   {
     id: 3,
     title: "Invoices",
@@ -1258,24 +1258,24 @@ export const patientTab = [
   },
   {
     id: 5,
-    title: "Images",
+    title: "Attachments",
     icon: RiImageLine,
   },
-  {
-    id: 6,
-    title: "Dental Chart",
-    icon: RiStethoscopeLine,
-  },
+  // {
+  //   id: 6,
+  //   title: "Dental Chart",
+  //   icon: RiStethoscopeLine,
+  // },
   {
     id: 7,
-    title: "Patient Information",
+    title: "Customers Information",
     icon: RiUserLine,
   },
-  {
-    id: 8,
-    title: "Health Information",
-    icon: RiHeartLine,
-  },
+  // {
+  //   id: 8,
+  //   title: "Health Information",
+  //   icon: RiHeartLine,
+  // },
 ];
 
 export const doctorTab = [

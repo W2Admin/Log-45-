@@ -9,7 +9,7 @@ import Dashboard from "./screens/Dashboard";
 import Toast from "./components/Notifications/Toast";
 import Payments from "./screens/Payments/Payments";
 import Appointments from "./screens/Appointments";
-import Patients from "./screens/Patients/Patients";
+import Customer from "./screens/Patients/Patients";
 import Campaings from "./screens/Campaings";
 import Services from "./screens/Services";
 import Invoices from "./screens/Invoices/Invoices";
@@ -54,7 +54,7 @@ const App = () => {
           <Route path="/payments/edit/:id" element={<EditPayment />} />
           <Route path="/payments/preview/:id" element={<PreviewPayment />} />
           {/* patient */}
-          <Route path="/patients" element={<Patients />} />
+          <Route path="/customers" element={<Customer />} />
           <Route path="/organisation" element={<Organisation />} />
           <Route path="/laboratory" element={<Laboratory />} />
           <Route path="/labtech" element={<LabTech />} />

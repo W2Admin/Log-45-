@@ -1,16 +1,16 @@
-import React from 'react';
-import Layout from '../../Layout';
-import { patientTab } from '../../components/Datas';
-import { Link } from 'react-router-dom';
-import { IoArrowBackOutline } from 'react-icons/io5';
-import MedicalRecord from './MedicalRecord';
-import AppointmentsUsed from '../../components/UsedComp/AppointmentsUsed';
-import InvoiceUsed from '../../components/UsedComp/InvoiceUsed';
-import PaymentsUsed from '../../components/UsedComp/PaymentUsed';
-import PersonalInfo from '../../components/UsedComp/PersonalInfo';
-import PatientImages from './PatientImages';
-import HealthInfomation from './HealthInfomation';
-import DentalChart from './DentalChart';
+import React from "react";
+import Layout from "../../Layout";
+import { patientTab } from "../../components/Datas";
+import { Link } from "react-router-dom";
+import { IoArrowBackOutline } from "react-icons/io5";
+import MedicalRecord from "./MedicalRecord";
+import AppointmentsUsed from "../../components/UsedComp/AppointmentsUsed";
+import InvoiceUsed from "../../components/UsedComp/InvoiceUsed";
+import PaymentsUsed from "../../components/UsedComp/PaymentUsed";
+import PersonalInfo from "../../components/UsedComp/PersonalInfo";
+import PatientImages from "./PatientImages";
+import HealthInfomation from "./HealthInfomation";
+import DentalChart from "./DentalChart";
 
 function PatientProfile() {
   const [activeTab, setActiveTab] = React.useState(1);
@@ -57,15 +57,15 @@ function PatientProfile() {
           data-aos-offset="200"
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
-          <img
+          {/* <img
             src="/images/user7.png"
             alt="setting"
             className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
-          />
+          /> */}
           <div className="gap-2 flex-colo">
             <h2 className="text-sm font-semibold">Amani Mmassy</h2>
             <p className="text-xs text-textGray">amanimmassy@gmail.com</p>
-            <p className="text-xs">+254 712 345 678</p>
+            <p className="text-xs">+234 712 345 678</p>
           </div>
           {/* tabs */}
           <div className="flex-colo gap-3 px-2 xl:px-12 w-full">
@@ -76,8 +76,8 @@ function PatientProfile() {
                 className={`
                 ${
                   activeTab === tab.id
-                    ? 'bg-text text-subMain'
-                    : 'bg-dry text-main hover:bg-text hover:text-subMain'
+                    ? "bg-text text-subMain"
+                    : "bg-dry text-main hover:bg-text hover:text-subMain"
                 }
                 text-xs gap-4 flex items-center w-full p-4 rounded`}
               >

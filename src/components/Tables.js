@@ -136,7 +136,7 @@ export function InvoiceTable({ data }) {
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclass}>Invoice ID</th>
-          <th className={thclass}>Patient</th>
+          <th className={thclass}>Customers</th>
           <th className={thclass}>Created Date</th>
           <th className={thclass}>Due Date</th>
           <th className={thclass}>
@@ -330,7 +330,7 @@ export function OrganisationTable({ data, onEdit }) {
       },
     },
     {
-      title: "Delete",
+      title: "Deactivate",
       icon: RiDeleteBin6Line,
       onClick: () => {
         toast.error("This feature is not available yet");
@@ -389,6 +389,10 @@ export function OrganisationTable({ data, onEdit }) {
 
 // patient table
 export function PatientTable({ data, functions, used }) {
+  const navigate = useNavigate();
+  const handleOpenInvestigation = () => {
+    navigate("/patients/visiting/2");
+  };
   const DropDown1 = !used
     ? [
         {
@@ -399,7 +403,13 @@ export function PatientTable({ data, functions, used }) {
           },
         },
         {
-          title: "Delete",
+          title: "Open Investigation",
+          icon: FiEye,
+          onClick: handleOpenInvestigation,
+        },
+
+        {
+          title: "Deactivate",
           icon: RiDeleteBin6Line,
           onClick: () => {
             toast.error("This feature is not available yet");
@@ -422,15 +432,15 @@ export function PatientTable({ data, functions, used }) {
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclasse}>#</th>
-          <th className={thclasse}>Patient</th>
+          <th className={thclasse}>Customers</th>
           <th className={thclasse}>Created At</th>
           <th className={thclasse}>Gender</th>
-          {!used && (
+          {/* {!used && (
             <>
               <th className={thclasse}>Blood Group</th>
               <th className={thclasse}>Age</th>
             </>
-          )}
+          )} */}
 
           <th className={thclasse}>Actions</th>
         </tr>
@@ -473,12 +483,12 @@ export function PatientTable({ data, functions, used }) {
                 {item.gender}
               </span>
             </td>
-            {!used && (
+            {/* {!used && (
               <>
                 <td className={tdclasse}>{item.blood}</td>
                 <td className={tdclasse}>{item.age}</td>
               </>
-            )}
+            )} */}
 
             <td className={tdclasse}>
               <MenuSelect datas={DropDown1} item={item}>
@@ -611,7 +621,7 @@ export function DoctorsTable({ data, functions, doctor }) {
       },
     },
     {
-      title: "Delete",
+      title: "Deactivate",
       icon: RiDeleteBin6Line,
       onClick: () => {
         toast.error("This feature is not available yet");
@@ -623,7 +633,7 @@ export function DoctorsTable({ data, functions, doctor }) {
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclass}>#</th>
-          <th className={thclass}>{doctor ? "Doctor" : "Receptionist"}</th>
+          <th className={thclass}>{doctor ? "Doctor" : "Staff"}</th>
           <th className={thclass}>Created At</th>
           <th className={thclass}>Phone</th>
           <th className={thclass}>Title</th>
