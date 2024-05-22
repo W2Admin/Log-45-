@@ -38,21 +38,21 @@ function Patients({patient, fetchpatient, loading}) {
   const boxes = [
     {
       id: 1,
-      title: "Today Patients",
+      title: "Today Customers",
       value: "10",
       color: ["bg-subMain", "text-subMain"],
       icon: BiTime,
     },
     {
       id: 2,
-      title: "Monthly Patients",
+      title: "Monthly Customers",
       value: "230",
       color: ["bg-orange-500", "text-orange-500"],
       icon: BsCalendarMonth,
     },
     {
       id: 3,
-      title: "Yearly Patients",
+      title: "Yearly Customers",
       value: "1,500",
       color: ["bg-green-500", "text-green-500"],
       icon: MdOutlineCalendarMonth,
@@ -82,7 +82,7 @@ function Patients({patient, fetchpatient, loading}) {
               >
                 <BiPlus className="text-2xl" />
               </Link>
-              <h1 className="text-xl font-semibold">Patients</h1>
+              <h1 className="text-xl font-semibold">Customers</h1>
               {/* boxes */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
                 {boxes.map((box) => (
@@ -95,9 +95,9 @@ function Patients({patient, fetchpatient, loading}) {
                       <h2 className="text-xl my-6 font-medium">{box.value}</h2>
                       <p className="text-xs text-textGray">
                         Total Patients <span className={box.color[1]}>{box.value}</span>{" "}
-                        {box.title === "Today Patients"
+                        {box.title === "Today Customers"
                           ? "today"
-                          : box.title === "Monthly Patients"
+                          : box.title === "Monthly Customers"
                           ? "this month"
                           : "this year"}
                       </p>
@@ -121,7 +121,7 @@ function Patients({patient, fetchpatient, loading}) {
                 <div className="grid lg:grid-cols-5 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2">
                   <input
                     type="text"
-                    placeholder='Search "Patients"'
+                    placeholder='Search "Customers"'
                     className="h-14 text-sm text-main rounded-md bg-dry border border-border px-4"
                   />
                   {/* sort  */}

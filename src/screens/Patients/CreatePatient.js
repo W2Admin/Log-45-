@@ -9,12 +9,12 @@ function CreatePatient() {
     <Layout>
       <div className="flex items-center gap-4">
         <Link
-          to="/patients"
+          to="/customers"
           className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
         >
           <IoArrowBackOutline />
         </Link>
-        <h1 className="text-xl font-semibold">Create Patient</h1>
+        <h1 className="text-xl font-semibold">Create Customer</h1>
       </div>
       <div
         data-aos="fade-up"

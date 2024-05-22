@@ -1,5 +1,5 @@
-import React from 'react';
-import { BiPlus } from 'react-icons/bi';
+import React from "react";
+import { BiPlus } from "react-icons/bi";
 
 function SenderReceverComp({ item, functions, button }) {
   return (
@@ -9,9 +9,9 @@ function SenderReceverComp({ item, functions, button }) {
           <h1 className="text-md font-semibold">From:</h1>
         </div>
         <div className="flex flex-col gap-2 mt-4">
-          <h6 className="text-xs font-medium">Delight Dental Clinic</h6>
-          <p className="text-xs text-textGray">delightdental@gmail.com</p>
-          <p className="text-xs text-textGray">+ (456) 786, 972, 90</p>
+          <h1 className="text-xs font-medium">Log45</h1>
+          <p className="text-xs text-textGray">windandwaves@gmail.com</p>
+          <p className="text-xs text-textGray">+ (234) 9085667578</p>
         </div>
       </div>
       <div className="border border-border rounded-xl p-5">

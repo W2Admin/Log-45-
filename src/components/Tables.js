@@ -136,11 +136,11 @@ export function InvoiceTable({ data }) {
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclass}>Invoice ID</th>
-          <th className={thclass}>Patient</th>
+          <th className={thclass}>Customers</th>
           <th className={thclass}>Created Date</th>
           <th className={thclass}>Due Date</th>
           <th className={thclass}>
-            Amout <span className="text-xs font-light">(Tsh)</span>
+            Amout <span className="text-xs font-light">(Naira)</span>
           </th>
           <th className={thclass}>Actions</th>
         </tr>
@@ -280,7 +280,7 @@ export function ServiceTable({ data, onEdit }) {
           <th className={thclass}>Name</th>
           <th className={thclass}>Created At</th>
           <th className={thclass}>
-            Price <span className="text-xs font-light">(Tsh)</span>
+            Price <span className="text-xs font-light">(Naira)</span>
           </th>
           <th className={thclass}>Status</th>
           <th className={thclass}>Actions</th>
@@ -330,7 +330,7 @@ export function OrganisationTable({ data, onEdit }) {
       },
     },
     {
-      title: "Delete",
+      title: "Deactivate",
       icon: RiDeleteBin6Line,
       onClick: () => {
         toast.error("This feature is not available yet");
@@ -389,6 +389,10 @@ export function OrganisationTable({ data, onEdit }) {
 
 // patient table
 export function PatientTable({ data, functions, used }) {
+  const navigate = useNavigate();
+  const handleOpenInvestigation = () => {
+    navigate("/patients/visiting/2");
+  };
   const DropDown1 = !used
     ? [
         {
@@ -399,7 +403,13 @@ export function PatientTable({ data, functions, used }) {
           },
         },
         {
-          title: "Delete",
+          title: "Open Investigation",
+          icon: FiEye,
+          onClick: handleOpenInvestigation,
+        },
+
+        {
+          title: "Deactivate",
           icon: RiDeleteBin6Line,
           onClick: () => {
             toast.error("This feature is not available yet");
@@ -422,15 +432,15 @@ export function PatientTable({ data, functions, used }) {
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclasse}>#</th>
-          <th className={thclasse}>Patient</th>
+          <th className={thclasse}>Customers</th>
           <th className={thclasse}>Created At</th>
           <th className={thclasse}>Gender</th>
-          {!used && (
+          {/* {!used && (
             <>
               <th className={thclasse}>Blood Group</th>
               <th className={thclasse}>Age</th>
             </>
-          )}
+          )} */}
 
           <th className={thclasse}>Actions</th>
         </tr>
@@ -473,12 +483,12 @@ export function PatientTable({ data, functions, used }) {
                 {item.gender}
               </span>
             </td>
-            {!used && (
+            {/* {!used && (
               <>
                 <td className={tdclasse}>{item.email}</td>
                 <td className={tdclasse}>{item.address}</td>
               </>
-            )}
+            )} */}
 
             <td className={tdclasse}>
               <MenuSelect datas={DropDown1} item={item}>
@@ -611,7 +621,7 @@ export function DoctorsTable({ data, functions, doctor }) {
       },
     },
     {
-      title: "Delete",
+      title: "Deactivate",
       icon: RiDeleteBin6Line,
       onClick: () => {
         toast.error("This feature is not available yet");
@@ -623,7 +633,7 @@ export function DoctorsTable({ data, functions, doctor }) {
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclass}>#</th>
-          <th className={thclass}>{doctor ? "Doctor" : "Receptionist"}</th>
+          <th className={thclass}>{doctor ? "Doctor" : "Staff"}</th>
           <th className={thclass}>Created At</th>
           <th className={thclass}>Phone</th>
           <th className={thclass}>Title</th>
@@ -670,7 +680,6 @@ export function DoctorsTable({ data, functions, doctor }) {
     </table>
   );
 }
-
 // appointment table
 export function AppointmentTable({ data, functions, doctor }) {
   return (
@@ -856,12 +865,12 @@ export function InvoiceProductsTable({ data, functions, button }) {
           <th className={thclass}>Item</th>
           <th className={thclass}>
             Item Price
-            <span className="text-xs font-light ml-1">(Tsh)</span>
+            <span className="text-xs font-light ml-1">(Naira)</span>
           </th>
           <th className={thclass}>Quantity</th>
           <th className={thclass}>
             Amout
-            <span className="text-xs font-light ml-1">(Tsh)</span>
+            <span className="text-xs font-light ml-1">(Naira)</span>
           </th>
           {button && <th className={thclass}>Actions</th>}
         </tr>

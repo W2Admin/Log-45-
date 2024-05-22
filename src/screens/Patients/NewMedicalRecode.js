@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import Layout from '../../Layout';
-import { Link } from 'react-router-dom';
-import { IoArrowBackOutline } from 'react-icons/io5';
-import { Button, Checkbox, Select, Textarea } from '../../components/Form';
-import { BiChevronDown, BiPlus } from 'react-icons/bi';
-import { medicineData, memberData, servicesData } from '../../components/Datas';
-import { MedicineDosageTable } from '../../components/Tables';
-import { toast } from 'react-hot-toast';
-import MedicineDosageModal from '../../components/Modals/MedicineDosage';
-import { FaTimes } from 'react-icons/fa';
-import Uploader from '../../components/Uploader';
-import { HiOutlineCheckCircle } from 'react-icons/hi';
+import React, { useState } from "react";
+import Layout from "../../Layout";
+import { Link } from "react-router-dom";
+import { IoArrowBackOutline } from "react-icons/io5";
+import { Button, Checkbox, Select, Textarea } from "../../components/Form";
+import { BiChevronDown, BiPlus } from "react-icons/bi";
+import { medicineData, memberData, servicesData } from "../../components/Datas";
+import { MedicineDosageTable } from "../../components/Tables";
+import { toast } from "react-hot-toast";
+import MedicineDosageModal from "../../components/Modals/MedicineDosage";
+import { FaTimes } from "react-icons/fa";
+import Uploader from "../../components/Uploader";
+import { HiOutlineCheckCircle } from "react-icons/hi";
 
 const doctorsData = memberData.map((item) => {
   return {
@@ -67,7 +67,7 @@ function NewMedicalRecode() {
         >
           <IoArrowBackOutline />
         </Link>
-        <h1 className="text-xl font-semibold">New Medical Record</h1>
+        <h1 className="text-xl font-semibold">Lab Investigation</h1>
       </div>
       <div className=" grid grid-cols-12 gap-6 my-8 items-start">
         <div
@@ -77,18 +77,15 @@ function NewMedicalRecode() {
           data-aos-offset="200"
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
-          <img
+          {/* <img
             src="/images/user7.png"
             alt="setting"
             className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
-          />
+          /> */}
           <div className="gap-2 flex-colo">
             <h2 className="text-sm font-semibold">Amani Mmassy</h2>
-            <p className="text-xs text-textGray">amanimmassy@gmail.com</p>
-            <p className="text-xs">+254 712 345 678</p>
-            <p className="text-xs text-subMain bg-text font-medium py-1 px-4 rounded-full border-[0.5px] border-subMain">
-              45 yrs{' '}
-            </p>
+            <p className="text-sm text-textGray">amanimmassy@gmail.com</p>
+            <p className="text-sm">+254 712 345 678</p>
           </div>
         </div>
         {/* tab panel */}
@@ -101,7 +98,7 @@ function NewMedicalRecode() {
         >
           <div className="flex w-full flex-col gap-5">
             {/* doctor */}
-            <div className="flex w-full flex-col gap-3">
+            {/* <div className="flex w-full flex-col gap-3">
               <p className="text-black text-sm">Doctor</p>
               <Select
                 selectedPerson={doctors}
@@ -112,32 +109,212 @@ function NewMedicalRecode() {
                   {doctors.name} <BiChevronDown className="text-xl" />
                 </div>
               </Select>
-            </div>
+            </div> */}
             {/* complains */}
-            <Textarea
+            <div className="flex flex-wrap">
+              <div className="w-full sm:w-1/2 px-3">
+                <div className="mb-5">
+                  <label
+                    htmlFor="animalType"
+                    className="mb-3 block text-sm font-medium text-[#07074D]"
+                  >
+                    Animal Type
+                  </label>
+                  <input
+                    type="text"
+                    name="animalType"
+                    id="animalType"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                  />
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <div className="mb-5">
+                  <label
+                    htmlFor="species"
+                    className="mb-3 block text-sm font-medium text-[#07074D]"
+                  >
+                    Species
+                  </label>
+                  <input
+                    type="text"
+                    name="species"
+                    id="species"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                  />
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <div className="mb-5">
+                  <p className="mb-3 block text-sm font-medium text-[#07074D]">
+                    Sex
+                  </p>{" "}
+                  <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none ">
+                    <option value=""></option>
+                    <option value="Fish Farming"> Male</option>
+                    <option value="Pig Farming">Female</option>
+                  </select>
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <div className="mb-5">
+                  <label
+                    htmlFor="weight"
+                    className="mb-3 block text-sm font-medium text-[#07074D]"
+                  >
+                    Weight
+                  </label>
+                  <input
+                    type="text"
+                    name="weight"
+                    id="weight"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                  />
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <div className="mb-5">
+                  <label
+                    htmlFor="weight"
+                    className="mb-3 block text-sm font-medium text-[#07074D]"
+                  >
+                    Type of Feed/Food
+                  </label>
+                  <input
+                    type="text"
+                    name="weight"
+                    id="weight"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                  />
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <div className="mb-5">
+                  <label
+                    htmlFor="weight"
+                    className="mb-3 block text-sm font-medium text-[#07074D]"
+                  >
+                    Last Feed
+                  </label>
+                  <input
+                    type="text"
+                    name="weight"
+                    id="weight"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap">
+              <div className="w-full sm:w-1/2 px-3">
+                <div className="w-full mb-5">
+                  <p className="text-black text-sm">Reason for Investiagtion</p>{" "}
+                  <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none ">
+                    <option value=""></option>
+                    <option value="Fish Farming">Normal</option>
+                    <option value="Pig Farming">Urgent</option>
+                    <option value="Crop Framing">Fasting</option>
+                    <option value="Animal Husbandry">Blood</option>
+                    <option value="Laboratory Specialist">Swab</option>
+                    <option value="HealthCare">Tissue</option>
+                  </select>
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <p className="text-black text-sm">Investigation Request</p>{" "}
+                <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none ">
+                  <option value=""></option>
+                  <option value="Fish Farming">Normal</option>
+                  <option value="Pig Farming">Urgent</option>
+                  <option value="Crop Framing">Fasting</option>
+                  <option value="Animal Husbandry">Blood</option>
+                  <option value="Laboratory Specialist">Swab</option>
+                  <option value="HealthCare">Tissue</option>
+                </select>
+              </div>
+
+              <div className="w-full px-3">
+                <div className="mb-5">
+                  <label
+                    htmlFor="feed"
+                    className="mb-3 block text-sm font-medium text-[#07074D]"
+                  >
+                    Previous Investigation History/Treatment
+                  </label>
+                  <input
+                    type="text"
+                    name="feed"
+                    id="feed"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                  />
+                </div>
+              </div>
+              <div className="w-full px-3">
+                <div className="mb-5">
+                  <label
+                    htmlFor="feed"
+                    className="mb-3 block text-sm font-medium text-[#07074D]"
+                  >
+                    Investiagtion details
+                  </label>
+                  <input
+                    type="text"
+                    name="feed"
+                    id="feed"
+                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="flex w-full mb-5 flex-col gap-3">
+              <p className="text-black text-sm">Investiagtion details</p>{" "}
+              <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none ">
+                <option value=""></option>
+                <option value="Fish Farming">Normal</option>
+                <option value="Pig Farming">Urgent</option>
+                <option value="Crop Framing">Fasting</option>
+                <option value="Animal Husbandry">Blood</option>
+                <option value="Laboratory Specialist">Swab</option>
+                <option value="HealthCare">Tissue</option>
+              </select>
+            </div> */}
+
+            <div className="flex w-full flex-col gap-3">
+              <div className="flex w-full flex-col gap-3">
+                {/* <div>
+                  <button className="hover:shadow-form rounded-md bg-[#66B5A3] py-3 px-8 text-center text-sm font-semibold text-white outline-none">
+                    Submit
+                  </button>
+                </div> */}
+              </div>
+            </div>
+
+            {/* <Textarea
+              className="mb-5"
               label="Complains"
               color={true}
               rows={3}
-              placeholder={'Bad breath, toothache, ....'}
-            />
+              placeholder={"Bad breath, toothache, ...."}
+            /> */}
             {/* Diagnosis */}
-            <Textarea
+            {/* <Textarea
               label="Diagnosis"
               color={true}
               rows={3}
-              placeholder={'Gingivitis, Periodontitis, ....'}
-            />
+              placeholder={"Gingivitis, Periodontitis, ...."}
+            /> */}
             {/* Vital Signs */}
-            <Textarea
+            {/* <Textarea
               label="Vital Signs"
               color={true}
               rows={3}
-              placeholder={'Blood pressure, Pulse, ....'}
-            />
+              placeholder={"Blood pressure, Pulse, ...."}
+            /> */}
             {/* Treatment */}
-            <div className="flex w-full flex-col gap-4">
+            {/* <div className="flex w-full flex-col gap-4">
               <p className="text-black text-sm">Treatment</p>
-              <div className="grid xs:grid-cols-2 md:grid-cols-3 gap-6 pb-6">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 pb-6">
                 {servicesData?.slice(1, 100).map((item) => (
                   <Checkbox
                     label={item.name}
@@ -150,16 +327,16 @@ function NewMedicalRecode() {
                   />
                 ))}
               </div>
-            </div>
+            </div> */}
             {/* medicine */}
-            <div className="flex w-full flex-col gap-4 mb-6">
+            {/* <div className="flex w-full flex-col gap-4 mb-6">
               <p className="text-black text-sm">Medicine</p>
               <div className="w-full overflow-x-scroll">
                 <MedicineDosageTable
                   data={medicineData?.slice(0, 3)}
                   functions={{
                     delete: (id) => {
-                      toast.error('This feature is not available yet');
+                      toast.error("This feature is not available yet");
                     },
                   }}
                   button={true}
@@ -173,11 +350,11 @@ function NewMedicalRecode() {
               >
                 <BiPlus /> Add Medicine
               </button>
-            </div>
+            </div> */}
             {/* attachment */}
             <div className="flex w-full flex-col gap-4">
               <p className="text-black text-sm">Attachments</p>
-              <div className="grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full">
+              <div className="grid sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full">
                 {[1, 2, 3, 4].map((_, i) => (
                   <div className="relative w-full">
                     <img
@@ -187,7 +364,7 @@ function NewMedicalRecode() {
                     />
                     <button
                       onClick={() =>
-                        toast.error('This feature is not available yet.')
+                        toast.error("This feature is not available yet.")
                       }
                       className="bg-white rounded-full w-8 h-8 flex-colo absolute -top-1 -right-1"
                     >
@@ -200,10 +377,10 @@ function NewMedicalRecode() {
             </div>
             {/* submit */}
             <Button
-              label={'Save'}
+              label={"Submit"}
               Icon={HiOutlineCheckCircle}
               onClick={() => {
-                toast.error('This feature is not available yet');
+                toast.error("This feature is not available yet");
               }}
             />
           </div>

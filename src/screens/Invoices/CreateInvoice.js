@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import Layout from '../../Layout';
+import React, { useState } from "react";
+import Layout from "../../Layout";
 import {
   Button,
   FromToDate,
   Input,
   Select,
   Textarea,
-} from '../../components/Form';
-import { BiChevronDown, BiPlus } from 'react-icons/bi';
-import PatientMedicineServiceModal from '../../components/Modals/PatientMedicineServiceModal';
-import AddItemModal from '../../components/Modals/AddItemInvoiceModal';
-import { invoicesData, sortsDatas } from '../../components/Datas';
-import { toast } from 'react-hot-toast';
-import { BsSend } from 'react-icons/bs';
-import { IoArrowBackOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
-import { InvoiceProductsTable } from '../../components/Tables';
-import SenderReceverComp from '../../components/SenderReceverComp';
+} from "../../components/Form";
+import { BiChevronDown, BiPlus } from "react-icons/bi";
+import PatientMedicineServiceModal from "../../components/Modals/PatientMedicineServiceModal";
+import AddItemModal from "../../components/Modals/AddItemInvoiceModal";
+import { invoicesData, sortsDatas } from "../../components/Datas";
+import { toast } from "react-hot-toast";
+import { BsSend } from "react-icons/bs";
+import { IoArrowBackOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { InvoiceProductsTable } from "../../components/Tables";
+import SenderReceverComp from "../../components/SenderReceverComp";
 
 function CreateInvoice() {
   const [dateRange, setDateRange] = useState([
@@ -55,7 +55,7 @@ function CreateInvoice() {
         >
           <IoArrowBackOutline />
         </Link>
-        <h1 className="text-xl font-semibold">Create Invoice</h1>
+        <h1 className="text-xl font-semibold"> Invoice</h1>
       </div>
       <div
         data-aos="fade-up"
@@ -100,7 +100,7 @@ function CreateInvoice() {
               data={invoicesData[1].items}
               functions={{
                 deleteItem: (id) => {
-                  toast.error('This feature is not available yet');
+                  toast.error("This feature is not available yet");
                 },
               }}
               button={true}
@@ -130,30 +130,30 @@ function CreateInvoice() {
                 label="Discount"
                 color={true}
                 type="number"
-                placeholder={'3000'}
+                placeholder={"3000"}
               />
               <Input
-                label="Tax(%)"
+                label="VAT(%)"
                 color={true}
                 type="number"
-                placeholder={'3'}
+                placeholder={"3"}
               />
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Sub Total:</p>
-              <h6 className="text-sm font-medium">$459</h6>
+              <h6 className="text-sm font-medium">#459</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Discount:</p>
-              <h6 className="text-sm font-medium">$49</h6>
+              <h6 className="text-sm font-medium">#49</h6>
             </div>
             <div className="flex-btn gap-4">
-              <p className="text-sm font-extralight">Tax:</p>
-              <h6 className="text-sm font-medium">$4.90</h6>
+              <p className="text-sm font-extralight">VAT:</p>
+              <h6 className="text-sm font-medium">#4.90</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Grand Total:</p>
-              <h6 className="text-sm font-medium text-green-600">$6000</h6>
+              <h6 className="text-sm font-medium text-green-600">#6000</h6>
             </div>
             {/* notes */}
             <Textarea
@@ -166,7 +166,7 @@ function CreateInvoice() {
             <Button
               label="Save & Send"
               onClick={() => {
-                toast.error('This feature is not available yet');
+                toast.error("This feature is not available yet");
               }}
               Icon={BsSend}
             />

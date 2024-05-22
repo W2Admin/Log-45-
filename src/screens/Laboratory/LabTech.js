@@ -72,7 +72,7 @@ function NewMedicalRecode() {
         >
           <IoArrowBackOutline />
         </Link>
-        <h1 className="text-xl font-semibold">New Lab Record</h1>
+        <h1 className="text-xl font-semibold">Lab Investigation</h1>
       </div>
       <div className=" grid grid-cols-12 gap-6 my-8 items-start">
         <div
@@ -86,76 +86,74 @@ function NewMedicalRecode() {
           <div className="grid grid-cols-2 gap-4 px-2 w-full">
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600">Full Name</p>
-              <p className="text-base font-medium text-navy-700">
-                Amani Mmassy
-              </p>
+              <p className="text-xs font-medium text-navy-700">Amani Mmassy</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600">Phone Number</p>
-              <p className="text-base font-medium text-navy-700">
+              <p className="text-xs font-medium text-navy-700">
                 +254 712 345 678
               </p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600">Email</p>
-              <p className="text-base font-medium text-navy-700">
+              <p className="text-xs font-medium text-navy-700">
                 amanimmassy@gmail.com
               </p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600">Gender</p>
-              <p className="text-base font-medium text-navy-700">Male</p>
+              <p className="text-xs font-medium text-navy-700">Male</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600">Age (weeks) </p>
-              <p className="text-base font-medium text-navy-700">14</p>
+              <p className="text-xs font-medium text-navy-700">14</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600">Address </p>
-              <p className="text-base font-medium text-navy-700">
+              <p className="text-xs font-medium text-navy-700">
                 20b Abraham Adesanya, Kolapo Close.
               </p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600">Animal Type</p>
-              <p className="text-base font-medium text-navy-700">Dog</p>
+              <p className="text-xs font-medium text-navy-700">Dog</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600"> Breed </p>
-              <p className="text-base font-medium text-navy-700">
+              <p className="text-xs font-medium text-navy-700">
                 German Shepherd
               </p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600">Sex</p>
-              <p className="text-base font-medium text-navy-700"> Female</p>
+              <p className="text-xs font-medium text-navy-700"> Female</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600"> Weight </p>
-              <p className="text-base font-medium text-navy-700">5kg</p>
+              <p className="text-xs font-medium text-navy-700">5kg</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600"> Types of Feed</p>
-              <p className="text-base font-medium text-navy-700">Rice</p>
+              <p className="text-xs font-medium text-navy-700">Rice</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600"> Sample details </p>
-              <p className="text-base font-medium text-navy-700">Blood</p>
+              <p className="text-xs font-medium text-navy-700">Blood</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600"> Reasons for Examination</p>
-              <p className="text-base font-medium text-navy-700">Follow up</p>
+              <p className="text-xs font-medium text-navy-700">Follow up</p>
             </div>
             <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
               <p className="text-sm text-gray-600"> Examination Request</p>
-              <p className="text-base font-medium text-navy-700">
+              <p className="text-xs font-medium text-navy-700">
                 Smear & culture
               </p>
             </div>
           </div>
           <div className="w-full px-4">
             <p className="text-sm text-gray-600"> Medical History</p>
-            <p className="text-base font-medium text-navy-700">
+            <p className="text-xs font-medium text-navy-700">
               Previously undergone treatment for respiratory infections,
               considering the prevalence of illnesses such as bronchitis or
               pneumonia.History of skin conditions, as indicated by treatments
