@@ -19,10 +19,10 @@ const doctorsData = memberData.map((item) => {
   };
 });
 
-function NewMedicalRecode() {
+function NewMedicalRecord() {
   const [doctors, setDoctors] = useState(doctorsData[0]);
   const [isOpen, setIsOpen] = useState(false);
-  const [treatmeants, setTreatmeants] = useState(
+  const [treatments, setTreatments] = useState(
     servicesData.map((item) => {
       return {
         name: item.name,
@@ -31,11 +31,35 @@ function NewMedicalRecode() {
       };
     })
   );
+  const [formData, setFormData] = useState({
+    investigationRequestType: "",
+    animalType: "",
+    species: "",
+    sex: "",
+    weight: "",
+    typeOfFeed: "",
+    lastFeed: "",
+    sampleType: "",
+    investigationRequest: "",
+    symptomsDescription: "",
+    additionalInfo: "",
+  });
 
-  // on change treatmeants
-  const onChangeTreatmeants = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Implement form submission logic here
+    toast.error("This feature is not available yet");
+  };
+
+  // on change treatments
+  const onChangeTreatments = (e) => {
     const { name, checked } = e.target;
-    const newTreatmeants = treatmeants.map((item) => {
+    const newTreatments = treatments.map((item) => {
       if (item.name === name) {
         return {
           ...item,
@@ -44,7 +68,7 @@ function NewMedicalRecode() {
       }
       return item;
     });
-    setTreatmeants(newTreatmeants);
+    setTreatments(newTreatments);
   };
 
   return (
@@ -62,14 +86,14 @@ function NewMedicalRecode() {
       }
       <div className="flex items-center gap-4">
         <Link
-          to={`/patients/preview/1`}
+          to={"/customers"}
           className="bg-white border border-subMain border-dashed rounded-lg py-3 px-4 text-md"
         >
           <IoArrowBackOutline />
         </Link>
         <h1 className="text-xl font-semibold">Lab Investigation</h1>
       </div>
-      <div className=" grid grid-cols-12 gap-6 my-8 items-start">
+      <div className="grid grid-cols-12 gap-6 my-8 items-start">
         <div
           data-aos="fade-right"
           data-aos-duration="1000"
@@ -77,18 +101,13 @@ function NewMedicalRecode() {
           data-aos-offset="200"
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
-          {/* <img
-            src="/images/user7.png"
-            alt="setting"
-            className="w-40 h-40 rounded-full object-cover border border-dashed border-subMain"
-          /> */}
-          <div className="gap-2 flex-colo">
-            <h2 className="text-sm font-semibold">Amani Mmassy</h2>
-            <p className="text-sm text-textGray">amanimmassy@gmail.com</p>
-            <p className="text-sm">+254 712 345 678</p>
-          </div>
+          <p className="text-black font-medium text-sm">Amani Ammesty</p>
+          <p className="text-[#8f9cb6]font-medium text-sm">
+            amaniammesty21@gmail.com
+          </p>
+          <p className="text-black font-medium text-sm">+234808766511</p>
         </div>
-        {/* tab panel */}
+
         <div
           data-aos="fade-left"
           data-aos-duration="1000"
@@ -96,271 +115,184 @@ function NewMedicalRecode() {
           data-aos-offset="200"
           className="col-span-12 lg:col-span-8 bg-white rounded-xl border-[1px] border-border p-6"
         >
-          <div className="flex w-full flex-col gap-5">
-            {/* doctor */}
-            {/* <div className="flex w-full flex-col gap-3">
-              <p className="text-black text-sm">Doctor</p>
-              <Select
-                selectedPerson={doctors}
-                setSelectedPerson={setDoctors}
-                datas={doctorsData}
-              >
-                <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
-                  {doctors.name} <BiChevronDown className="text-xl" />
-                </div>
-              </Select>
-            </div> */}
-            {/* complains */}
+          <form
+            onSubmit={handleFormSubmit}
+            className="flex w-full flex-col gap-5"
+          >
             <div className="flex flex-wrap">
               <div className="w-full sm:w-1/2 px-3">
-                <div className="mb-5">
-                  <label
-                    htmlFor="animalType"
-                    className="mb-3 block text-sm font-medium text-[#07074D]"
-                  >
-                    Animal Type
-                  </label>
-                  <input
-                    type="text"
-                    name="animalType"
-                    id="animalType"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                  />
-                </div>
-              </div>
-              <div className="w-full sm:w-1/2 px-3">
-                <div className="mb-5">
-                  <label
-                    htmlFor="species"
-                    className="mb-3 block text-sm font-medium text-[#07074D]"
-                  >
-                    Species
-                  </label>
-                  <input
-                    type="text"
-                    name="species"
-                    id="species"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                  />
-                </div>
-              </div>
-              <div className="w-full sm:w-1/2 px-3">
-                <div className="mb-5">
-                  <p className="mb-3 block text-sm font-medium text-[#07074D]">
-                    Sex
-                  </p>{" "}
-                  <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none ">
-                    <option value=""></option>
-                    <option value="Fish Farming"> Male</option>
-                    <option value="Pig Farming">Female</option>
-                  </select>
-                </div>
-              </div>
-              <div className="w-full sm:w-1/2 px-3">
-                <div className="mb-5">
-                  <label
-                    htmlFor="weight"
-                    className="mb-3 block text-sm font-medium text-[#07074D]"
-                  >
-                    Weight
-                  </label>
-                  <input
-                    type="text"
-                    name="weight"
-                    id="weight"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                  />
-                </div>
-              </div>
-              <div className="w-full sm:w-1/2 px-3">
-                <div className="mb-5">
-                  <label
-                    htmlFor="weight"
-                    className="mb-3 block text-sm font-medium text-[#07074D]"
-                  >
-                    Type of Feed/Food
-                  </label>
-                  <input
-                    type="text"
-                    name="weight"
-                    id="weight"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                  />
-                </div>
-              </div>
-              <div className="w-full sm:w-1/2 px-3">
-                <div className="mb-5">
-                  <label
-                    htmlFor="weight"
-                    className="mb-3 block text-sm font-medium text-[#07074D]"
-                  >
-                    Last Feed
-                  </label>
-                  <input
-                    type="text"
-                    name="weight"
-                    id="weight"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-wrap">
-              <div className="w-full sm:w-1/2 px-3">
-                <div className="w-full mb-5">
-                  <p className="text-black text-sm">Reason for Investiagtion</p>{" "}
-                  <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none ">
-                    <option value=""></option>
-                    <option value="Fish Farming">Normal</option>
-                    <option value="Pig Farming">Urgent</option>
-                    <option value="Crop Framing">Fasting</option>
-                    <option value="Animal Husbandry">Blood</option>
-                    <option value="Laboratory Specialist">Swab</option>
-                    <option value="HealthCare">Tissue</option>
-                  </select>
-                </div>
-              </div>
-              <div className="w-full sm:w-1/2 px-3">
-                <p className="text-black text-sm">Investigation Request</p>{" "}
-                <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none ">
+                <p className="text-black text-sm font-medium">
+                  Investigation Request Type
+                </p>
+                <select
+                  name="investigationRequestType"
+                  value={formData.investigationRequestType}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none"
+                >
                   <option value=""></option>
-                  <option value="Fish Farming">Normal</option>
-                  <option value="Pig Farming">Urgent</option>
-                  <option value="Crop Framing">Fasting</option>
-                  <option value="Animal Husbandry">Blood</option>
-                  <option value="Laboratory Specialist">Swab</option>
-                  <option value="HealthCare">Tissue</option>
+                  <option value="Wide">Wide</option>
+                  <option value="Narrow">Narrow</option>
                 </select>
               </div>
-
-              <div className="w-full px-3">
-                <div className="mb-5">
-                  <label
-                    htmlFor="feed"
-                    className="mb-3 block text-sm font-medium text-[#07074D]"
-                  >
-                    Previous Investigation History/Treatment
-                  </label>
-                  <input
-                    type="text"
-                    name="feed"
-                    id="feed"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                  />
-                </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <p className="text-black text-sm font-medium">Sample Type</p>
+                <select
+                  name="sampleType"
+                  value={formData.sampleType}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none"
+                >
+                  <option value=""></option>
+                  <option value="Normal">Normal</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="Fasting">Fasting</option>
+                  <option value="Blood">Blood</option>
+                  <option value="Swab">Swab</option>
+                  <option value="Tissue">Tissue</option>
+                </select>
               </div>
-              <div className="w-full px-3">
-                <div className="mb-5">
-                  <label
-                    htmlFor="feed"
-                    className="mb-3 block text-sm font-medium text-[#07074D]"
-                  >
-                    Investiagtion details
-                  </label>
-                  <input
-                    type="text"
-                    name="feed"
-                    id="feed"
-                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* <div className="flex w-full mb-5 flex-col gap-3">
-              <p className="text-black text-sm">Investiagtion details</p>{" "}
-              <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none ">
-                <option value=""></option>
-                <option value="Fish Farming">Normal</option>
-                <option value="Pig Farming">Urgent</option>
-                <option value="Crop Framing">Fasting</option>
-                <option value="Animal Husbandry">Blood</option>
-                <option value="Laboratory Specialist">Swab</option>
-                <option value="HealthCare">Tissue</option>
-              </select>
-            </div> */}
-
-            <div className="flex w-full flex-col gap-3">
-              <div className="flex w-full flex-col gap-3">
-                {/* <div>
-                  <button className="hover:shadow-form rounded-md bg-[#66B5A3] py-3 px-8 text-center text-sm font-semibold text-white outline-none">
-                    Submit
-                  </button>
-                </div> */}
-              </div>
-            </div>
-
-            {/* <Textarea
-              className="mb-5"
-              label="Complains"
-              color={true}
-              rows={3}
-              placeholder={"Bad breath, toothache, ...."}
-            /> */}
-            {/* Diagnosis */}
-            {/* <Textarea
-              label="Diagnosis"
-              color={true}
-              rows={3}
-              placeholder={"Gingivitis, Periodontitis, ...."}
-            /> */}
-            {/* Vital Signs */}
-            {/* <Textarea
-              label="Vital Signs"
-              color={true}
-              rows={3}
-              placeholder={"Blood pressure, Pulse, ...."}
-            /> */}
-            {/* Treatment */}
-            {/* <div className="flex w-full flex-col gap-4">
-              <p className="text-black text-sm">Treatment</p>
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 pb-6">
-                {servicesData?.slice(1, 100).map((item) => (
-                  <Checkbox
-                    label={item.name}
-                    checked={
-                      treatmeants.find((i) => i.name === item.name).checked
-                    }
-                    onChange={onChangeTreatmeants}
-                    name={item.name}
-                    key={item.id}
-                  />
-                ))}
-              </div>
-            </div> */}
-            {/* medicine */}
-            {/* <div className="flex w-full flex-col gap-4 mb-6">
-              <p className="text-black text-sm">Medicine</p>
-              <div className="w-full overflow-x-scroll">
-                <MedicineDosageTable
-                  data={medicineData?.slice(0, 3)}
-                  functions={{
-                    delete: (id) => {
-                      toast.error("This feature is not available yet");
-                    },
-                  }}
-                  button={true}
+              <div className="w-full sm:w-1/2 px-3 mt-3">
+                <label
+                  htmlFor="animalType"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Animal Type
+                </label>
+                <input
+                  type="text"
+                  name="animalType"
+                  id="animalType"
+                  value={formData.animalType}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
               </div>
-              <button
-                onClick={() => {
-                  setIsOpen(true);
-                }}
-                className=" text-subMain flex-rows gap-2 rounded-lg border border-subMain border-dashed py-4 w-full text-sm"
-              >
-                <BiPlus /> Add Medicine
-              </button>
-            </div> */}
-            {/* attachment */}
+              <div className="w-full sm:w-1/2 px-3 mt-3">
+                <label
+                  htmlFor="species"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Species
+                </label>
+                <input
+                  type="text"
+                  name="species"
+                  id="species"
+                  value={formData.species}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full sm:w-1/2 px-3 mt-3">
+                <p className="mb-3 block text-sm font-medium text-[#07074D]">
+                  Sex
+                </p>
+                <select
+                  name="sex"
+                  value={formData.sex}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none"
+                >
+                  <option value=""></option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <label
+                  htmlFor="weight"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Weight
+                </label>
+                <input
+                  type="text"
+                  name="weight"
+                  id="weight"
+                  value={formData.weight}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full sm:w-1/2 px-3 mt-3">
+                <label
+                  htmlFor="typeOfFeed"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Type of Feed/Food
+                </label>
+                <input
+                  type="text"
+                  name="typeOfFeed"
+                  id="typeOfFeed"
+                  value={formData.typeOfFeed}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full sm:w-1/2 px-3 mt-3">
+                <label
+                  htmlFor="lastFeed"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Last Feed
+                </label>
+                <input
+                  type="text"
+                  name="lastFeed"
+                  id="lastFeed"
+                  value={formData.lastFeed}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+            </div>
+            <div className="flex flex-wrap mt-3">
+              <div className="w-full px-3">
+                <label
+                  htmlFor="symptomsDescription"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Symptoms Description
+                </label>
+                <input
+                  type="text"
+                  name="symptomsDescription"
+                  id="symptomsDescription"
+                  value={formData.symptomsDescription}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full mt-3 px-3">
+                <label
+                  htmlFor="additionalInfo"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Additional Information (History of Treatment)
+                </label>
+                <input
+                  type="text"
+                  name="additionalInfo"
+                  id="additionalInfo"
+                  value={formData.additionalInfo}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+            </div>
             <div className="flex w-full flex-col gap-4">
-              <p className="text-black text-sm">Attachments</p>
-              <div className="grid sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full">
+              <p className="text-black text-sm font-medium">
+                Attach Sample Image
+              </p>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
                 {[1, 2, 3, 4].map((_, i) => (
-                  <div className="relative w-full">
+                  <div key={i} className="relative w-full">
                     <img
                       src={`https://placehold.it/300x300?text=${i}`}
                       alt="patient"
-                      className="w-full  md:h-40 rounded-lg object-cover"
+                      className="w-full md:h-40 rounded-lg object-cover"
                     />
                     <button
                       onClick={() =>
@@ -375,19 +307,16 @@ function NewMedicalRecode() {
               </div>
               <Uploader setImage={{}} />
             </div>
-            {/* submit */}
             <Button
               label={"Submit"}
               Icon={HiOutlineCheckCircle}
-              onClick={() => {
-                toast.error("This feature is not available yet");
-              }}
+              type="submit"
             />
-          </div>
+          </form>
         </div>
       </div>
     </Layout>
   );
 }
 
-export default NewMedicalRecode;
+export default NewMedicalRecord;

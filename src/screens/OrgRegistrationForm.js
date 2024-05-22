@@ -242,11 +242,6 @@ const OrgRegistrationForm = () => {
               </div>
             </div>
           </div>
-
-          {/* <h2>Registration Successful!</h2>
-          <p>A confirmation email has been sent to {formData.contactEmail}.</p>
-          <p>Redirecting to the welcome page...</p> */}
-          {/* Implement redirection logic here */}
         </div>
       )}
     </div>
