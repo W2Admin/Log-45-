@@ -4,6 +4,7 @@ import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
 import RegistrationForm from "./RegistrationForm";
 import OrgRegistrationForm from "./OrgRegistrationForm";
+import SignUp from "./SignUp";
 
 const Header = () => {
   const [showModal, setShowModal] = React.useState(false);
@@ -38,7 +39,8 @@ const Header = () => {
                   <button onClick={() => setShowModal(false)}>Close</button>
 
                   {/* Registration form */}
-                  <RegistrationForm />
+                  {/* <RegistrationForm /> */}
+                  <SignUp />
                 </div>
               </div>
             )}
@@ -100,9 +102,9 @@ const HeroSection = () => {
               <div className="rounded-lg">
                 {/* Close button */}
                 <button onClick={() => setShowModal(false)}>Close</button>
-
                 {/* Registration form */}
-                <OrgRegistrationForm />
+                {/* <OrgRegistrationForm /> */}
+                <SignUp />
               </div>
             </div>
           )}

@@ -859,6 +859,159 @@ export const invoicesData = [
     ],
   },
 ];
+export const resultsData = [
+  {
+    id: 206719,
+    to: memberData[5],
+    total: 6070,
+    createdDate: "12/06/2021",
+    dueDate: "16/06/2021",
+    items: [
+      {
+        id: 1,
+        name: servicesData[0].name,
+        price: 500,
+        description:
+          "Root Canal Treatment with X-Ray and Consultation is included in this package",
+      },
+      {
+        id: 2,
+        name: servicesData[1].name,
+        price: 300,
+        description: "Teeth Whitening Treatment",
+      },
+      {
+        id: 3,
+        name: servicesData[2].name,
+        price: 260,
+        description: "Dental Implants Treatment",
+      },
+      {
+        id: 4,
+        name: servicesData[3].name,
+        price: 190000,
+        description: "Dental Crowns Treatment",
+      },
+      {
+        id: 5,
+        name: servicesData[4].name,
+        price: 15000,
+        description: "Dental Bridges Treatment",
+      },
+    ],
+  },
+  {
+    id: 198772,
+    to: memberData[6],
+    total: 5000,
+    createdDate: "10/02/2023",
+    dueDate: "14/02/2023",
+    items: [
+      {
+        id: 1,
+        name: servicesData[3].name,
+        price: 190000,
+        description: "Dental Crowns Treatment",
+      },
+      {
+        id: 2,
+        name: servicesData[4].name,
+        price: 15000,
+        description: "Dental Bridges Treatment",
+      },
+      {
+        id: 3,
+        name: servicesData[8].name,
+        price: 20000,
+        description: "Dentures Treatment",
+      },
+      {
+        id: 4,
+        name: servicesData[3].name,
+        price: 190000,
+        description: "Dental Crowns Treatment",
+      },
+    ],
+  },
+  {
+    id: 456789,
+    to: memberData[7],
+    total: 10000,
+    createdDate: "09/01/2023",
+    dueDate: "13/01/2023",
+    items: [
+      {
+        id: 1,
+        name: servicesData[5].name,
+        price: 5000,
+        description: "Dental Veneers Treatment",
+      },
+      {
+        id: 2,
+        name: servicesData[6].name,
+        price: 16000,
+        description: "Dental Braces Treatment",
+      },
+      {
+        id: 3,
+        name: servicesData[7].name,
+        price: 10000,
+        description: "Dental Sealants Treatment",
+      },
+      {
+        id: 4,
+        name: servicesData[8].name,
+        price: 20000,
+        description: "Dentures Treatment",
+      },
+    ],
+  },
+  {
+    id: 876543,
+    to: memberData[4],
+    total: 19000,
+    createdDate: "08/01/2023",
+    dueDate: "12/01/2023",
+    items: [
+      {
+        id: 1,
+        name: servicesData[5].name,
+        price: 5000,
+        description: "Dental Veneers Treatment",
+      },
+      {
+        id: 2,
+        name: servicesData[6].name,
+        price: 16000,
+        description: "Dental Braces Treatment",
+      },
+      {
+        id: 3,
+        name: servicesData[7].name,
+        price: 10000,
+        description: "Dental Sealants Treatment",
+      },
+      {
+        id: 4,
+        name: servicesData[8].name,
+        price: 20000,
+        description: "Dentures Treatment",
+      },
+      {
+        id: 5,
+        name: servicesData[3].name,
+        price: 190000,
+        description: "Dental Crowns Treatment",
+      },
+      {
+        id: 6,
+        name: servicesData[4].name,
+        price: 15000,
+        description: "Dental Bridges Treatment",
+      },
+    ],
+  },
+];
 
 export const appointmentsData = [
   {
@@ -1261,11 +1414,11 @@ export const patientTab = [
     title: "Attachments",
     icon: RiImageLine,
   },
-  // {
-  //   id: 6,
-  //   title: "Dental Chart",
-  //   icon: RiStethoscopeLine,
-  // },
+  {
+    id: 6,
+    title: "Result",
+    icon: RiStethoscopeLine,
+  },
   {
     id: 7,
     title: "Customers Information",

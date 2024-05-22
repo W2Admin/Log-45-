@@ -32,6 +32,7 @@ import Login from "./screens/Login";
 import Organisation from "./screens/Organisation";
 import Laboratory from "./screens/Laboratory/Lab";
 import LabTech from "./screens/Laboratory/LabTech";
+import LabResult from "./screens/Laboratory/LabResult";
 import { Provider } from "react-redux";
 const App = () => {
   Aos.init();
@@ -62,6 +63,7 @@ const App = () => {
           <Route path="/organisation" element={<Organisation />} />
           <Route path="/laboratory" element={<Laboratory />} />
           <Route path="/labtech" element={<LabTech />} />
+          <Route path="/labresults" element={<LabResult />} />
           <Route path="/patients/preview/:id" element={<PatientProfile />} />
           <Route path="/patients/create" element={<CreatePatient />} />
           <Route path="/patients/visiting/:id" element={<NewMedicalRecode />} />
