@@ -1,70 +1,69 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { registerData } from "../Redux/Registration/RegisterAction";
+import LottieAnimation from "../Lotties";
+import loader from "../images/loading.json"
 
-const RegistrationForm = () => {
+const RegistrationForm = ({registerData, loading, error}) => {
   const navigate = useNavigate();
-
+  const [registerState, setRegisterState] = useState({});
   const initialFormData = {
-    organizationName: "",
-    contactEmail: "",
-    contactPhone: "",
-    industryType: "",
-    primaryLocation: "",
+    name: "",
+    contact_email: "",
+    phone: "",
+    industry: "",
+    address: "",
+    description: ""
   };
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
+  const [submiterror, setsubmiterror] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    // For industry, parse the value to an integer if it's not empty
+    if (name === 'industry' && value.trim() !== '') {
+      setFormData({ ...formData, [name]: parseInt(value.trim()) });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // const validationErrors = validateFormData(formData);
-    // if (Object.keys(validationErrors).length === 0) {
-    //   try {
-    //     const response = await fetch("backend_api_url", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(formData),
-    //     });
-    //     if (response.ok) {
-    //       // Handle successful submission
-    //       console.log("Form submitted successfully");
-    //       setFormData(initialFormData); // Reset form data
-    //       // Navigate to the home page
-    //       navigate("/");
-    //     } else {
-    //       // Handle backend errors
-    //       console.error("Error submitting form:", response.statusText);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error submitting form:", error.message);
-    //   }
-    // } else {
-    //   setErrors(validationErrors);
-    // }
+    e.preventDefault();
+    const validationErrors = validateFormData(formData);
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        await registerData(formData, ()=>{
+
+        }, ()=>{
+          setsubmiterror(true)
+        });
+      } catch (error) {
+        console.error("Error submitting form:", error.message);
+      }
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   const validateFormData = (data) => {
     const errors = {};
 
     // Validation rules
-    if (!data.organizationName.trim()) {
-      errors.organizationName = "Organization name is required";
+    if (!data.name.trim()) {
+      errors.name = "Organization name is required";
     }
-    if (!data.contactEmail.trim()) {
-      errors.contactEmail = "Contact email is required";
-    } else if (!isValidEmail(data.contactEmail)) {
-      errors.contactEmail = "Invalid email address";
+    if (!data.contact_email.trim()) {
+      errors.contact_email = "Contact email is required";
+    } else if (!isValidEmail(data.contact_email)) {
+      errors.contact_email = "Invalid email address";
     }
-    if (!data.contactPhone.trim()) {
-      errors.contactPhone = "Contact phone is required";
-    } else if (!isValidPhoneNumber(data.contactPhone)) {
-      errors.contactPhone = "Invalid phone number";
+    if (!data.phone.trim()) {
+      errors.phone = "Contact phone is required";
+    } else if (!isValidPhoneNumber(data.phone)) {
+      errors.phone = "Invalid phone number";
     }
     // Add more validation rules as needed
 
@@ -94,123 +93,163 @@ const RegistrationForm = () => {
           <h1 className="text-2xl font-bold mb-6 bg-white text-center">
             Registration Form
           </h1>
+          
+         {submiterror && (
+            <div className="error-message">
+              <p>{error}</p>
+            </div>
+          )}
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="organizationName"
+              htmlFor="name"
             >
               Organization Name
             </label>
             <input
               className={`w-full px-3 py-2 border ${
-                errors.organizationName ? "border-red-500" : "border-gray-300"
+                errors.name ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none focus:${
-                errors.organizationName ? "border-red-500" : "border-indigo-500"
+                errors.name ? "border-red-500" : "border-indigo-500"
               }`}
               type="text"
-              id="organizationName"
-              name="organizationName"
-              value={formData.organizationName}
+              id="name"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
             />
-            {errors.organizationName && (
+            {errors.name && (
               <span className="text-red-500 text-sm">
-                {errors.organizationName}
+                {errors.name}
               </span>
             )}
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="contactEmail"
+              htmlFor="contact_email"
             >
               Contact Email
             </label>
             <input
               className={`w-full px-3 py-2 border ${
-                errors.contactEmail ? "border-red-500" : "border-gray-300"
+                errors.contact_email ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none focus:${
-                errors.contactEmail ? "border-red-500" : "border-indigo-500"
+                errors.contact_email ? "border-red-500" : "border-indigo-500"
               }`}
               type="email"
-              id="contactEmail"
-              name="contactEmail"
-              value={formData.contactEmail}
+              id="contact_email"
+              name="contact_email"
+              value={formData.contact_email}
               onChange={handleChange}
             />
-            {errors.contactEmail && (
+            {errors.contact_email && (
               <span className="text-red-500 text-sm">
-                {errors.contactEmail}
+                {errors.contact_email}
               </span>
             )}
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="contactPhone"
+              htmlFor="phone"
             >
               Contact Phone
             </label>
             <input
               className={`w-full px-3 py-2 border ${
-                errors.contactPhone ? "border-red-500" : "border-gray-300"
+                errors.phone ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none focus:${
-                errors.contactPhone ? "border-red-500" : "border-indigo-500"
+                errors.phone ? "border-red-500" : "border-indigo-500"
               }`}
               type="tel"
-              id="contactPhone"
-              name="contactPhone"
-              value={formData.contactPhone}
+              id="phone"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
             />
-            {errors.contactPhone && (
+            {errors.phone && (
               <span className="text-red-500 text-sm">
-                {errors.contactPhone}
+                {errors.phone}
               </span>
             )}
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="industryType"
+              htmlFor="industry"
             >
               Industry Type
             </label>
             <input
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
               type="text"
-              id="industryType"
-              name="industryType"
-              value={formData.industryType}
+              id="industry"
+              name="industry"
+              value={formData.industry}
               onChange={handleChange}
             />
           </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="primaryLocation"
+              htmlFor="address"
             >
-              Primary Location
+              Primary Address
             </label>
-            <input
+            <textarea
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
               type="text"
-              id="primaryLocation"
-              name="primaryLocation"
-              value={formData.primaryLocation}
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="description"
+            >
+              Description
+            </label>
+            <textarea
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+              type="text"
+              id="description"
+              name="description"
+              value={formData.description}
               onChange={handleChange}
             />
           </div>
           <button
-            className="w-full bg-[#66B5A3] text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-[#216c5a] transition duration-300"
+            className="flex justify-center w-full bg-[#66B5A3] text-white text-sm font-bold py-2 px-4 rounded-md hover:bg-[#216c5a] transition duration-300"
             type="submit"
+            disabled={loading}
           >
-            Register
+            {loading ? (
+               <LottieAnimation data={loader}/>
+            ) : ("Register")}
+
           </button>
         </form>
       </div>{" "}
     </div>
   );
 };
+const mapStoreToProps = (state) => {
+  console.log(state)
+  return {
+      loading: state.register.loading,
+      error: state?.register?.error
+  };
+};
 
-export default RegistrationForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    registerData: (registerState, history, setErrorHandler)=>{
+      dispatch(registerData(registerState, history, setErrorHandler))
+    },
+  };
+};
+export default connect(mapStoreToProps, mapDispatchToProps)(RegistrationForm);
