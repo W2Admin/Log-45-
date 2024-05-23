@@ -5,6 +5,8 @@ import { FiEdit, FiEye } from "react-icons/fi";
 import { RiDeleteBin6Line, RiDeleteBinLine } from "react-icons/ri";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import empty from "../images/Empty.json"
+import LottieAnimation from "../Lotties";
 
 const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
 const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
@@ -446,59 +448,72 @@ export function PatientTable({ data, functions, used }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
-          <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclasse}>{index + 1}</td>
-            <td className={tdclasse}>
-              <div className="flex gap-4 items-center">
-                {!used && (
-                  <span className="w-12">
-                    <img
-                      src={item.profile_image}
-                      alt={item.title}
-                      className="w-full h-12 rounded-full object-cover border border-border"
-                    />
-                  </span>
-                )}
-
-                <div>
-                  <h4 className="text-sm font-medium">{item.first_name} {item.last_name}</h4>
-                  <p className="text-xs mt-1 text-textGray">{item.phone}</p>
-                </div>
+        {(data?.length === 0)?(
+          <tr>
+            <td colSpan="5">
+              <div className="empty-animate">
+                    <LottieAnimation data={empty}/>
+                    <p>No Data Found</p>
               </div>
             </td>
-            <td className={tdclasse}>{item.date_of_birth}</td>
-
-            <td className={tdclasse}>
-              <span
-                className={`py-1 px-4 ${
-                  item.gender === "M"
-                    ? "bg-subMain text-subMain"
-                    : "bg-orange-500 text-orange-500"
-                } bg-opacity-10 text-xs rounded-xl`}
-              >
-                {item.gender}
-              </span>
-            </td>
-            {/* {!used && (
-              <>
-                <td className={tdclasse}>{item.email}</td>
-                <td className={tdclasse}>{item.address}</td>
-              </>
-            )} */}
-
-            <td className={tdclasse}>
-              <MenuSelect datas={DropDown1} item={item}>
-                <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                  <BiDotsHorizontalRounded />
-                </div>
-              </MenuSelect>
-            </td>
           </tr>
-        ))}
+        ):(
+          <>
+          {data.map((item, index) => (
+            <tr
+              key={item.id}
+              className="border-b border-border hover:bg-greyed transitions"
+            >
+              <td className={tdclasse}>{index + 1}</td>
+              <td className={tdclasse}>
+                <div className="flex gap-4 items-center">
+                  {!used && (
+                    <span className="w-12">
+                      <img
+                        src={item.profile_image}
+                        alt={item.title}
+                        className="w-full h-12 rounded-full object-cover border border-border"
+                      />
+                    </span>
+                  )}
+
+                  <div>
+                    <h4 className="text-sm font-medium">{item.first_name} {item.last_name}</h4>
+                    <p className="text-xs mt-1 text-textGray">{item.phone}</p>
+                  </div>
+                </div>
+              </td>
+              <td className={tdclasse}>{item.date_of_birth}</td>
+
+              <td className={tdclasse}>
+                <span
+                  className={`py-1 px-4 ${
+                    item.gender === "M"
+                      ? "bg-subMain text-subMain"
+                      : "bg-orange-500 text-orange-500"
+                  } bg-opacity-10 text-xs rounded-xl`}
+                >
+                  {item.gender}
+                </span>
+              </td>
+              {/* {!used && (
+                <>
+                  <td className={tdclasse}>{item.email}</td>
+                  <td className={tdclasse}>{item.address}</td>
+                </>
+              )} */}
+
+              <td className={tdclasse}>
+                <MenuSelect datas={DropDown1} item={item}>
+                  <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
+                    <BiDotsHorizontalRounded />
+                  </div>
+                </MenuSelect>
+              </td>
+            </tr>
+          ))}
+        </>
+      )}
       </tbody>
     </table>
   );
