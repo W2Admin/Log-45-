@@ -27,13 +27,13 @@ export function Transactiontable({ data, action, functions }) {
         functions.preview(data.id);
       },
     },
-    {
-      title: "Delete",
-      icon: RiDeleteBin6Line,
-      onClick: () => {
-        toast.error("This feature is not available yet");
-      },
-    },
+    // {
+    //   title: "Delete",
+    //   icon: RiDeleteBin6Line,
+    //   onClick: () => {
+    //     toast.error("This feature is not available yet");
+    //   },
+    // },
   ];
   return (
     <table className="table-auto w-full">
@@ -44,7 +44,7 @@ export function Transactiontable({ data, action, functions }) {
           <th className={thclass}>Date</th>
           <th className={thclass}>Status</th>
           <th className={thclass}>
-            Amout <span className="text-xs font-light">(Tsh)</span>
+            Amout <span className="text-xs font-light">(Naira)</span>
           </th>
           <th className={thclass}>Method</th>
           {action && <th className={thclass}>Actions</th>}
@@ -125,13 +125,13 @@ export function InvoiceTable({ data }) {
         navigate(`/invoices/preview/${item.id}`);
       },
     },
-    {
-      title: "Delete",
-      icon: RiDeleteBin6Line,
-      onClick: () => {
-        toast.error("This feature is not available yet");
-      },
-    },
+    // {
+    //   title: "Delete",
+    //   icon: RiDeleteBin6Line,
+    //   onClick: () => {
+    //     toast.error("This feature is not available yet");
+    //   },
+    // },
   ];
   return (
     <table className="table-auto w-full">
@@ -212,7 +212,7 @@ export function MedicineTable({ data, onEdit }) {
         <tr>
           <th className={thclass}>Name</th>
           <th className={thclass}>
-            Price <span className="text-xs font-light">(Tsh)</span>
+            Price <span className="text-xs font-light">(Naira)</span>
           </th>
           <th className={thclass}>Status</th>
           <th className={thclass}>InStock</th>
@@ -267,13 +267,13 @@ export function ServiceTable({ data, onEdit }) {
         onEdit(item);
       },
     },
-    {
-      title: "Delete",
-      icon: RiDeleteBin6Line,
-      onClick: () => {
-        toast.error("This feature is not available yet");
-      },
-    },
+    // {
+    //   title: "Delete",
+    //   icon: RiDeleteBin6Line,
+    //   onClick: () => {
+    //     toast.error("This feature is not available yet");
+    //   },
+    // },
   ];
   return (
     <table className="table-auto w-full">
@@ -323,12 +323,13 @@ export function ServiceTable({ data, onEdit }) {
 }
 // organisation table
 export function OrganisationTable({ data, onEdit }) {
+  const navigate = useNavigate();
   const DropDown1 = [
     {
       title: "Edit",
       icon: FiEdit,
       onClick: (item) => {
-        onEdit(item);
+        navigate(`/addorganisation${item.id}`);
       },
     },
     {
@@ -973,14 +974,14 @@ export function MedicineDosageTable({ data, functions, button }) {
           <th className={thclasse}>Item</th>
           <th className={thclasse}>
             Item Price
-            <span className="text-xs font-light ml-1">(Tsh)</span>
+            <span className="text-xs font-light ml-1">(Naira)</span>
           </th>
           <th className={thclasse}>Dosage</th>
           <th className={thclasse}>Instraction</th>
           <th className={thclasse}>Quantity</th>
           <th className={thclasse}>
             Amout
-            <span className="text-xs font-light ml-1">(Tsh)</span>
+            <span className="text-xs font-light ml-1">(Naira)</span>
           </th>
           {button && <th className={thclasse}>Actions</th>}
         </tr>

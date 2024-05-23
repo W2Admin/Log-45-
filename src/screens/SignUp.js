@@ -88,7 +88,7 @@ function SignUp() {
                 <div
                   className={`w-[85px] h-[2px] ${
                     formNo === i + 2 || formNo === formArray.length
-                      ? "bg-blue-500"
+                      ? "bg-[#66B5A3]"
                       : "bg-slate-400"
                   }`}
                 ></div>
@@ -268,7 +268,7 @@ function SignUp() {
               <input
                 value={state.adminname}
                 onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-[#66B5A3] rounded-md"
                 type="text"
                 name="adminname"
                 placeholder="Admin Name"
@@ -280,7 +280,7 @@ function SignUp() {
               <input
                 value={state.adminemail}
                 onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-[#66B5A3] rounded-md"
                 type="text"
                 name="adminemail"
                 placeholder="Admin Email"
@@ -292,7 +292,7 @@ function SignUp() {
               <input
                 value={state.password}
                 onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-[#66B5A3] rounded-md"
                 type="password"
                 name="password"
                 placeholder="Password"

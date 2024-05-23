@@ -10,7 +10,7 @@ function Access({ setAccess }) {
     delete: false,
     edit: false,
   });
-  const [appointmentAccess, setAppointmentAccess] = useState({
+  const [laboratoryAccess, setLaboratoryAccess] = useState({
     read: false,
     create: false,
     delete: false,
@@ -35,8 +35,8 @@ function Access({ setAccess }) {
   };
   // on change appointment
   const onChangeAppointment = (e) => {
-    setAppointmentAccess({
-      ...appointmentAccess,
+    setLaboratoryAccess({
+      ...laboratoryAccess,
       [e.target.name]: e.target.checked,
     });
   };
@@ -60,8 +60,8 @@ function Access({ setAccess }) {
     },
     {
       id: 2,
-      name: "Appointment",
-      access: appointmentAccess,
+      name: "Laboratory",
+      access: laboratoryAccess,
       onChange: onChangeAppointment,
     },
     {
@@ -82,13 +82,13 @@ function Access({ setAccess }) {
   useEffect(() => {
     setAccess({
       patientAccess,
-      appointmentAccess,
+      laboratoryAccess,
       invoicesAccess,
       paymentsAccess,
     });
   }, [
     patientAccess,
-    appointmentAccess,
+    laboratoryAccess,
     invoicesAccess,
     paymentsAccess,
     setAccess,

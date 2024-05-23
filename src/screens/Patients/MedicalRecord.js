@@ -81,14 +81,14 @@ function MedicalRecord() {
               >
                 <FiEye />
               </button>
-              <button
-                onClick={() => {
-                  toast.error("This feature is not available yet");
-                }}
-                className="text-sm flex-colo bg-white text-red-600 border border-border rounded-md w-2/4 md:w-10 h-10"
-              >
-                <RiDeleteBin6Line />
-              </button>
+              {/* <button
+                  onClick={() => {
+                    toast.error("This feature is not available yet");
+                  }}
+                  className="text-sm flex-colo bg-white text-red-600 border border-border rounded-md w-2/4 md:w-10 h-10"
+                >
+                  <RiDeleteBin6Line />
+                </button> */}
             </div>
           </div>
         ))}
