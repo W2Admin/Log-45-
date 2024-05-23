@@ -11,6 +11,7 @@ import { PatientTable } from "../../components/Tables";
 import { fetchpatient } from "../../Redux/Patients/PatientAction";
 import { connect } from "react-redux";
 import Loading2 from "../../images/loading2.json"
+import empty from "../../images/Empty.json"
 import LottieAnimation from "../../Lotties";
 
 function Patients({patient, fetchpatient, loading}) {
@@ -155,13 +156,20 @@ function Patients({patient, fetchpatient, loading}) {
                   />
                 </div>
                 <div className="mt-8 w-full overflow-x-scroll">
-                  <PatientTable
-                    data={patient}
-                    functions={{
-                      preview: previewPayment,
-                    }}
-                    used={false}
-                  />
+                  {/* {(patient?.length === 0)?(
+                      <div className="empty-animate">
+                            <LottieAnimation data={empty}/>
+                            <p>No Data Found</p>
+                      </div>
+                  ):( */}
+                      <PatientTable
+                        data={patient}
+                        functions={{
+                          preview: previewPayment,
+                        }}
+                        used={false}
+                      />
+                  {/* )} */}
                 </div>
               </div>
             </>
