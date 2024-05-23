@@ -43,6 +43,7 @@ function NewMedicalRecord() {
     investigationRequest: "",
     symptomsDescription: "",
     additionalInfo: "",
+    doctorscomment: "",
   });
 
   const handleInputChange = (e) => {
@@ -277,6 +278,22 @@ function NewMedicalRecord() {
                   name="additionalInfo"
                   id="additionalInfo"
                   value={formData.additionalInfo}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full mt-3 px-3">
+                <label
+                  htmlFor="additionalInfo"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Doctor's Comment
+                </label>
+                <input
+                  type="text"
+                  name="doctorscomment"
+                  id="doctorscomment"
+                  value={formData.doctorscomment}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />

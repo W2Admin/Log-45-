@@ -61,11 +61,11 @@ export const MenuDatas = [
   //   path: "/appointments",
   //   icon: FaRegCalendarAlt,
   // },
-  // {
-  //   title: "Payments",
-  //   path: "/payments",
-  //   icon: MdListAlt,
-  // },
+  {
+    title: "Payments",
+    path: "/payments",
+    icon: MdListAlt,
+  },
   {
     title: "Invoices",
     path: "/invoices",

@@ -1,157 +1,158 @@
 import React, { useState } from "react";
-import Layout from "../../Layout";
-import { invoicesData } from "../../../src/components/Datas";
+import { useParams, Link } from "react-router-dom";
+import { invoicesData } from "../../components/Datas";
 import { toast } from "react-hot-toast";
-import { Link, useParams } from "react-router-dom";
 import { IoArrowBackOutline } from "react-icons/io5";
-import { FiEdit } from "react-icons/fi";
 import { MdOutlineCloudDownload } from "react-icons/md";
 import { AiOutlinePrinter } from "react-icons/ai";
-import PaymentModal from "../../components/Modals/PaymentModal";
 import { RiShareBoxLine } from "react-icons/ri";
+import PaymentModal from "../../components/Modals/PaymentModal";
 import ShareModal from "../../components/Modals/ShareModal";
 import SenderReceverComp from "../../components/SenderReceverComp";
-import { invoiceProductsTable } from "../../components/Tables";
+import { ResultsTable } from "../../components/Tables";
 
 function LabResult() {
   const { id } = useParams();
-  const [isOpen, setIsoOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
 
   const buttonClass =
-    "bg-subMain flex-rows gap-3 bg-opacity-5 text-subMain rounded-lg border border-subMain border-dashed px-4 py-3 text-sm";
+    "bg-blue-500 text-white flex items-center gap-3 rounded-lg px-4 py-2 text-sm";
 
   const results = invoicesData.find((invoice) => invoice.id.toString() === id);
 
-  if (!results) {
-    return (
-      <>
-        {" "}
-        {isOpen && (
-          <PaymentModal
-            isOpen={isOpen}
-            closeModal={() => {
-              setIsoOpen(false);
-            }}
-          />
-        )}
-        {isShareOpen && (
-          <ShareModal
-            isOpen={isShareOpen}
-            closeModal={() => {
-              setIsShareOpen(false);
-            }}
-          />
-        )}
-        <div className="flex-btn flex-wrap gap-4">
-          <div className="flex flex-wrap items-center gap-4">
-            {/* button */}
+  return (
+    <div className="container mx-auto my-8 p-8 bg-white rounded-xl shadow-md border border-gray-200">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-semibold">Lab Result Details</h1>
+        <Link to="/lab-results" className="text-blue-500 flex items-center">
+          <IoArrowBackOutline className="mr-2" /> Go Back
+        </Link>
+      </div>
 
-            <button
-              onClick={() => {
-                toast.error("This feature is not available yet");
-              }}
-              className={buttonClass}
-            >
-              Download <MdOutlineCloudDownload />
-            </button>
-            <button
-              onClick={() => {
-                toast.error("This feature is not available yet");
-              }}
-              className={buttonClass}
-            >
-              Print <AiOutlinePrinter />
-            </button>
-            {/* <Link to={`/invoices/edit/` + results?.id} className={buttonClass}>
-              Edit <FiEdit />
-            </Link> */}
-            {/* <button
-              onClick={() => {
-                setIsoOpen(true);
-              }}
-              className="bg-subMain text-white rounded-lg px-6 py-3 text-sm"
-            >
-              Generate To Payment
-            </button> */}
-          </div>
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex gap-4">
+          <button
+            onClick={() => toast.error("This feature is not available yet")}
+            className={buttonClass}
+          >
+            Download <MdOutlineCloudDownload />
+          </button>
+          <button
+            onClick={() => toast.error("This feature is not available yet")}
+            className={buttonClass}
+          >
+            Print <AiOutlinePrinter />
+          </button>
+          <button onClick={() => setIsShareOpen(true)} className={buttonClass}>
+            Share <RiShareBoxLine />
+          </button>
         </div>
-        <div
-          data-aos="fade-up"
-          data-aos-duration="1000"
-          data-aos-delay="100"
-          data-aos-offset="200"
-          className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-green-500 text-white rounded-lg px-6 py-3 text-sm"
         >
-          {/* header */}
-          <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-2 items-center">
-            <div className="lg:col-span-3">
-              <img
-                src="/images/logo.png"
-                alt="logo"
-                className=" w-32 object-contain"
-              />
-            </div>
-            {/* <div className="flex flex-col gap-4 sm:items-end">
-              <h6 className="text-xs font-medium">#{invoice.id}</h6>
+          Generate Payment
+        </button>
+      </div>
 
-              <div className="flex gap-4">
-                <p className="text-sm font-extralight">Date:</p>
-                <h6 className="text-xs font-medium">{invoice?.createdDate}</h6>
+      <div className="mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div>
+            <img
+              src="/images/logo.png"
+              alt="logo"
+              className="w-32 object-contain mb-4"
+            />
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h2 className="text-lg font-semibold mb-4">
+                Patient Information
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {results.to && (
+                  <>
+                    <div>
+                      <p className="text-sm font-medium">Name</p>
+                      <p className="text-sm text-gray-700">{results.to.name}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">Animal Type</p>
+                      <p className="text-sm text-gray-700">
+                        {results.to.animalType}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">Species</p>
+                      <p className="text-sm text-gray-700">
+                        {results.to.species}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">Examination Request</p>
+                      <p className="text-sm text-gray-700">
+                        {results.to.examinationRequest}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
-              <div className="flex gap-4">
-                <p className="text-sm font-extralight">Due Date:</p>
-                <h6 className="text-xs font-medium">{invoice?.dueDate}</h6>
-              </div>
-            </div>{" "} */}
-            {/* </div> */}
-            {/* sender and recever */}
-            {/* <SenderReceverComp item={results.to} functions={{}} button={false} /> */}
-            {/* products */}
-            {/* <div className="grid grid-cols-6 gap-6 mt-8">
-            <div className="lg:col-span-4 col-span-6 p-6 border border-border rounded-xl overflow-hidden">
-              <invoiceProductsTable
-                data={results.items}
-                functions={{}}
-                button={false}
-              />
             </div>
-            <div className="col-span-6 lg:col-span-2 flex flex-col gap-6"> */}
-            {/* <div className="flex-btn gap-4">
-                <p className="text-sm font-extralight">Currency:</p>
-                <h6 className="text-sm font-medium">USD ($)</h6>
-              </div>
-              <div className="flex-btn gap-4">
-                <p className="text-sm font-extralight">Sub Total:</p>
-                <h6 className="text-sm font-medium">$459</h6>
-              </div>
-              <div className="flex-btn gap-4">
-                <p className="text-sm font-extralight">Discount:</p>
-                <h6 className="text-sm font-medium">$49</h6>
-              </div>
-              <div className="flex-btn gap-4">
-                <p className="text-sm font-extralight">Tax:</p>
-                <h6 className="text-sm font-medium">$4.90</h6>
-              </div>
-              <div className="flex-btn gap-4">
-                <p className="text-sm font-extralight">Grand Total:</p>
-                <h6 className="text-sm font-medium text-green-600">$6000</h6>
-              </div> */}
-            {/* notes */}
-            {/* <div className="w-full p-4 border border-border rounded-lg">
-                <h1 className="text-sm font-medium">Notes</h1>
-                <p className="text-xs mt-2 font-light leading-5">
-                  Thank you for your business. We hope to work with you again
-                  soon. You can pay your invoice online at
-                  www.example.com/payments
-                </p>
-              </div> */}
-            {/* </div> */}
+          </div>
+          <div className="lg:col-span-2">
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h2 className="text-lg font-semibold mb-4">Results</h2>
+              <ResultsTable data={results.items} />
+            </div>
           </div>
         </div>
-      </>
-    );
-  }
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div className="lg:col-span-2">
+          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h2 className="text-lg font-semibold mb-4">Notes</h2>
+            <p className="text-sm text-gray-700">
+              Thank you for your business. We hope to work with you again soon.
+              You can pay your invoice online at www.example.com/payments.
+            </p>
+          </div>
+        </div>
+        <div>
+          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h2 className="text-lg font-semibold mb-4">Summary</h2>
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-sm text-gray-700">Sub Total:</p>
+              <p className="text-sm font-medium">${results.subTotal}</p>
+            </div>
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-sm text-gray-700">Discount:</p>
+              <p className="text-sm font-medium">${results.discount}</p>
+            </div>
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-sm text-gray-700">Tax:</p>
+              <p className="text-sm font-medium">${results.tax}</p>
+            </div>
+            <div className="flex justify-between items-center mb-2">
+              <p className="text-sm text-gray-700">Grand Total:</p>
+              <p className="text-sm font-medium text-green-600">
+                ${results.total}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {isOpen && (
+        <PaymentModal isOpen={isOpen} closeModal={() => setIsOpen(false)} />
+      )}
+      {isShareOpen && (
+        <ShareModal
+          isOpen={isShareOpen}
+          closeModal={() => setIsShareOpen(false)}
+        />
+      )}
+    </div>
+  );
 }
 
 export default LabResult;
