@@ -32,6 +32,7 @@ import Organisation from "./screens/Organisation";
 import Laboratory from "./screens/Laboratory/Lab";
 import LabTech from "./screens/Laboratory/LabTech";
 import LabResult from "./screens/Laboratory/LabResult";
+import AddEditOrgainisationModal from "./components/Modals/AddEditOrganisationModal";
 
 const App = () => {
   Aos.init();
@@ -75,6 +76,10 @@ const App = () => {
           <Route
             path="/orgRegistrationForm"
             element={<OrgRegistrationForm />}
+          />
+          <Route
+            path="/addorganisation"
+            element={<AddEditOrgainisationModal />}
           />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/campaigns" element={<Campaings />} />
