@@ -458,7 +458,7 @@ export function PatientTable({ data, functions, used }) {
                 {!used && (
                   <span className="w-12">
                     <img
-                      src={item.image}
+                      src={item.profile_image}
                       alt={item.title}
                       className="w-full h-12 rounded-full object-cover border border-border"
                     />
@@ -466,17 +466,17 @@ export function PatientTable({ data, functions, used }) {
                 )}
 
                 <div>
-                  <h4 className="text-sm font-medium">{item.title}</h4>
+                  <h4 className="text-sm font-medium">{item.first_name} {item.last_name}</h4>
                   <p className="text-xs mt-1 text-textGray">{item.phone}</p>
                 </div>
               </div>
             </td>
-            <td className={tdclasse}>{item.date}</td>
+            <td className={tdclasse}>{item.date_of_birth}</td>
 
             <td className={tdclasse}>
               <span
                 className={`py-1 px-4 ${
-                  item.gender === "Male"
+                  item.gender === "M"
                     ? "bg-subMain text-subMain"
                     : "bg-orange-500 text-orange-500"
                 } bg-opacity-10 text-xs rounded-xl`}
@@ -486,8 +486,8 @@ export function PatientTable({ data, functions, used }) {
             </td>
             {/* {!used && (
               <>
-                <td className={tdclasse}>{item.blood}</td>
-                <td className={tdclasse}>{item.age}</td>
+                <td className={tdclasse}>{item.email}</td>
+                <td className={tdclasse}>{item.address}</td>
               </>
             )} */}
 

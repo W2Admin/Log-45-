@@ -1,5 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
+import store from "./Redux/Store";
 import { BrowserRouter, Route, Routes, Switch } from "react-router-dom";
 import Aos from "aos";
 import LandingPagePG from "./screens/InfoLandingPg";
@@ -32,6 +33,7 @@ import Organisation from "./screens/Organisation";
 import Laboratory from "./screens/Laboratory/Lab";
 import LabTech from "./screens/Laboratory/LabTech";
 import LabResult from "./screens/Laboratory/LabResult";
+import { Provider } from "react-redux";
 import AddEditOrgainisationModal from "./components/Modals/AddEditOrganisationModal";
 
 const App = () => {
@@ -42,7 +44,9 @@ const App = () => {
       {/* Toaster */}
       <Toast />
       {/* Routes */}
+
       <BrowserRouter>
+        {/* <Provider store={store} > */}
         <Routes>
           <Route path="/" element={<LandingPagePG />} />
 
