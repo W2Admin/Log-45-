@@ -46,7 +46,7 @@ const App = () => {
       {/* Routes */}
 
       <BrowserRouter>
-        {/* <Provider store={store} > */}
+        <Provider store={store} >
         <Routes>
           <Route path="/" element={<LandingPagePG />} />
 
@@ -92,6 +92,7 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Provider>
       </BrowserRouter>
     </>
   );

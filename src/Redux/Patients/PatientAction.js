@@ -123,7 +123,7 @@ export const postpatient = (postdata, history, errors) => {
             "Content-Type": "application/json",
             authorization: `JWT ${datas?.token?.access}`,
         };
-        axios.post(`${baseUrl}/profile/business-partner`, postdata, { headers: headers })
+        axios.post(`${baseUrl}/patients/`, postdata, { headers: headers })
             .then( response => {
                 const data = response.data
                 dispatch(createpatientSuccess(data))

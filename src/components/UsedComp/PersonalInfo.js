@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { sortsDatas } from "../Datas";
+import { connect } from "react-redux";
+import { postpatient } from "../../Redux/Patients/PatientAction";
+import { BiLoaderCircle } from "react-icons/bi";
 
-function PersonalInformation({ titles }) {
+function PersonalInformation({error, loading, postpatient}) {
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
-    dateOfBirth: "",
+    date_of_birth: "",
     email: "",
     phoneNumber: "",
     gender: "",
@@ -13,7 +17,7 @@ function PersonalInformation({ titles }) {
   });
 
   const [errors, setErrors] = useState({});
-
+  const [showerror, setShowError] = useState(false)
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -30,8 +34,8 @@ function PersonalInformation({ titles }) {
     if (!formData.lName.trim()) {
       formErrors.lName = "Last name is required";
     }
-    if (!formData.dateOfBirth) {
-      formErrors.dateOfBirth = "Date of birth is required";
+    if (!formData.date_of_birth) {
+      formErrors.date_of_birth = "Date of birth is required";
     }
     if (!formData.email.trim()) {
       formErrors.email = "Email address is required";
@@ -49,28 +53,39 @@ function PersonalInformation({ titles }) {
     return Object.keys(formErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log("Form submitted:", formData);
+    try{
+        if (validateForm()) {
+          await postpatient(formData,()=>{
+            setFormData({
+              fName: "",
+              lName: "",
+              dateOfBirth: "",
+              email: "",
+              phoneNumber: "",
+              gender: "",
+              address: "",
+            });
+            toast.success("Customer Added Successfully");
+          }, ()=>{
+            setShowError(true)
+          })
+        } else {
+          console.log("Form validation failed");
+      }
+    }catch(error){
 
-      setFormData({
-        fName: "",
-        lName: "",
-        dateOfBirth: "",
-        email: "",
-        phoneNumber: "",
-        gender: "",
-        address: "",
-      });
-      setErrors({});
-    } else {
-      console.log("Form validation failed");
-    }
-  };
-
+    } 
+  }
   return (
     <form onSubmit={handleSubmit} className="mx-auto w-full">
+      {showerror && (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+      )}
+      <ToastContainer/>
       <div className="-mx-3 flex flex-wrap">
         <div className="w-full px-3 sm:w-1/2">
           <div className="mb-5">
@@ -119,23 +134,23 @@ function PersonalInformation({ titles }) {
         <div className="w-full px-3 sm:w-1/2">
           <div className="mb-5">
             <label
-              htmlFor="dateOfBirth"
+              htmlFor="date_of_birth"
               className="mb-3 block text-sm font-medium text-[#07074D]"
             >
               Date of Birth
             </label>
             <input
-              type="text"
-              name="dateOfBirth"
-              id="dateOfBirth"
-              value={formData.dateOfBirth}
+              type="date"
+              name="date_of_birth"
+              id="date_of_birth     "
+              value={formData.date_of_birth}
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
-                errors.dateOfBirth ? "border-red-500" : "border-[#e0e0e0]"
+                errors.date_of_birth ? "border-red-500" : "border-[#e0e0e0]"
               } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
-            {errors.dateOfBirth && (
-              <p className="text-red-500">{errors.dateOfBirth}</p>
+            {errors.date_of_birth && (
+              <p className="text-red-500">{errors.date_of_birth}</p>
             )}
           </div>
         </div>
@@ -234,16 +249,37 @@ function PersonalInformation({ titles }) {
       </div>
       <div>
         <div className="flex justify-center">
-          <button className="hover:shadow-form rounded-md bg-[#66B5A3] py-3 px-8 text-center text-sm font-semibold text-white outline-none">
-            Submit
-          </button>
+            <button disabled={loading} onClick={handleSubmit} className="hover:shadow-form rounded-md bg-[#66B5A3] py-3 px-8 text-center text-sm font-semibold text-white outline-none">
+                {loading ? (
+                    <BiLoaderCircle className="animate-spin text-white text-2xl" />
+                ) : (
+                    "Submit"
+                )
+                }
+            </button>
         </div>
       </div>
     </form>
   );
 }
 
-export default PersonalInformation;
+
+const mapStateToProps = state => {
+  return{
+      errors:state?.createpatient?.error,
+      loading: state?.createpatient?.loading,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+      postpatient: (loginState, history, setErrorHandler) => {
+          dispatch(postpatient(loginState, history, setErrorHandler));
+      },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalInformation);
 
 // const OtherInformation = () => {
 //   return (
