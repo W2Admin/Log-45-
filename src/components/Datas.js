@@ -1149,7 +1149,7 @@ export const transactionData = [
 export const dashboardCards = [
   {
     id: 1,
-    title: "Total Patients",
+    title: "Total Customers",
     icon: TbUsers,
     value: 1600,
     percent: 45.06,
@@ -1158,7 +1158,7 @@ export const dashboardCards = [
   },
   {
     id: 2,
-    title: "Appointments",
+    title: "Patients",
     icon: TbCalendar,
     value: 130,
     percent: 25.06,
@@ -1167,7 +1167,7 @@ export const dashboardCards = [
   },
   {
     id: 3,
-    title: "Prescriptions",
+    title: "Investigations",
     icon: TbFile,
     value: 4160,
     percent: 65.06,

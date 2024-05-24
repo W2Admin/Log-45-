@@ -38,13 +38,107 @@ export function Transactiontable({ data, action, functions }) {
       <thead className="bg-dry rounded-md overflow-hidden">
         <tr>
           <th className={thclass}>#</th>
-          <th className={thclass}>Patient</th>
+          <th className={thclass}>Customers</th>
           <th className={thclass}>Date</th>
           <th className={thclass}>Status</th>
           <th className={thclass}>
             Amout <span className="text-xs font-light">(Naira)</span>
           </th>
           <th className={thclass}>Method</th>
+          {action && <th className={thclass}>Actions</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((item, index) => (
+          <tr
+            key={item.id}
+            className="border-b border-border hover:bg-greyed transitions"
+          >
+            <td className={tdclass}>{index + 1}</td>
+            <td className={tdclass}>
+              <div className="flex gap-4 items-center">
+                <span className="w-12">
+                  <img
+                    src={item.user.image}
+                    alt={item.user.title}
+                    className="w-full h-12 rounded-full object-cover border border-border"
+                  />
+                </span>
+
+                <div>
+                  <h4 className="text-sm font-medium">{item.user.title}</h4>
+                  <p className="text-xs mt-1 text-textGray">
+                    {item.user.phone}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td className={tdclass}>{item.date}</td>
+            <td className={tdclass}>
+              <span
+                className={`py-1 px-4 ${
+                  item.status === "Paid"
+                    ? "bg-subMain text-subMain"
+                    : item.status === "Pending"
+                    ? "bg-orange-500 text-orange-500"
+                    : item.status === "Cancel" && "bg-red-600 text-red-600"
+                } bg-opacity-10 text-xs rounded-xl`}
+              >
+                {item.status}
+              </span>
+            </td>
+            <td className={`${tdclass} font-semibold`}>{item.amount}</td>
+            <td className={tdclass}>{item.method}</td>
+            {action && (
+              <td className={tdclass}>
+                <MenuSelect datas={DropDown1} item={item}>
+                  <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
+                    <BiDotsHorizontalRounded />
+                  </div>
+                </MenuSelect>
+              </td>
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+export function Laboratorytable({ data, action, functions }) {
+  const DropDown1 = [
+    {
+      // title: "Edit",
+      // icon: FiEdit,
+      // onClick: (data) => {
+      //   functions.edit(data.id);
+      // },
+    },
+    {
+      title: "View",
+      icon: FiEye,
+      onClick: (data) => {
+        functions.preview(data.id);
+      },
+    },
+    // {
+    //   title: "Delete",
+    //   icon: RiDeleteBin6Line,
+    //   onClick: () => {
+    //     toast.error("This feature is not available yet");
+    //   },
+    // },
+  ];
+  return (
+    <table className="table-auto w-full">
+      <thead className="bg-dry rounded-md overflow-hidden">
+        <tr>
+          <th className={thclass}>#</th>
+          <th className={thclass}>Patient</th>
+          <th className={thclass}>Animal Type</th>
+          <th className={thclass}>Species</th>
+          <th className={thclass}>Examination Request</th>
+          <th className={thclass}>Investigation Type</th>
+          <th className={thclass}>Status</th>
           {action && <th className={thclass}>Actions</th>}
         </tr>
       </thead>
@@ -466,7 +560,9 @@ export function PatientTable({ data, functions, used }) {
                 )}
 
                 <div>
-                  <h4 className="text-sm font-medium">{item.first_name} {item.last_name}</h4>
+                  <h4 className="text-sm font-medium">
+                    {item.first_name} {item.last_name}
+                  </h4>
                   <p className="text-xs mt-1 text-textGray">{item.phone}</p>
                 </div>
               </div>
