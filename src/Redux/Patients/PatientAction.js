@@ -79,7 +79,7 @@ export const fetchpatient = () => {
             authorization: `JWT ${datas?.token?.access}`,
         };
         // let datas = JSON.parse(localStorage.getItem("auth"))
-        axios.get(`${baseUrl}/patients/`, { headers: headers })
+        axios.get(`${baseUrl}/customers/`, { headers: headers })
             .then( response => {
                 const data = response.data
                 dispatch(patientSuccess(data))
@@ -100,7 +100,7 @@ export const singlefetchpatient = (id) => {
             "Content-Type": "application/json",
             authorization: `JWT ${datas?.token?.access}`,
         };
-        axios.get(`${baseUrl}/patients/${id}`, { headers: headers })
+        axios.get(`${baseUrl}/customers/${id}`, { headers: headers })
             .then( response => {
                 const data = response.data
                 dispatch(singlepatientSuccess(data))
@@ -123,7 +123,7 @@ export const postpatient = (postdata, history, errors) => {
             "Content-Type": "application/json",
             authorization: `JWT ${datas?.token?.access}`,
         };
-        axios.post(`${baseUrl}/patients/`, postdata, { headers: headers })
+        axios.post(`${baseUrl}/customers/`, postdata, { headers: headers })
             .then( response => {
                 const data = response.data
                 dispatch(createpatientSuccess(data))

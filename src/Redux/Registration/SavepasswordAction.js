@@ -20,7 +20,6 @@ export const passwordFaliure = (error) => {
     payload: error,
   };
 };
-const baseUrl = "https://fe-sandbox-quick-pay.onrender.com/api/v1"
 export const passwordData = (passwordState, history, setErrorHandler) => {
     return async (dispatch) => {
         dispatch(passwordRequest())
