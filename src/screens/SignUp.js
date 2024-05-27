@@ -191,7 +191,7 @@ function SignUp() {
 
         {formNo === 2 && (
           <div>
-            <div className="flex flex-col mb-2">
+            {/* <div className="flex flex-col mb-2">
               <label htmlFor="organisationname">Organisation Name</label>
               <input
                 value={state.organisationname}
@@ -201,7 +201,7 @@ function SignUp() {
                 name="organisationname"
                 id="organisationname"
               />
-            </div>
+            </div> */}
             <div className="flex flex-col mb-2">
               <label htmlFor="organisationemail">Organisation Email</label>
               <input
@@ -261,7 +261,7 @@ function SignUp() {
 
         {formNo === 3 && (
           <div>
-            <div className="flex flex-col mb-2">
+            {/* <div className="flex flex-col mb-2">
               <label htmlFor="adminname">
                 Organisation Administration Name
               </label>
@@ -286,9 +286,21 @@ function SignUp() {
                 placeholder="Admin Email"
                 id="adminemail"
               />
-            </div>
+            </div> */}
             <div className="flex flex-col mb-2">
               <label htmlFor="password">Create Password</label>
+              <input
+                value={state.password}
+                onChange={inputHandle}
+                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-[#66B5A3] rounded-md"
+                type="password"
+                name="password"
+                placeholder="Password"
+                id="password"
+              />
+            </div>
+            <div className="flex flex-col mb-2">
+              <label htmlFor="password">Password</label>
               <input
                 value={state.password}
                 onChange={inputHandle}
