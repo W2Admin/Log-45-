@@ -237,6 +237,7 @@ const RegistrationForm = ({registerData, loading, error}) => {
     </div>
   );
 };
+
 const mapStoreToProps = (state) => {
   console.log(state)
   return {
