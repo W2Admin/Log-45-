@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { postpatient } from "../../Redux/Patients/PatientAction";
 import { BiLoaderCircle } from "react-icons/bi";
 
-function PersonalInformation({error, loading, postpatient}) {
+function PersonalInformation({ error, loading, postpatient }) {
   const [formData, setFormData] = useState({
     fName: "",
     lName: "",
@@ -17,7 +17,7 @@ function PersonalInformation({error, loading, postpatient}) {
   });
 
   const [errors, setErrors] = useState({});
-  const [showerror, setShowError] = useState(false)
+  const [showerror, setShowError] = useState(false);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -55,9 +55,11 @@ function PersonalInformation({error, loading, postpatient}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-        if (validateForm()) {
-          await postpatient(formData,()=>{
+    try {
+      if (validateForm()) {
+        await postpatient(
+          formData,
+          () => {
             setFormData({
               fName: "",
               lName: "",
@@ -68,30 +70,30 @@ function PersonalInformation({error, loading, postpatient}) {
               address: "",
             });
             toast.success("Customer Added Successfully");
-          }, ()=>{
-            setShowError(true)
-          })
-        } else {
-          console.log("Form validation failed");
+          },
+          () => {
+            setShowError(true);
+          }
+        );
+      } else {
+        console.log("Form validation failed");
       }
-    }catch(error){
-
-    } 
-  }
+    } catch (error) {}
+  };
   return (
     <form onSubmit={handleSubmit} className="mx-auto w-full">
       {showerror && (
-          <div className="error-message">
-            <p>{error}</p>
-          </div>
+        <div className="error-message">
+          <p>{error}</p>
+        </div>
       )}
-      <ToastContainer/>
+      <ToastContainer />
       <div className="-mx-3 flex flex-wrap">
         <div className="w-full px-3 sm:w-1/2">
           <div className="mb-5">
             <label
               htmlFor="fName"
-              className="mb-3 block font-medium text-sm text-[#07074D]"
+              className="mb-3 block text-sm text-[#07074D]"
             >
               First Name
             </label>
@@ -103,7 +105,7 @@ function PersonalInformation({error, loading, postpatient}) {
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
                 errors.fName ? "border-red-500" : "border-[#e0e0e0]"
-              } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+              } bg-white py-3 px-6 text-sm text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
             {errors.fName && <p className="text-red-500">{errors.fName}</p>}
           </div>
@@ -112,7 +114,7 @@ function PersonalInformation({error, loading, postpatient}) {
           <div className="mb-5">
             <label
               htmlFor="lName"
-              className="mb-3 block text-sm font-medium text-[#07074D]"
+              className="mb-3 block text-sm text-[#07074D]"
             >
               Last Name
             </label>
@@ -124,7 +126,7 @@ function PersonalInformation({error, loading, postpatient}) {
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
                 errors.lName ? "border-red-500" : "border-[#e0e0e0]"
-              } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+              } bg-white py-3 px-6 text-sm text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
             {errors.lName && <p className="text-red-500">{errors.lName}</p>}
           </div>
@@ -135,7 +137,7 @@ function PersonalInformation({error, loading, postpatient}) {
           <div className="mb-5">
             <label
               htmlFor="date_of_birth"
-              className="mb-3 block text-sm font-medium text-[#07074D]"
+              className="mb-3 block text-sm text-[#07074D]"
             >
               Date of Birth
             </label>
@@ -147,7 +149,7 @@ function PersonalInformation({error, loading, postpatient}) {
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
                 errors.date_of_birth ? "border-red-500" : "border-[#e0e0e0]"
-              } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+              } bg-white py-3 px-6 text-sm text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
             {errors.date_of_birth && (
               <p className="text-red-500">{errors.date_of_birth}</p>
@@ -158,7 +160,7 @@ function PersonalInformation({error, loading, postpatient}) {
           <div className="mb-5">
             <label
               htmlFor="email"
-              className="mb-3 block text-sm font-medium text-[#07074D]"
+              className="mb-3 block text-sm text-[#07074D]"
             >
               Email Address
             </label>
@@ -170,7 +172,7 @@ function PersonalInformation({error, loading, postpatient}) {
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
                 errors.email ? "border-red-500" : "border-[#e0e0e0]"
-              } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+              } bg-white py-3 px-6 text-sm text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
             {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
@@ -181,7 +183,7 @@ function PersonalInformation({error, loading, postpatient}) {
           <div className="mb-5">
             <label
               htmlFor="phoneNumber"
-              className="mb-3 block text-sm font-medium text-[#07074D]"
+              className="mb-3 block text-sm text-[#07074D]"
             >
               Phone Number
             </label>
@@ -193,7 +195,7 @@ function PersonalInformation({error, loading, postpatient}) {
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
                 errors.phoneNumber ? "border-red-500" : "border-[#e0e0e0]"
-              } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+              } bg-white py-3 px-6 text-sm text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
             {errors.phoneNumber && (
               <p className="text-red-500">{errors.phoneNumber}</p>
@@ -204,7 +206,7 @@ function PersonalInformation({error, loading, postpatient}) {
           <div className="mb-5">
             <label
               htmlFor="gender"
-              className="mb-3 block text-sm font-medium text-[#07074D]"
+              className="mb-3 block text-sm text-[#07074D]"
             >
               Gender
             </label>
@@ -215,7 +217,7 @@ function PersonalInformation({error, loading, postpatient}) {
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
                 errors.gender ? "border-red-500" : "border-[#e0e0e0]"
-              } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+              } bg-white py-3 px-6 text-sm text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             >
               <option value="">Select gender</option>
               {sortsDatas.genderFilter.map((genderOption) => (
@@ -229,10 +231,7 @@ function PersonalInformation({error, loading, postpatient}) {
         </div>
       </div>
       <div className="mb-5">
-        <label
-          htmlFor="address"
-          className="mb-3 block font-medium text-sm text-[#07074D]"
-        >
+        <label htmlFor="address" className="mb-3 block text-sm text-[#07074D]">
           Address
         </label>
         <input
@@ -249,37 +248,42 @@ function PersonalInformation({error, loading, postpatient}) {
       </div>
       <div>
         <div className="flex justify-center">
-            <button disabled={loading} onClick={handleSubmit} className="hover:shadow-form rounded-md bg-[#66B5A3] py-3 px-8 text-center text-sm font-semibold text-white outline-none">
-                {loading ? (
-                    <BiLoaderCircle className="animate-spin text-white text-2xl" />
-                ) : (
-                    "Submit"
-                )
-                }
-            </button>
+          <button
+            disabled={loading}
+            onClick={handleSubmit}
+            className="hover:shadow-form rounded-md bg-[#66B5A3] py-3 px-8 text-center text-sm font-semibold text-white outline-none"
+          >
+            {loading ? (
+              <BiLoaderCircle className="animate-spin text-white text-2xl" />
+            ) : (
+              "Submit"
+            )}
+          </button>
         </div>
       </div>
     </form>
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    errors: state?.createpatient?.error,
+    loading: state?.createpatient?.loading,
+  };
+};
 
-const mapStateToProps = state => {
-  return{
-      errors:state?.createpatient?.error,
-      loading: state?.createpatient?.loading,
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postpatient: (loginState, history, setErrorHandler) => {
+      dispatch(postpatient(loginState, history, setErrorHandler));
+    },
+  };
+};
 
-const mapDispatchToProps = dispatch => {
-  return{
-      postpatient: (loginState, history, setErrorHandler) => {
-          dispatch(postpatient(loginState, history, setErrorHandler));
-      },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PersonalInformation);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PersonalInformation);
 
 // const OtherInformation = () => {
 //   return (
