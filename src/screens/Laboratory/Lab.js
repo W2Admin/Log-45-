@@ -21,9 +21,6 @@ import LottieAnimation from "../../Lotties";
 import loading2 from '../../images/loading2.json'
 import empty from "../../images/Empty.json"
 
-const thclass = "text-start text-sm font-medium py-3 px-2 whitespace-nowrap";
-const tdclass = "text-start text-sm py-4 px-2 whitespace-nowrap";
-
 const Box = ({ title, value, color, icon: Icon }) => (
   <div className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5">
     <div className="w-3/4">
@@ -50,6 +47,7 @@ const statuses = ["Pending", "Ready to Test", "Awaiting Doctor's Comment"];
 
 const PatientRow = ({ patient, onEdit, updateStatus }) => {
   const {
+    id,
     name,
     animalType,
     species,
@@ -59,31 +57,35 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
   } = patient;
 
   useEffect(() => {
-    if (status !== statuses[1]) {
+    if (status !== "Pending") {
       const interval = setInterval(() => {
-        updateStatus(patient.id);
-      }, 2000); // Adjust time as needed
+        updateStatus(id);
+      }, 1000); // Adjust time as needed
       return () => clearInterval(interval);
     }
-  }, [status, updateStatus, patient.id]);
+  }, [status, updateStatus, id]);
 
   return (
-    <tr>
-      <td className="border px-4 py-2">
-        <div className="flex text-xs font-medium items-center">{name}</div>
+    <tr className="border-b bg-dry rounded-md overflow-hidden">
+      <td className="px-4 py-2 mt-8 text-sm font-medium">{name}</td>
+      <td className="px-4 py-2 mt-8 text-sm font-light">{animalType}</td>
+      <td className="px-4 py-2 mt-8 text-sm">{species}</td>
+      <td className="px-4 py-2 mt-8 text-sm">{examinationRequest}</td>
+      <td className="px-4 py-2 mt-8 text-sm">{investigationType}</td>
+      <td className="px-4 py-2 mt-8 text-xs">
+        <span
+          className={`py-1 px-4 ${
+            status === "Ready to Test"
+              ? "bg-subMain text-subMain"
+              : status === "Awaiting Doctor's Comment"
+              ? "bg-orange-500 text-orange-500"
+              : status === "Pending" && "bg-red-600 text-red-600"
+          } bg-opacity-10 text-xs rounded-xl`}
+        >
+          {status}
+        </span>
       </td>
-      <td className="border text-xs px-4 py-2">{animalType}</td>
-      <td className="border text-xs px-4 py-2">{species}</td>
-      <td className="border text-xs px-4 py-2">
-        <div className="flex">{examinationRequest}</div>
-      </td>
-      <td className="border text-xs px-4 py-2">
-        <div className="flex">{investigationType}</div>
-      </td>
-      <td className="border px-4 py-2">
-        <div className="flex items-center">{status}</div>
-      </td>
-      <td className={tdclass}>
+      <td className="px-4 py-2">
         <MenuSelect
           datas={[
             { title: "View", icon: FiEdit, onClick: () => onEdit(patient) },
@@ -108,7 +110,7 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
       name: "Abraham Adesanya",
       animalType: "German Shepherd",
       species: "White fowl",
-      examinationRequest: "Culture",
+      examinationRequest: "Blood Test",
       investigationType: "Narrow",
       status: "Ready to Test",
     },
@@ -117,16 +119,16 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
       name: "Abraham Adesanya",
       animalType: "German Shepherd",
       species: "White fowl",
-      examinationRequest: "Culture",
+      examinationRequest: "Urine Test",
       investigationType: "Narrow",
-      status: "Awaiting Doctors Suggestion",
+      status: "Awaiting Doctor's Comment",
     },
     {
       id: 3,
       name: "Nath Fredick",
       animalType: "German Shepherd",
       species: "White fowl",
-      examinationRequest: "Culture",
+      examinationRequest: "X-ray",
       investigationType: "Wide",
       status: "Pending",
     },
@@ -135,7 +137,7 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
       name: "Theo Drey",
       animalType: "German Shepherd",
       species: "White fowl",
-      examinationRequest: "Culture",
+      examinationRequest: "MRI",
       investigationType: "Wide",
       status: "Pending",
     },
@@ -144,7 +146,7 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
       name: "Joe Sanyaolu",
       animalType: "German Shepherd",
       species: "White fowl",
-      examinationRequest: "Culture",
+      examinationRequest: "CT Scan",
       investigationType: "Wide",
       status: "Pending",
     },
@@ -153,7 +155,7 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
       name: "Olu Jacob Adesanya",
       animalType: "German Shepherd",
       species: "White fowl",
-      examinationRequest: "Culture",
+      examinationRequest: "Blood Test",
       investigationType: "Narrow",
       status: "Ready to Test",
     },
@@ -179,7 +181,7 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
     {
       id: 1,
       title: "Today Lab Request",
-      value: "3",
+      value: "6",
       color: ["bg-subMain", "text-subMain"],
       icon: BiTime,
     },

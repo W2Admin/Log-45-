@@ -14,9 +14,9 @@ const Header = () => {
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center">
             <img src={logo} className="mr-3 h-6 sm:h-9" alt="Logo" />
-            <span className="self-center text-xl font-semibold whitespace-nowrap text-grey-500">
+            {/* <span className="self-center text-xl font-semibold whitespace-nowrap text-grey-500">
               Log45
-            </span>
+            </span> */}
           </Link>
           <div className="flex items-center lg:order-2">
             <Link
@@ -25,25 +25,29 @@ const Header = () => {
             >
               Log in
             </Link>
-
-            <button
-              onClick={() => setShowModal(true)}
+            <Link
+              to="/signup"
               className="text-white bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:bg-[#216c5a] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
             >
               Get started
-            </button>
-            {showModal && (
-              <div className="fixed top-0 left-0 w-full h-screen flex-colo bg-dry bg-opacity-50 flex justify-center items-center">
-                <div className="rounded-lg">
-                  {/* Close button */}
-                  <button onClick={() => setShowModal(false)}>Close</button>
+            </Link>
 
-                  {/* Registration form */}
-                  {/* <RegistrationForm /> */}
-                  <SignUp />
-                </div>
+            {/* <button
+              onClick={() => setShowModal(true)}
+              className="text-white bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:bg-[#216c5a] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+            ></button> */}
+            {/* {showModal && (
+              <div className="fixed top-0 left-0 w-full h-screen flex-colo bg-dry bg-opacity-50 flex justify-center items-center">
+                <div className="rounded-lg"> */}
+            {/* Close button */}
+            {/* <button onClick={() => setShowModal(false)}>Close</button> */}
+
+            {/* Registration form */}
+            {/* <RegistrationForm /> */}
+            {/* <SignUp /> */}
+            {/* </div>
               </div>
-            )}
+            )} */}
             <button
               data-collapse-toggle="mobile-menu-2"
               type="button"
@@ -91,12 +95,12 @@ const HeroSection = () => {
             comprehensive application to streamline the data intake processes
             for farms and laboratories.
           </p>
-          <button
-            onClick={() => setShowModal(true)}
-            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800   "
+          <Link
+            to="/signup"
+            className="text-white bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:bg-[#216c5a] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
           >
             Get started
-          </button>
+          </Link>
           {showModal && (
             <div className="fixed top-0 left-0 w-full h-screen flex-colo bg-dry bg-opacity-50 flex justify-center items-center">
               <div className="rounded-lg">
