@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import { postpatient } from "../../Redux/Patients/PatientAction";
 import { BiLoaderCircle } from "react-icons/bi";
 
-function PersonalInformation({error, loading, postpatient}) {
+function PersonalInformation({error, data, loading, postpatient}) {
   const [formData, setFormData] = useState({
-    fName: "",
-    lName: "",
+    first_name: "",
+    last_name: "",
     date_of_birth: "",
     email: "",
     phoneNumber: "",
@@ -23,16 +23,17 @@ function PersonalInformation({error, loading, postpatient}) {
     setFormData({
       ...formData,
       [name]: value,
+      organisation: data
     });
   };
 
   const validateForm = () => {
     let formErrors = {};
-    if (!formData.fName.trim()) {
-      formErrors.fName = "First name is required";
+    if (!formData.first_name.trim()) {
+      formErrors.first_name = "First name is required";
     }
-    if (!formData.lName.trim()) {
-      formErrors.lName = "Last name is required";
+    if (!formData.last_name.trim()) {
+      formErrors.last_name = "Last name is required";
     }
     if (!formData.date_of_birth) {
       formErrors.date_of_birth = "Date of birth is required";
@@ -59,8 +60,8 @@ function PersonalInformation({error, loading, postpatient}) {
         if (validateForm()) {
           await postpatient(formData,()=>{
             setFormData({
-              fName: "",
-              lName: "",
+              first_name: "",
+              last_name: "",
               dateOfBirth: "",
               email: "",
               phoneNumber: "",
@@ -90,43 +91,43 @@ function PersonalInformation({error, loading, postpatient}) {
         <div className="w-full px-3 sm:w-1/2">
           <div className="mb-5">
             <label
-              htmlFor="fName"
+              htmlFor="first_name"
               className="mb-3 block font-medium text-sm text-[#07074D]"
             >
               First Name
             </label>
             <input
               type="text"
-              name="fName"
-              id="fName"
-              value={formData.fName}
+              name="first_name"
+              id="first_name"
+              value={formData.first_name}
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
-                errors.fName ? "border-red-500" : "border-[#e0e0e0]"
+                errors.first_name ? "border-red-500" : "border-[#e0e0e0]"
               } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
-            {errors.fName && <p className="text-red-500">{errors.fName}</p>}
+            {errors.first_name && <p className="text-red-500">{errors.first_name}</p>}
           </div>
         </div>
         <div className="w-full px-3 sm:w-1/2">
           <div className="mb-5">
             <label
-              htmlFor="lName"
+              htmlFor="last_name"
               className="mb-3 block text-sm font-medium text-[#07074D]"
             >
               Last Name
             </label>
             <input
               type="text"
-              name="lName"
-              id="lName"
-              value={formData.lName}
+              name="last_name"
+              id="last_name"
+              value={formData.last_name}
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
-                errors.lName ? "border-red-500" : "border-[#e0e0e0]"
+                errors.last_name ? "border-red-500" : "border-[#e0e0e0]"
               } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
-            {errors.lName && <p className="text-red-500">{errors.lName}</p>}
+            {errors.last_name && <p className="text-red-500">{errors.last_name}</p>}
           </div>
         </div>
       </div>

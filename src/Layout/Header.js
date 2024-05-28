@@ -7,9 +7,14 @@ import NotificationComp from '../components/NotificationComp';
 import { useNavigate } from 'react-router-dom';
 import { BiMenu } from 'react-icons/bi';
 import MenuDrawer from '../components/Drawer/MenuDrawer';
+import { fetchuser } from '../Redux/User/UserAction';
+import { connect } from 'react-redux';
 
-function Header() {
+function Header({fetchuser, profile}) {
   const [isOpen, setIsOpen] = React.useState(false);
+  React.useEffect(()=>{
+    fetchuser()
+  },[])
 
   // toggle drawer
   const toggleDrawer = () => {
@@ -73,7 +78,7 @@ function Header() {
                     alt="user"
                     className="w-12 border border-border object-cover h-12 rounded-full"
                   />
-                  <p className="text-sm text-textGray font-medium">Dr. Daudi</p>
+                  <p className="text-sm text-textGray font-medium">{profile.name}</p>
                 </div>
               </MenuSelect>
             </div>
@@ -83,5 +88,18 @@ function Header() {
     </>
   );
 }
+const mapStoreToProps = (state) => {
+  console.log(state)
+  return {    
+    loading: state?.profile?.loading, 
+    profile: state?.profile?.data,
+  };
+};
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchuser: () => dispatch(fetchuser()),
+  };
+};
+
+export default connect(mapStoreToProps, mapDispatchToProps)(Header);

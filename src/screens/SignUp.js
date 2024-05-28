@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerData, userData } from "../Redux/Registration/RegisterAction";
 import { BiLoaderCircle } from "react-icons/bi";
+import LottieAnimation from "../Lotties";
+import success from "../images/success.json"
 
 function SignUp({registerData, userData, loading, error, userloading, usererror}) {
   const formArray = [1, 2, 3];
@@ -351,99 +353,10 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
         )}
         {formNo === 3 && (
           <div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="firstname">First Name</label>
-              <input
-                value={state.firstname}
-                onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
-                type="text"
-                name="firstname"
-                id="firstname"
-              />
-            </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="lastname">Last Name</label>
-              <input
-                value={state.lastname}
-                onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
-                type="text"
-                name="lastname"
-                id="lastname"
-              />
-            </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="dob">Date of Birth</label>
-              <input
-                value={state.dob}
-                onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
-                type="text"
-                name="dob"
-                id="dob"
-              />
-            </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="emailaddress">Email Address</label>
-              <input
-                value={state.emailaddress}
-                onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
-                type="text"
-                name="emailaddress"
-                id="emailaddress"
-              />
-            </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="phonenumber">Phone Number</label>
-              <input
-                value={state.phonenumber}
-                onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
-                type="text"
-                name="phonenumber"
-                id="phonenumber"
-              />
-            </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="gender">Gender</label>
-              <select
-                value={state.gender}
-                onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
-                name="gender"
-                id="gender"
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="address">Address</label>
-              <input
-                value={state.address}
-                onChange={inputHandle}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
-                type="text"
-                name="address"
-                id="address"
-              />
-            </div>
-            <div className="mt-4 gap-3  flex justify-center items-center">
-            <button
-                onClick={pre}
-                className="px-3 py-2 text-lg rounded-md w-full text-white bg-[#66B5A3]"
-              >
-                Previous
-              </button>
-              <button
-                onClick={next}
-                className="px-3 py-2 text-lg rounded-md w-full text-white bg-[#66B5A3]"
-              >
-                Next
-              </button>
+            <div className="flex-col justify-center">
+
+              <LottieAnimation data={success}/>
+              <p>Please check your mail for a Verification Link</p>
             </div>
           </div>
         )}     
