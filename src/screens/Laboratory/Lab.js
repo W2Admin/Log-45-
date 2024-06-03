@@ -49,10 +49,10 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
   const {
     id,
     name,
-    animalType,
+    animal_type,
     species,
-    examinationRequest,
-    investigationType,
+    request_type,
+    sample_type,
     status,
   } = patient;
 
@@ -85,7 +85,18 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
           {status}
         </span>
       </td>
-      <td className="px-4 py-2">
+      <td className="border text-xs px-4 py-2">{animal_type}</td>
+      <td className="border text-xs px-4 py-2">{species}</td>
+      <td className="border text-xs px-4 py-2">
+        <div className="flex">{(request_type === 'W'? "Wide" :"Narrow")}</div>
+      </td>
+      <td className="border text-xs px-4 py-2">
+        <div className="flex">{sample_type}</div>
+      </td>
+      <td className="border px-4 py-2">
+        <div className="flex items-center">{status}</div>
+      </td>
+      <td className={tdclass}>
         <MenuSelect
           datas={[
             { title: "View", icon: FiEdit, onClick: () => onEdit(patient) },
@@ -285,6 +296,7 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
                     <th className="px-4 py-2">Animal Type</th>
                     <th className="px-4 py-2">Species</th>
                     <th className="px-4 py-2">Examination Request</th>
+                    <th className="px-4 py-2">Sample Type</th>
                     <th className="px-4 py-2">Status</th>
                     <th className="px-4 py-2"></th>
                   </tr>

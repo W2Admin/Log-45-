@@ -1,100 +1,99 @@
 
 import axios from "axios"
-import { CREATE_PATIENT_FALIURE, CREATE_PATIENT_REQUEST, CREATE_PATIENT_SUCCESS, PATIENT_FALIURE, PATIENT_REQUEST, PATIENT_SUCCESS, SINGLE_PATIENT_FALIURE, SINGLE_PATIENT_REQUEST, SINGLE_PATIENT_SUCCESS } from "./PatientType"
+import { CREATE_SERVICE_FALIURE, CREATE_SERVICE_REQUEST, CREATE_SERVICE_SUCCESS, SERVICE_FALIURE, SERVICE_REQUEST, SERVICE_SUCCESS, SINGLE_SERVICE_FALIURE, SINGLE_SERVICE_REQUEST, SINGLE_SERVICE_SUCCESS } from "./ServiceType"
 
-
-// GET ALL PATIENT
-export const patientRequest = () =>{
+// GET ALL service
+export const serviceRequest = () =>{
     return{
-        type: PATIENT_REQUEST
+        type: SERVICE_REQUEST
     }
 }
 
-export const patientSuccess = (response) =>{
+export const serviceSuccess = (response) =>{
     return{
-        type: PATIENT_SUCCESS,
+        type: SERVICE_SUCCESS,
         payload: response
     }
 }
 
-export const patientFaliure = (error) =>{
+export const serviceFaliure = (error) =>{
     return{
-        type: PATIENT_FALIURE,
+        type: SERVICE_FALIURE,
         payload: error
     }
 }
 
-//GET A SINGLE PATIENT
-export const singlepatientRequest = () =>{
+//GET A SINGLE service
+export const singleserviceRequest = () =>{
     return{
-        type: SINGLE_PATIENT_REQUEST
+        type: SINGLE_SERVICE_REQUEST
     }
 }
 
-export const singlepatientSuccess = (response) =>{
+export const singleserviceSuccess = (response) =>{
     return{
-        type: SINGLE_PATIENT_SUCCESS,
+        type: SINGLE_SERVICE_SUCCESS,
         payload: response
     }
 }
 
-export const singlepatientFaliure = (error) =>{
+export const singleserviceFaliure = (error) =>{
     return{
-        type: SINGLE_PATIENT_FALIURE,
+        type: SINGLE_SERVICE_FALIURE,
         payload: error
     }
 }
 
 
-// CREATE A PATIENTS
-export const createpatientRequest = () =>{
+// CREATE A serviceS
+export const createserviceRequest = () =>{
     return{
-        type: CREATE_PATIENT_REQUEST
+        type: CREATE_SERVICE_REQUEST
     }
 }
 
-export const createpatientSuccess = (response) =>{
+export const createserviceSuccess = (response) =>{
     return{
-        type: CREATE_PATIENT_SUCCESS,
+        type: CREATE_SERVICE_SUCCESS,
         payload: response
     }
 }
 
-export const createpatientFaliure = (error) =>{
+export const createserviceFaliure = (error) =>{
     return{
-        type: CREATE_PATIENT_FALIURE,
+        type: CREATE_SERVICE_FALIURE,
         payload: error
     }
 }
 
 const baseUrl = "https://med-farm.onrender.com/api"
 
-//GET ALL PATIENTS
-export const fetchpatient = () => {
+//GET ALL serviceS
+export const fetchservice = (id) => {
     return(dispatch) => {
-        dispatch(patientRequest())
+        dispatch(serviceRequest())
         let datas = JSON.parse(localStorage.getItem("auth"))
         const headers = {
             "Content-Type": "application/json",
             authorization: `JWT ${datas?.token?.access}`,
         };
         // let datas = JSON.parse(localStorage.getItem("auth"))
-        axios.get(`${baseUrl}/customers/`, { headers: headers })
+        axios.get(`${baseUrl}/services/${id}/`, { headers: headers })
             .then( response => {
                 const data = response.data
-                dispatch(patientSuccess(data))
+                dispatch(serviceSuccess(data))
             })
             .catch(error =>{
                 const errorMsg = error.message
-                dispatch(patientFaliure(errorMsg))
+                dispatch(serviceFaliure(errorMsg))
             })
     }
 }
 
-//GET A SINGLE PATIENTS
-export const singlefetchpatient = (id) => {
+//GET A SINGLE serviceS
+export const singlefetchservice = (id) => {
     return(dispatch) => {
-        dispatch(singlepatientRequest())
+        dispatch(singleserviceRequest())
         let datas = JSON.parse(localStorage.getItem("auth"))
         const headers = {
             "Content-Type": "application/json",
@@ -103,35 +102,35 @@ export const singlefetchpatient = (id) => {
         axios.get(`${baseUrl}/customers/${id}/`, { headers: headers })
             .then( response => {
                 const data = response.data
-                dispatch(singlepatientSuccess(data))
+                dispatch(singleserviceSuccess(data))
             })
             .catch(error =>{
                 const errorMsg = error.message
-                dispatch(singlepatientFaliure(errorMsg))
+                dispatch(singleserviceFaliure(errorMsg))
             })
     }
 }
 
 
-//CREATE A PATIENT
-export const postpatient = (postdata, history, errors) => {
+//CREATE A service
+export const postservice = (id,postdata, history, errors) => {
     return(dispatch) => {
-        dispatch(createpatientRequest())
+        dispatch(createserviceRequest())
         
         let datas = JSON.parse(localStorage.getItem("auth"))
         const headers = {
             "Content-Type": "application/json",
             authorization: `JWT ${datas?.token?.access}`,
         };
-        axios.post(`${baseUrl}/customers/`, postdata, { headers: headers })
+        axios.post(`${baseUrl}/services/${id}/`, postdata, { headers: headers })
             .then( response => {
                 const data = response.data
-                dispatch(createpatientSuccess(data))
+                dispatch(createserviceSuccess(data))
                 history()
             })
             .catch(error =>{
                 const errorMsg = error.response.data.message
-                dispatch(createpatientFaliure(errorMsg))
+                dispatch(createserviceFaliure(errorMsg))
                 errors()
             })
     }

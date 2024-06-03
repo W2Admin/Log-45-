@@ -5,6 +5,7 @@ import { createpatientReducer, patientReducer, singlepatientReducer } from './Pa
 import { createlaboratoryReducer, laboratoryReducer } from './Laboratory/LaboratoryReducer';
 import { Profiler } from 'react';
 import { profileReducer } from './User/UserReducer';
+import { createserviceReducer, serviceReducer, singleserviceReducer } from './Service/ServiceReducer';
 
 
 const rootReducer = combineReducers({
@@ -16,7 +17,11 @@ const rootReducer = combineReducers({
     singlepatient: singlepatientReducer,
     laboratory: laboratoryReducer,
     profile: profileReducer,
-    createlab: createlaboratoryReducer
+    createlab: createlaboratoryReducer,
+    onboardedusers: userReducer,
+    services: serviceReducer,
+    createservice: createserviceReducer,
+    singleservice: singleserviceReducer
 })
 
 export default rootReducer;

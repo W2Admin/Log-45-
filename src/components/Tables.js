@@ -383,6 +383,17 @@ export function ServiceTable({ data, onEdit }) {
         </tr>
       </thead>
       <tbody>
+      {(data?.length === 0)?(
+          <tr>
+            <td colSpan="5">
+              <div className="empty-animate">
+                    <LottieAnimation data={empty}/>
+                    <p>No Data Found</p>
+              </div>
+            </td>
+          </tr>
+        ):(
+          <>
         {data.map((item, index) => (
           <tr
             key={item.id}
@@ -396,10 +407,10 @@ export function ServiceTable({ data, onEdit }) {
             <td className={tdclass}>
               <span
                 className={`text-xs font-medium ${
-                  !item?.status ? "text-red-600" : "text-green-600"
+                  !item?.is_active ? "text-red-600" : "text-green-600"
                 }`}
               >
-                {!item?.status ? "Disabled" : "Enabled"}
+                {!item?.is_active ? "Disabled" : "Enabled"}
               </span>
             </td>
             <td className={tdclass}>
@@ -411,6 +422,8 @@ export function ServiceTable({ data, onEdit }) {
             </td>
           </tr>
         ))}
+        </>
+        )}
       </tbody>
     </table>
   );
@@ -487,8 +500,8 @@ export function OrganisationTable({ data, onEdit }) {
 // patient table
 export function PatientTable({ data, functions, used }) {
   const navigate = useNavigate();
-  const handleOpenInvestigation = () => {
-    navigate("/patients/visiting/2");
+  const handleOpenInvestigation = (id) => {
+    navigate(`/patients/visiting/${id}`);
   };
   const DropDown1 = !used
     ? [
@@ -502,7 +515,7 @@ export function PatientTable({ data, functions, used }) {
         {
           title: "Open Investigation",
           icon: FiEye,
-          onClick: handleOpenInvestigation,
+          onClick: (data)=>{handleOpenInvestigation(data.id)},
         },
 
         {
@@ -754,40 +767,53 @@ export function DoctorsTable({ data, functions, doctor }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
-          <tr
-            key={item.id}
-            className="border-b border-border hover:bg-greyed transitions"
-          >
-            <td className={tdclass}>{index + 1}</td>
-            <td className={tdclass}>
-              <div className="flex gap-4 items-center">
-                <span className="w-12">
-                  <img
-                    src={item.user.image}
-                    alt={item.user.title}
-                    className="w-full h-12 rounded-full object-cover border border-border"
-                  />
-                </span>
-                <h4 className="text-sm font-medium">{item.user.title}</h4>
+      {(data?.length === 0)?(
+          <tr>
+            <td colSpan="5">
+              <div className="empty-animate">
+                    <LottieAnimation data={empty}/>
+                    <p>No Data Found</p>
               </div>
             </td>
-            <td className={tdclass}>12 May, 2021</td>
-            <td className={tdclass}>
-              <p className="text-textGray">{item.user.phone}</p>
-            </td>
-            <td className={tdclass}>{item.title}</td>
-            <td className={tdclass}>{item.user.email}</td>
-
-            <td className={tdclass}>
-              <MenuSelect datas={DropDown1} item={item}>
-                <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
-                  <BiDotsHorizontalRounded />
-                </div>
-              </MenuSelect>
-            </td>
           </tr>
-        ))}
+        ):(
+          <>
+            {data?.map((item, index) => (
+              <tr
+                key={item.id}
+                className="border-b border-border hover:bg-greyed transitions"
+              >
+                <td className={tdclass}>{index + 1}</td>
+                <td className={tdclass}>
+                  <div className="flex gap-4 items-center">
+                    <span className="w-12">
+                      <img
+                        src={item.user.image}
+                        alt={item.user.title}
+                        className="w-full h-12 rounded-full object-cover border border-border"
+                      />
+                    </span>
+                    <h4 className="text-sm font-medium">{item.user.title}</h4>
+                  </div>
+                </td>
+                <td className={tdclass}>12 May, 2021</td>
+                <td className={tdclass}>
+                  <p className="text-textGray">{item.user.phone}</p>
+                </td>
+                <td className={tdclass}>{item.title}</td>
+                <td className={tdclass}>{item.user.email}</td>
+
+                <td className={tdclass}>
+                  <MenuSelect datas={DropDown1} item={item}>
+                    <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
+                      <BiDotsHorizontalRounded />
+                    </div>
+                  </MenuSelect>
+                </td>
+              </tr>
+            ))}
+        </>
+        )}
       </tbody>
     </table>
   );
