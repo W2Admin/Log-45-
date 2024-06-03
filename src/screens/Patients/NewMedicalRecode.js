@@ -11,6 +11,7 @@ import MedicineDosageModal from "../../components/Modals/MedicineDosage";
 import { FaTimes } from "react-icons/fa";
 import Uploader from "../../components/Uploader";
 import { HiOutlineCheckCircle } from "react-icons/hi";
+import { createlabortory } from "../../Redux/Laboratory/LaboratoryAction";
 
 const doctorsData = memberData.map((item) => {
   return {
@@ -336,4 +337,17 @@ function NewMedicalRecord() {
   );
 }
 
+const mapStateToProps = state => {
+  return{
+      errors:state?.createlab?.error,
+      loading: state?.createlab?.loading,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return{
+      createlabortory: (id,loginState, history, setErrorHandler) => {
+          dispatch(createlabortory(id, loginState, history, setErrorHandler));
+      },
+  }
+}
 export default NewMedicalRecord;

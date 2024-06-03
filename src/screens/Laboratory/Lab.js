@@ -14,6 +14,12 @@ import { toast } from "react-hot-toast";
 import { FiEdit } from "react-icons/fi";
 import { Button, FromToDate, Select, MenuSelect } from "../../components/Form";
 import { LaboratoryTable } from "../../components/Tables";
+import { connect } from "react-redux";
+import { fetchuser } from "../../Redux/User/UserAction";
+import { fetchlabortory } from "../../Redux/Laboratory/LaboratoryAction";
+import LottieAnimation from "../../Lotties";
+import loading2 from '../../images/loading2.json'
+import empty from "../../images/Empty.json"
 
 const Box = ({ title, value, color, icon: Icon }) => (
   <div className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5">
@@ -94,7 +100,7 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
   );
 };
 
-function Patients() {
+function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
   const [status, setStatus] = useState(sortsDatas.filterPatient[0]);
   const [gender, setGender] = useState(sortsDatas.genderFilter[0]);
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
@@ -214,90 +220,120 @@ function Patients() {
       )
     );
   };
+  useEffect(()=>{
+    fetchuser()
+    fetchlabortory(profile.organisation)
+  },[profile.organisation])
 
   return (
     <Layout>
-      <h1 className="text-xl font-semibold">Laboratory Data</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        {boxes.map((box) => (
-          <Box key={box.id} {...box} />
-        ))}
-      </div>
-      <div
-        data-aos="fade-up"
-        data-aos-duration="1000"
-        data-aos-delay="10"
-        data-aos-offset="200"
-        className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
-      >
-        <div className="grid lg:grid-cols-5 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2">
-          <input
-            type="text"
-            placeholder='Search "Patients"'
-            className="h-14 text-sm text-main rounded-md bg-dry border border-border px-4"
-          />
-          {sorts.map((item) => (
-            <Select
-              key={item.id}
-              selectedPerson={item.selected}
-              setSelectedPerson={item.setSelected}
-              datas={item.datas}
-            >
-              <div className="h-14 w-full text-xs text-main rounded-md bg-dry border border-border px-4 flex items-center justify-between">
-                <p>{item.selected.name}</p>
-                <BiChevronDown className="text-xl" />
-              </div>
-            </Select>
-          ))}
-          <FromToDate
-            startDate={dateRange[0]}
-            endDate={dateRange[1]}
-            bg="bg-dry"
-            onChange={(update) => setDateRange(update)}
-          />
-          <Button
-            label="Filter"
-            Icon={MdFilterList}
-            onClick={() => toast.error("Filter Not Working!")}
-          />
-        </div>
-      </div>
-      <div className="overflow-x-scroll overflow-hidden relative w-full">
-        <table className="table-auto gap-4 rounded-xl border-[1px] p-10 w-full">
-          <thead>
-            <tr className="bg-white border-border hover:bg-greyed">
-              {[
-                "Patient",
-                "Animal Type",
-                "Species",
-                "Examination Request",
-                "Investigation Type",
-                "Status",
-                "Actions",
-              ].map((heading) => (
-                <th
-                  key={heading}
-                  className="p-2 text-sm font-medium text-left px-4"
-                >
-                  {heading}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {patients.map((patient) => (
-              <PatientRow
-                key={patient.id}
-                patient={patient}
-                onEdit={onEdit}
-                updateStatus={updateStatus}
-              />
+      {labloading ? (
+          <div className="preloader">
+           <LottieAnimation data={loading2}/>
+         </div>
+      ) : (
+        <>
+          <h1 className="text-xl font-semibold">Laboratory Data</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            {boxes.map((box) => (
+              <Box key={box.id} {...box} />
             ))}
-          </tbody>
-        </table>
-      </div>
+          </div>
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="10"
+            data-aos-offset="200"
+            className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
+          >
+            <div className="grid lg:grid-cols-5 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2">
+              <input
+                type="text"
+                placeholder='Search "Patients"'
+                className="h-14 text-sm text-main rounded-md bg-dry border border-border px-4"
+              />
+              {sorts.map((item) => (
+                <Select
+                  key={item.id}
+                  selectedPerson={item.selected}
+                  setSelectedPerson={item.setSelected}
+                  datas={item.datas}
+                >
+                  <div className="h-14 w-full text-xs text-main rounded-md bg-dry border border-border px-4 flex items-center justify-between">
+                    <p>{item.selected.name}</p>
+                    <BiChevronDown className="text-xl" />
+                  </div>
+                </Select>
+              ))}
+              <FromToDate
+                startDate={dateRange[0]}
+                endDate={dateRange[1]}
+                bg="bg-dry"
+                onChange={(update) => setDateRange(update)}
+              />
+              <Button
+                label="Filter"
+                Icon={MdFilterList}
+                onClick={() => toast.error("Filter data is not available yet")}
+              />
+            </div>
+            <div className="mt-8 w-full overflow-x-auto">
+              <table className="table-auto w-full">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="px-4 py-2">Name</th>
+                    <th className="px-4 py-2">Animal Type</th>
+                    <th className="px-4 py-2">Species</th>
+                    <th className="px-4 py-2">Examination Request</th>
+                    <th className="px-4 py-2">Status</th>
+                    <th className="px-4 py-2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {(labdata?.length === 0) ? (
+                    <tr>
+                      <td colSpan="5">
+                        <div className="empty-animate">
+                              <LottieAnimation data={empty}/>
+                              <p>No Data Found</p>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
+                    <>
+                      {labdata.map((patient) => (
+                        <PatientRow
+                          key={patient.id}
+                          patient={patient}
+                          onEdit={onEdit}
+                          updateStatus={updateStatus}
+                        />
+                      ))}
+                    </>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </>
+      )}
     </Layout>
   );
 }
+const mapStoreToProps = (state) => {
+  console.log(state)
+  return {    
+    loading: state?.profile?.loading, 
+    profile: state?.profile?.data,
+    labloading: state?.laboratory?.loading,
+    labdata:state?.laboratory?.data
+  };
+};
 
-export default Patients;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchuser: () => dispatch(fetchuser()),
+    fetchlabortory: (id) => dispatch(fetchlabortory(id)),
+  };
+};
+export default connect(mapStoreToProps, mapDispatchToProps)(Patients);

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { registerData, userData } from "../Redux/Registration/RegisterAction";
 import { BiLoaderCircle } from "react-icons/bi";
+import LottieAnimation from "../Lotties";
+import success from "../images/success.json";
 
 function SignUp({
   registerData,
@@ -339,16 +341,33 @@ function SignUp({
                 id="re_password"
               />
             </div>
-            <button
-              onClick={handleAdminSubmit}
-              className="w-full p-2 text-white mt-2 bg-subMain rounded-md"
-            >
-              {userloading ? (
-                <BiLoaderCircle className="animate-spin mx-auto" size={24} />
-              ) : (
-                "Submit"
-              )}
-            </button>
+            <div className="mt-4 gap-3 flex justify-center items-center">
+              <button
+                onClick={pre}
+                className="px-3 py-2 text-lg rounded-md w-full text-white bg-[#66B5A3]"
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleAdminSubmit}
+                disabled={userloading}
+                className="flex justify-center px-3 py-2 text-lg rounded-md w-full text-white bg-[#66B5A3]"
+              >
+                {userloading ? (
+                  <BiLoaderCircle className="animate-spin text-white text-2xl" />
+                ) : (
+                  "Submit"
+                )}
+              </button>
+            </div>
+          </div>
+        )}
+        {formNo === 3 && (
+          <div>
+            <div className="flex-col justify-center">
+              <LottieAnimation data={success} />
+              <p>Please check your mail for a Verification Link</p>
+            </div>
           </div>
         )}
       </div>
