@@ -70,11 +70,11 @@ export const createlabortory = (id,postdata, history, errors) => {
         dispatch(createlaboratoryRequest())
         let datas = JSON.parse(localStorage.getItem("auth"))
         const headers = {
-            "Content-Type": "application/json",
+            'content-type': 'multipart/form-data',
             authorization: `JWT ${datas?.token?.access}`,
         };
         // let datas = JSON.parse(localStorage.getItem("auth"))
-        axios.post(`${baseUrl}/lab_requests/${id}/`, { headers: headers })
+        axios.post(`${baseUrl}/lab_requests/${id}/`, postdata, { headers: headers })
             .then( response => {
                 const data = response.data
                 dispatch(createlaboratorySuccess(data))

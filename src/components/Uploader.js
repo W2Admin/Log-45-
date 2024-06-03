@@ -4,17 +4,28 @@ import { toast } from 'react-hot-toast';
 import { BiLoaderCircle } from 'react-icons/bi';
 import { FiUploadCloud } from 'react-icons/fi';
 
-const Uploader = ({ setImage, image }) => {
+const Uploader = ({ setImages}) => {
   const [loading, setLoading] = useState(false);
 
   // upload file
   const onDrop = useCallback(async (acceptedFiles) => {
-    toast.error('This feature is not available yet');
-  }, []);
+    setLoading(true);
+    const files = acceptedFiles.map(file => {
+      return {
+        file,
+        preview: URL.createObjectURL(file)
+      };
+    });
+    setImages(prevImages => [...prevImages, ...files]);
+    setLoading(false);
+
+    // toast.error('This feature is not available yet');
+  }, [setImages]);
 
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     onDrop,
+    accept: 'image/jpeg, image/png'
   });
 
   return (
@@ -33,7 +44,7 @@ const Uploader = ({ setImage, image }) => {
         </em>
       </div>
       {/* image preview */}
-      <div className="lg:col-span-2 sm:col-span-4 col-span-12">
+      {/* <div className="lg:col-span-2 sm:col-span-4 col-span-12">
         {loading ? (
           <div className="px-6 w-full bg-dry flex-colo h-32 border-2 border-border border-dashed rounded-md">
             <BiLoaderCircle className="mx-auto text-main text-3xl animate-spin" />
@@ -46,7 +57,15 @@ const Uploader = ({ setImage, image }) => {
             className=" w-full h-32 rounded object-cover"
           />
         )}
-      </div>
+      </div> */}
+      {loading && (
+        <div className="lg:col-span-2 sm:col-span-4 col-span-12">
+          <div className="px-6 w-full bg-dry flex-colo h-32 border-2 border-border border-dashed rounded-md">
+            <BiLoaderCircle className="mx-auto text-main text-3xl animate-spin" />
+            <span className="text-sm mt-2 text-text">Uploading...</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

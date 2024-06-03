@@ -11,7 +11,7 @@ function PersonalInformation({error, data, loading, postpatient}) {
     last_name: "",
     date_of_birth: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     gender: "",
     address: "",
   });
@@ -41,8 +41,8 @@ function PersonalInformation({error, data, loading, postpatient}) {
     if (!formData.email.trim()) {
       formErrors.email = "Email address is required";
     }
-    if (!formData.phoneNumber.trim()) {
-      formErrors.phoneNumber = "Phone number is required";
+    if (!formData.phone.trim()) {
+      formErrors.phone = "Phone number is required";
     }
     if (!formData.gender) {
       formErrors.gender = "Gender is required";
@@ -64,7 +64,7 @@ function PersonalInformation({error, data, loading, postpatient}) {
               last_name: "",
               dateOfBirth: "",
               email: "",
-              phoneNumber: "",
+              phone: "",
               gender: "",
               address: "",
             });
@@ -181,23 +181,23 @@ function PersonalInformation({error, data, loading, postpatient}) {
         <div className="w-full px-3 sm:w-1/2">
           <div className="mb-5">
             <label
-              htmlFor="phoneNumber"
+              htmlFor="phone"
               className="mb-3 block text-sm font-medium text-[#07074D]"
             >
               Phone Number
             </label>
             <input
               type="tel"
-              name="phoneNumber"
-              id="phoneNumber"
-              value={formData.phoneNumber}
+              name="phone"
+              id="phone"
+              value={formData.phone}
               onChange={handleInputChange}
               className={`w-full rounded-md border ${
                 errors.phoneNumber ? "border-red-500" : "border-[#e0e0e0]"
               } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
             />
-            {errors.phoneNumber && (
-              <p className="text-red-500">{errors.phoneNumber}</p>
+            {errors.phone && (
+              <p className="text-red-500">{errors.phone}</p>
             )}
           </div>
         </div>

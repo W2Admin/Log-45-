@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../Layout";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { Button, Checkbox, Select, Textarea } from "../../components/Form";
 import { BiChevronDown, BiPlus } from "react-icons/bi";
@@ -12,6 +12,8 @@ import { FaTimes } from "react-icons/fa";
 import Uploader from "../../components/Uploader";
 import { HiOutlineCheckCircle } from "react-icons/hi";
 import { createlabortory } from "../../Redux/Laboratory/LaboratoryAction";
+import { connect } from "react-redux";
+import { singlefetchpatient } from "../../Redux/Patients/PatientAction";
 
 const doctorsData = memberData.map((item) => {
   return {
@@ -20,9 +22,17 @@ const doctorsData = memberData.map((item) => {
   };
 });
 
-function NewMedicalRecord() {
+function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient, singlefetchpatient}) {
   const [doctors, setDoctors] = useState(doctorsData[0]);
   const [isOpen, setIsOpen] = useState(false);
+  const [images, setImages] = useState([]);
+  const {id} = useParams()
+  useEffect(()=>{
+    singlefetchpatient(id)
+  },[id]) 
+  const removeImage = (index) => {
+    setImages(images.filter((_, i) => i !== index));
+  };
   const [treatments, setTreatments] = useState(
     servicesData.map((item) => {
       return {
@@ -32,30 +42,67 @@ function NewMedicalRecord() {
       };
     })
   );
-  const [formData, setFormData] = useState({
-    investigationRequestType: "",
-    animalType: "",
+  useEffect(()=>{
+  console.log(images)
+  },[images])
+  const [formData2, setFormData2] = useState({
+    request_type: "",
+    animal_type: "",
     species: "",
-    sex: "",
+    gender: "",
     weight: "",
     typeOfFeed: "",
-    lastFeed: "",
-    sampleType: "",
+    food_type: "",
+    last_feed: "",
+    sample_type: "",
     investigationRequest: "",
-    symptomsDescription: "",
-    additionalInfo: "",
-    doctorscomment: "",
+    symptoms: "",
+    medical_history: "",
+    doctor_comment: "",
   });
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData2({ ...formData2, [name]: value });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // Implement form submission logic here
-    toast.error("This feature is not available yet");
+    let formData = new FormData();
+    
+    // Append form data
+    for (const key in formData2) {
+      formData.append(key, formData2[key]);
+    }
+    formData.append("organisation", singlepatient.organisation);
+    formData.append("is_active", singlepatient.is_active);
+    formData.append("customer", id);
+    images.forEach((image, index) => {
+      formData.append(`attachment${index + 1}`, image.file);
+    });
+    try{
+        await createlabortory(idorg, formData,()=>{
+          setFormData2({
+            request_type: "",
+            animal_type: "",
+            species: "",
+            gender: "",
+            weight: "",
+            typeOfFeed: "",
+            food_type: "",
+            sample_type: "",
+            investigationRequest: "",
+            symptoms: "",
+            medical_history: "",
+            doctor_comment: "",
+          });
+          setImages({})
+          toast.success("Lab request created success");
+        }, ()=>{
+          // setShowError(true)
+        })
+  }catch(error){
+
+  } 
   };
 
   // on change treatments
@@ -103,11 +150,11 @@ function NewMedicalRecord() {
           data-aos-offset="200"
           className="col-span-12 flex-colo gap-6 lg:col-span-4 bg-white rounded-xl border-[1px] border-border p-6 lg:sticky top-28"
         >
-          <p className="text-black font-medium text-sm">Amani Ammesty</p>
+          <p className="text-black font-medium text-sm">{singlepatient?.first_name} {singlepatient?.last_name}</p>
           <p className="text-[#8f9cb6]font-medium text-sm">
-            amaniammesty21@gmail.com
+            {singlepatient?.email}
           </p>
-          <p className="text-black font-medium text-sm">+234808766511</p>
+          <p className="text-black font-medium text-sm">{singlepatient?.phone}</p>
         </div>
 
         <div
@@ -127,21 +174,23 @@ function NewMedicalRecord() {
                   Investigation Request Type
                 </p>
                 <select
-                  name="investigationRequestType"
-                  value={formData.investigationRequestType}
+                  required
+                  name="request_type"
+                  value={formData2.request_type}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none"
                 >
                   <option value=""></option>
-                  <option value="Wide">Wide</option>
-                  <option value="Narrow">Narrow</option>
+                  <option value="W">Wide</option>
+                  <option value="N">Narrow</option>
                 </select>
               </div>
               <div className="w-full sm:w-1/2 px-3">
                 <p className="text-black text-sm font-medium">Sample Type</p>
                 <select
-                  name="sampleType"
-                  value={formData.sampleType}
+                  required
+                  name="sample_type"
+                  value={formData2.sample_type}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none"
                 >
@@ -156,16 +205,17 @@ function NewMedicalRecord() {
               </div>
               <div className="w-full sm:w-1/2 px-3 mt-3">
                 <label
-                  htmlFor="animalType"
+                  htmlFor="animal_type"
                   className="mb-3 block text-sm font-medium text-[#07074D]"
                 >
                   Animal Type
                 </label>
                 <input
+                  required
                   type="text"
-                  name="animalType"
-                  id="animalType"
-                  value={formData.animalType}
+                  name="animal_type"
+                  id="animal_type"
+                  value={formData2.animal_type}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
@@ -178,10 +228,11 @@ function NewMedicalRecord() {
                   Species
                 </label>
                 <input
+                required
                   type="text"
                   name="species"
                   id="species"
-                  value={formData.species}
+                  value={formData2.species}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
@@ -191,14 +242,15 @@ function NewMedicalRecord() {
                   Sex
                 </p>
                 <select
-                  name="sex"
-                  value={formData.sex}
+                required
+                  name="gender"
+                  value={formData2.gender}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none"
                 >
                   <option value=""></option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
                 </select>
               </div>
               <div className="w-full sm:w-1/2 px-3">
@@ -209,42 +261,45 @@ function NewMedicalRecord() {
                   Weight
                 </label>
                 <input
+                required
                   type="text"
                   name="weight"
                   id="weight"
-                  value={formData.weight}
+                  value={formData2.weight}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
               </div>
               <div className="w-full sm:w-1/2 px-3 mt-3">
                 <label
-                  htmlFor="typeOfFeed"
+                  htmlFor="food_type"
                   className="mb-3 block text-sm font-medium text-[#07074D]"
                 >
                   Type of Feed/Food
                 </label>
                 <input
+                required
                   type="text"
-                  name="typeOfFeed"
-                  id="typeOfFeed"
-                  value={formData.typeOfFeed}
+                  name="food_type"
+                  id="food_type"
+                  value={formData2.food_type}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
               </div>
               <div className="w-full sm:w-1/2 px-3 mt-3">
                 <label
-                  htmlFor="lastFeed"
+                  htmlFor="last_feed"
                   className="mb-3 block text-sm font-medium text-[#07074D]"
                 >
                   Last Feed
                 </label>
                 <input
+                required
                   type="text"
-                  name="lastFeed"
-                  id="lastFeed"
-                  value={formData.lastFeed}
+                  name="last_feed"
+                  id="last_feed"
+                  value={formData2.last_feed}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
@@ -253,77 +308,98 @@ function NewMedicalRecord() {
             <div className="flex flex-wrap mt-3">
               <div className="w-full px-3">
                 <label
-                  htmlFor="symptomsDescription"
+                  htmlFor="symptoms"
                   className="mb-3 block text-sm font-medium text-[#07074D]"
                 >
                   Symptoms Description
                 </label>
                 <input
+                required
                   type="text"
-                  name="symptomsDescription"
-                  id="symptomsDescription"
-                  value={formData.symptomsDescription}
+                  name="symptoms"
+                  id="symptoms"
+                  value={formData2.symptoms}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
               </div>
               <div className="w-full mt-3 px-3">
                 <label
-                  htmlFor="additionalInfo"
+                  htmlFor="medical_history"
                   className="mb-3 block text-sm font-medium text-[#07074D]"
                 >
                   Additional Information (History of Treatment)
                 </label>
                 <input
+                required
                   type="text"
-                  name="additionalInfo"
-                  id="additionalInfo"
-                  value={formData.additionalInfo}
+                  name="medical_history"
+                  id="medical_history"
+                  value={formData2.medical_history}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
               </div>
               <div className="w-full mt-3 px-3">
                 <label
-                  htmlFor="additionalInfo"
+                  htmlFor="doctor_comment"
                   className="mb-3 block text-sm font-medium text-[#07074D]"
                 >
                   Doctor's Comment
                 </label>
                 <input
+                required
                   type="text"
-                  name="doctorscomment"
-                  id="doctorscomment"
-                  value={formData.doctorscomment}
+                  name="doctor_comment"
+                  id="doctor_comment"
+                  value={formData2.doctor_comment}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
               </div>
             </div>
-            <div className="flex w-full flex-col gap-4">
+            {/* <div className="flex w-full flex-col gap-4">
               <p className="text-black text-sm font-medium">
                 Attach Sample Image
               </p>
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
                 {[1, 2, 3, 4].map((_, i) => (
+                     <div key={i} className="relative w-full">
+                     <Uploader
+                       setImage={setImage}
+                       image={images[`attachment${i}`]}
+                       index={i}
+                     />
+                   </div>
+                ))}
+              </div>
+
+            </div> */}
+            <div className="flex w-full flex-col gap-4">
+              <p className="text-black text-sm font-medium">
+                Attach Sample Images
+              </p>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
+                {images.map((image, i) => (
                   <div key={i} className="relative w-full">
                     <img
-                      src={`https://placehold.it/300x300?text=${i}`}
-                      alt="patient"
+                      src={image.preview}
+                      alt={`attachment${i + 1}`}
                       className="w-full md:h-40 rounded-lg object-cover"
                     />
                     <button
-                      onClick={() =>
-                        toast.error("This feature is not available yet.")
-                      }
                       className="bg-white rounded-full w-8 h-8 flex-colo absolute -top-1 -right-1"
+                      onClick={() => removeImage(i)}
                     >
                       <FaTimes className="text-red-500" />
                     </button>
                   </div>
                 ))}
               </div>
-              <Uploader setImage={{}} />
+              <Uploader setImages={setImages} />
+              {/* <button onClick={handleSubmit} className="bg-blue-500 text-white p-2 rounded">
+                Submit
+              </button> */}
             </div>
             <Button
               label={"Submit"}
@@ -341,6 +417,8 @@ const mapStateToProps = state => {
   return{
       errors:state?.createlab?.error,
       loading: state?.createlab?.loading,
+      idorg: state?.profile?.data.organisation,
+      singlepatient: state?.singlepatient?.data,
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -348,6 +426,7 @@ const mapDispatchToProps = dispatch => {
       createlabortory: (id,loginState, history, setErrorHandler) => {
           dispatch(createlabortory(id, loginState, history, setErrorHandler));
       },
+      singlefetchpatient: (id) => dispatch(singlefetchpatient(id)),
   }
 }
-export default NewMedicalRecord;
+export default connect(mapStateToProps, mapDispatchToProps)(NewMedicalRecord);
