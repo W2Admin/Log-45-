@@ -49,8 +49,8 @@ const App = () => {
       <BrowserRouter>
         <Provider store={store}>
           <Routes>
-            {/* <Route path="/" element={<LandingPagePG />} /> */}
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<LandingPagePG />} />
+            {/* <Route path="/" element={<Dashboard />} /> */}
             <Route
               path="/addorganisation"
               element={<AddEditOrgainisationModal />}

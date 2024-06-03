@@ -14,7 +14,7 @@ function LabResult() {
   const [isShareOpen, setIsShareOpen] = useState(false);
 
   const buttonClass =
-    "bg-[#216c5a] text-white flex items-center gap-3 rounded-lg px-4 py-2 text-sm";
+    "bg-subMain text-white flex items-center gap-3 rounded-lg px-4 py-2 text-sm";
 
   // Mock data - replace with API call
   const labResult = {

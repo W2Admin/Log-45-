@@ -302,7 +302,7 @@ function SignUp({
               <input
                 value={formDatauser.name}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 bg-subMain rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="text"
                 name="name"
                 id="name"
@@ -313,7 +313,7 @@ function SignUp({
               <input
                 value={formDatauser.email}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 bg-subMain rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="email"
                 name="email"
                 id="email"
@@ -324,7 +324,7 @@ function SignUp({
               <input
                 value={formDatauser.password}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 bg-subMain rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="password"
                 name="password"
                 id="password"
@@ -335,7 +335,7 @@ function SignUp({
               <input
                 value={formDatauser.re_password}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 bg-subMain rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="password"
                 name="re_password"
                 id="re_password"

@@ -420,11 +420,11 @@ const LandingPagePG = () => {
   return (
     <div>
       <Header />
-      <HeroSection />
+      {/* <HeroSection /> */}
       {/* <NewHero /> */}
       {/* <CompanySection /> */}
-      <FeaturesSection />
-      <Home />
+      {/* <FeaturesSection /> */}
+      {/* <Home /> */}
       <Footer />
     </div>
   );
