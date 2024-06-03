@@ -116,7 +116,7 @@ function LabResult() {
                 </div>
                 <div>
                   <p className="text-sm">Species</p>
-                  <p className="text-sm text-gray-700">{labResult.species}</p>
+                  <p className="text-xs text-gray-700">{labResult.species}</p>
                 </div>
                 <div>
                   <p className="text-sm">Examination Request</p>

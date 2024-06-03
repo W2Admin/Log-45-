@@ -10,11 +10,11 @@ import { Button, FromToDate, Select } from "../../components/Form";
 import { PatientTable } from "../../components/Tables";
 import { fetchpatient } from "../../Redux/Patients/PatientAction";
 import { connect } from "react-redux";
-import Loading2 from "../../images/loading2.json"
-import empty from "../../images/Empty.json"
+import Loading2 from "../../images/loading2.json";
+import empty from "../../images/Empty.json";
 import LottieAnimation from "../../Lotties";
 
-function Patients({patient, fetchpatient, loading}) {
+function Patients({ patient, fetchpatient, loading }) {
   const [status, setStatus] = useState(sortsDatas.filterPatient[0]);
   const [gender, setGender] = useState(sortsDatas.genderFilter[0]);
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
@@ -59,9 +59,9 @@ function Patients({patient, fetchpatient, loading}) {
       icon: MdOutlineCalendarMonth,
     },
   ];
-  useEffect(()=>{
-    fetchpatient()
-  },[])
+  useEffect(() => {
+    fetchpatient();
+  }, []);
   // preview
   const previewPayment = (id) => {
     navigate(`/patients/preview/${id}`);
@@ -69,127 +69,126 @@ function Patients({patient, fetchpatient, loading}) {
 
   return (
     <>
-        <Layout>
-          {/* add button */}
-          {loading ? (
-            <div className="preloader">
-              <LottieAnimation data={Loading2}/>
-            </div>
-          ) : (
-            <>
-              <Link
-                to="/patients/create"
-                className="w-16 animate-bounce h-16 border border-border z-50 bg-subMain text-white rounded-full flex-colo fixed bottom-8 right-12 button-fb"
-              >
-                <BiPlus className="text-2xl" />
-              </Link>
-              <h1 className="text-xl font-semibold">Customers</h1>
-              {/* boxes */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-                {boxes.map((box) => (
-                  <div
-                    key={box.id}
-                    className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5"
-                  >
-                    <div className="w-3/4">
-                      <h2 className="text-sm font-medium">{box.title}</h2>
-                      <h2 className="text-xl my-6 font-medium">{box.value}</h2>
-                      <p className="text-xs text-textGray">
-                        Total Patients <span className={box.color[1]}>{box.value}</span>{" "}
-                        {box.title === "Today Customers"
-                          ? "today"
-                          : box.title === "Monthly Customers"
-                          ? "this month"
-                          : "this year"}
-                      </p>
-                    </div>
-                    <div
-                      className={`w-10 h-10 flex-colo rounded-md text-white text-md ${box.color[0]}`}
-                    >
-                      <box.icon />
-                    </div>
+      <Layout>
+        {/* add button */}
+        {loading ? (
+          <div className="preloader">
+            <LottieAnimation data={Loading2} />
+          </div>
+        ) : (
+          <>
+            <Link
+              to="/patients/create"
+              className="w-16 animate-bounce h-16 border border-border z-50 bg-subMain text-white rounded-full flex-colo fixed bottom-8 right-12 button-fb"
+            >
+              <BiPlus className="text-2xl" />
+            </Link>
+            <h1 className="text-xl font-semibold">Customers</h1>
+            {/* boxes */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+              {boxes.map((box) => (
+                <div
+                  key={box.id}
+                  className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5"
+                >
+                  <div className="w-3/4">
+                    <h2 className="text-sm font-medium">{box.title}</h2>
+                    <h2 className="text-xl my-6 font-medium">{box.value}</h2>
+                    <p className="text-xs text-textGray">
+                      Total Patients{" "}
+                      <span className={box.color[1]}>{box.value}</span>{" "}
+                      {box.title === "Today Customers"
+                        ? "today"
+                        : box.title === "Monthly Customers"
+                        ? "this month"
+                        : "this year"}
+                    </p>
                   </div>
-                ))}
-              </div>
-              {/* datas */}
-              <div
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-delay="10"
-                data-aos-offset="200"
-                className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
-              >
-                <div className="grid lg:grid-cols-5 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2">
-                  <input
-                    type="text"
-                    placeholder='Search "Customers"'
-                    className="h-14 text-sm text-main rounded-md bg-dry border border-border px-4"
-                  />
-                  {/* sort  */}
-                  {sorts.map((item) => (
-                    <Select
-                      key={item.id}
-                      selectedPerson={item.selected}
-                      setSelectedPerson={item.setSelected}
-                      datas={item.datas}
-                    >
-                      <div className="h-14 w-full text-xs text-main rounded-md bg-dry border border-border px-4 flex items-center justify-between">
-                        <p>{item.selected.name}</p>
-                        <BiChevronDown className="text-xl" />
-                      </div>
-                    </Select>
-                  ))}
-                  {/* date */}
-                  <FromToDate
-                    startDate={startDate}
-                    endDate={endDate}
-                    bg="bg-dry"
-                    onChange={(update) => setDateRange(update)}
-                  />
-                  {/* export */}
-                  <Button
-                    label="Filter"
-                    Icon={MdFilterList}
-                    onClick={() => {
-                      toast.error("Filter data is not available yet");
-                    }}
-                  />
+                  <div
+                    className={`w-10 h-10 flex-colo rounded-md text-white text-md ${box.color[0]}`}
+                  >
+                    <box.icon />
+                  </div>
                 </div>
-                <div className="mt-8 w-full overflow-x-scroll">
-                  {/* {(patient?.length === 0)?(
+              ))}
+            </div>
+            {/* datas */}
+            <div
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="10"
+              data-aos-offset="200"
+              className="bg-white my-8 rounded-xl border-[1px] border-border p-5"
+            >
+              <div className="grid lg:grid-cols-5 grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2">
+                <input
+                  type="text"
+                  placeholder='Search "Customers"'
+                  className="h-14 text-sm text-main rounded-md bg-dry border border-border px-4"
+                />
+                {/* sort  */}
+                {sorts.map((item) => (
+                  <Select
+                    key={item.id}
+                    selectedPerson={item.selected}
+                    setSelectedPerson={item.setSelected}
+                    datas={item.datas}
+                  >
+                    <div className="h-14 w-full text-xs text-main rounded-md bg-dry border border-border px-4 flex items-center justify-between">
+                      <p>{item.selected.name}</p>
+                      <BiChevronDown className="text-xl" />
+                    </div>
+                  </Select>
+                ))}
+                {/* date */}
+                <FromToDate
+                  startDate={startDate}
+                  endDate={endDate}
+                  bg="bg-dry"
+                  onChange={(update) => setDateRange(update)}
+                />
+                {/* export */}
+                <Button
+                  label="Filter"
+                  Icon={MdFilterList}
+                  onClick={() => {
+                    toast.error("Filter data is not available yet");
+                  }}
+                />
+              </div>
+              <div className="mt-8 w-full overflow-x-auto">
+                {/* {(patient?.length === 0)?(
                       <div className="empty-animate">
                             <LottieAnimation data={empty}/>
                             <p>No Data Found</p>
                       </div>
                   ):( */}
-                      <PatientTable
-                        data={patient}
-                        functions={{
-                          preview: previewPayment,
-                        }}
-                        used={false}
-                      />
-                  {/* )} */}
-                </div>
+                <PatientTable
+                  data={patient}
+                  functions={{
+                    preview: previewPayment,
+                  }}
+                  used={false}
+                />
+                {/* )} */}
               </div>
-            </>
-          )}
-        </Layout>
-    
+            </div>
+          </>
+        )}
+      </Layout>
     </>
   );
 }
 const mapStoreToProps = (state) => {
-  return {    
-    loading: state.patient.loading, 
+  return {
+    loading: state.patient.loading,
     patient: state.patient.data,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      fetchpatient: () => dispatch(fetchpatient()),
-
+    fetchpatient: () => dispatch(fetchpatient()),
   };
 };
 export default connect(mapStoreToProps, mapDispatchToProps)(Patients);

@@ -66,7 +66,9 @@ function Dashboard() {
         <div className="xl:col-span-6 w-full">
           <div className="bg-white rounded-xl border-[1px] border-border p-5">
             <div className="flex-btn gap-2">
-              <h2 className="text-sm font-medium">Earning Reports</h2>
+              <h2 className="text-sm font-medium">
+                Amount Paid - Amount Invoiced
+              </h2>
               <p className="flex gap-4 text-sm items-center">
                 5.44%{" "}
                 <span className="py-1 px-2 bg-subMain text-white text-xs rounded-xl">
@@ -109,7 +111,7 @@ function Dashboard() {
         >
           {/* recent patients */}
           <div className="bg-white rounded-xl border-[1px] border-border p-5">
-            <h2 className="text-sm font-medium">Recent Patients</h2>
+            <h2 className="text-sm font-medium">Recent Customers</h2>
             {memberData.slice(3, 8).map((member, index) => (
               <Link
                 to={`/patients/preview/${member.id}`}
@@ -133,7 +135,9 @@ function Dashboard() {
           </div>
           {/* today apointments */}
           <div className="bg-white rounded-xl border-[1px] border-border p-5 xl:mt-6">
-            <h2 className="text-sm mb-4 font-medium">Today Appointments</h2>
+            <h2 className="text-sm mb-4 font-medium">
+              Lab Investigation Status
+            </h2>
             {appointmentsData.map((appointment, index) => (
               <div
                 key={appointment.id}
