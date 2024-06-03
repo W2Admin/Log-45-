@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { registerData, userData } from "../Redux/Registration/RegisterAction";
 import { BiLoaderCircle } from "react-icons/bi";
 import LottieAnimation from "../Lotties";
-import success from "../images/success.json"
+import success from "../images/success.json";
 
-function SignUp({registerData, userData, loading, error, userloading, usererror}) {
+function SignUp({
+  registerData,
+  userData,
+  loading,
+  error,
+  userloading,
+  usererror,
+}) {
   const formArray = [1, 2, 3];
   const [formNo, setFormNo] = useState(formArray[0]);
   const initialFormData = {
@@ -16,7 +24,7 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
     phone: "",
     industry: "",
     address: "",
-    description: ""
+    description: "",
   };
   const initialFormDatauser = {
     name: "",
@@ -27,7 +35,7 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
   const [formData, setFormData] = useState(initialFormData);
   const [formDatauser, setFormDataUser] = useState(initialFormDatauser);
   const [errors, setErrors] = useState({});
-  const [submiterror, setsubmiterror] = useState(false)
+  const [submiterror, setsubmiterror] = useState(false);
   const [state, setState] = useState({
     firstname: "",
     lastname: "",
@@ -45,6 +53,8 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const inputHandle = (e) => {
     setState({
       ...state,
@@ -55,16 +65,18 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
   const handleChange = (e) => {
     const { name, value } = e.target;
     // For industry, parse the value to an integer if it's not empty
-    if (name === 'industry' && value.trim() !== '') {
+    if (name === "industry" && value.trim() !== "") {
       setFormData({ ...formData, [name]: parseInt(value.trim()) });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
+
   const handleChange2 = (e) => {
     const { name, value } = e.target;
     setFormDataUser({ ...formDatauser, [name]: value });
   };
+
   const next = () => {
     if (
       formNo === 1 &&
@@ -102,7 +114,7 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
     }
   };
 
-  const handleOrgSubmit = async(e) =>{
+  const handleOrgSubmit = async (e) => {
     e.preventDefault();
     if (
       formNo === 1 &&
@@ -114,129 +126,129 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
       formData.description
     ) {
       try {
-        await registerData(formData, ()=>{
-          toast.success("Organistion Created Succcessfully please procees to creating first user");
-          setFormNo(formNo + 1);
-          setFormData({})
-        }, ()=>{
-          setsubmiterror(true)
-          toast.error({error});
-        });
+        await registerData(
+          formData,
+          () => {
+            toast.success(
+              "Organistion Created Succcessfully please procees to creating first user"
+            );
+            setFormNo(formNo + 1);
+            setFormData({});
+          },
+          () => {
+            setsubmiterror(true);
+            toast.error({ error });
+          }
+        );
       } catch (error) {
         console.error("Error submitting form:", error.message);
       }
-    }else{
+    } else {
       toast.error("Please fill up all input fields");
     }
-  }
-  const handleAdminSubmit = async(e) =>{
+  };
+
+  const handleAdminSubmit = async (e) => {
     e.preventDefault();
-    if(
+    if (
       formNo === 2 &&
       formDatauser.name &&
       formDatauser.email &&
-      formDatauser.password  &&
-      formDatauser.re_password 
-    ){
+      formDatauser.password &&
+      formDatauser.re_password
+    ) {
       try {
-        await userData(formDatauser, ()=>{
-          toast.success("Admin User Created Successully, Please check you mail for a Verification mail");
-          setFormNo(formNo + 1);
-          setFormData({})
-        }, ()=>{
-          setsubmiterror(true)
-          toast.error({usererror});
-        });
+        await userData(
+          formDatauser,
+          () => {
+            toast.success(
+              "Admin User Created Successully, Please check you mail for a Verification mail"
+            );
+            setFormNo(formNo + 1);
+            setFormData({});
+          },
+          () => {
+            setsubmiterror(true);
+            toast.error({ usererror });
+          }
+        );
       } catch (error) {
         console.error("Error submitting form:", error.message);
       }
-    }else{
+    } else {
       toast.error("Please fill up all input fields");
     }
-  }
+  };
+
+  const handleClose = () => {
+    navigate("/");
+  };
+
   return (
-    <div className="w-screen h-screen bg-slate-300 items-center fixed inset-0 flex justify-center bg-opacity-75 z-50">
+    <div className="min-h-screen flex">
       <ToastContainer />
-      <div className="card w-[370px] rounded-md shadow-md bg-white p-5">
-        <div className="flex justify-center items-center">
-          {formArray.map((v, i) => (
-            <React.Fragment key={i}>
-              <div
-                className={`w-[35px] my-3 text-white rounded-full ${
-                  formNo - 1 === i ||
-                  formNo - 1 === i + 1 ||
-                  formNo === formArray.length
-                    ? "bg-[#66B5A3]"
-                    : "bg-slate-400"
-                } h-[35px] flex justify-center items-center`}
-              >
-                {v}
-              </div>
-              {i !== formArray.length - 1 && (
-                <div
-                  className={`w-[85px] h-[2px] ${
-                    formNo === i + 2 || formNo === formArray.length
-                      ? "bg-[#66B5A3]"
-                      : "bg-slate-400"
-                  }`}
-                ></div>
-              )}
-            </React.Fragment>
-          ))}
+      <div className="w-1/3 bg-gray-100 flex flex-col items-center justify-center p-8">
+        <div className="text-3xl font-bold mb-2">Log45</div>
+        <div className="text-xl mb-4">Sign up your business on Log45</div>
+        <div className="text-gray-500">Create your account effortlessly.</div>
+      </div>
+      <div className="w-2/3 bg-white flex flex-col justify-center p-20">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-2xl mb-1 font-bold">
+              Organisation Information
+            </h2>
+            <p className="text-gray-500">
+              This information would be used to create your account.
+            </p>
+          </div>
+          {/* <button onClick={handleClose} className="text-red-500">
+            Log In
+          </button> */}
         </div>
-        {formNo === 1  && (
-            <div>
-            <div className="flex flex-col mb-2">
+
+        {formNo === 1 && (
+          <div>
+            <div className="flex flex-col mb-4">
               <label htmlFor="name">Organisation Name</label>
               <input
                 value={formData.name}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-blue-500 rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 type="text"
                 name="name"
                 id="name"
               />
             </div>
-            <div className="flex flex-col mb-2">
+            <div className="flex flex-col mb-4">
               <label htmlFor="contact_email">Organisation Email</label>
               <input
-              value={formData.contact_email}
-              onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-blue-500 rounded-md"
+                value={formData.contact_email}
+                onChange={handleChange}
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 type="email"
                 name="contact_email"
                 id="contact_email"
               />
             </div>
-            <div className="flex flex-col mb-2">
+            <div className="flex flex-col mb-4">
               <label htmlFor="phone">Organisation Phone Number</label>
               <input
                 value={formData.phone}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-blue-500 rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 type="text"
                 maxLength={11}
                 name="phone"
                 id="phone"
               />
             </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="address">Organisation Address</label>
-              <textarea
-                value={formData.address}
-                onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-blue-500 rounded-md"
-                name="address"
-                id="address"
-                rows="3"
-              ></textarea>
-            </div>
-            <div className="flex flex-col mb-2">
+            <div className="flex flex-col mb-4">
               <label htmlFor="industry">Industry Type</label>
               <select
                 value={formData.industry}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 name="industry"
                 id="industry"
               >
@@ -244,88 +256,88 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
                 <option value="1">Fish Farming</option>
                 <option value="2">Pig Farming</option>
                 <option value="3">Crop Farming</option>
-                <option value="4">Animal Husbandry</option>
-                <option value="5">Laboratory Specialist</option>
-                <option value="6">HealthCare</option>
+                <option value="4">Diary Farming</option>
+                <option value="5">Poultry Farming</option>
+                <option value="6">Other</option>
               </select>
+            </div>{" "}
+            <div className="flex flex-col mb-4">
+              <label htmlFor="address">Organisation Address</label>
+              <textarea
+                value={formData.address}
+                onChange={handleChange}
+                className="border p-2 rounded mt-1"
+                name="address"
+                id="address"
+                rows="3"
+              ></textarea>
             </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="description">Organisation Description</label>
+            <div className="flex flex-col mb-4">
+              <label htmlFor="description">Description</label>
               <textarea
                 value={formData.description}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-blue-500 rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 name="description"
                 id="description"
                 rows="3"
               ></textarea>
             </div>
-            <div className="mt-4 gap-3 flex justify-center items-center">
-              <button
-                onClick={handleOrgSubmit}
-                disabled={loading}
-                className="flex justify-center px-3 py-2 text-lg rounded-md w-full text-white bg-[#66B5A3]"
-              >
-                {loading ? (
-                    <BiLoaderCircle className="animate-spin text-white text-2xl" />
-                ) : (
-                    "Next"
-                )
-                }
-              </button>
-            </div>
+            <button
+              onClick={handleOrgSubmit}
+              className="w-full p-2 text-white mt-2 bg-subMain rounded-md"
+            >
+              {loading ? (
+                <BiLoaderCircle className="animate-spin mx-auto" size={24} />
+              ) : (
+                "Submit"
+              )}
+            </button>
           </div>
         )}
         {formNo === 2 && (
           <div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="name">
-                Organisation Administration Name
-              </label>
+            <div className="flex flex-col gap-4 w-full mb-6">
+              <label htmlFor="name">Full Name</label>
               <input
                 value={formDatauser.name}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-[#66B5A3] rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="text"
                 name="name"
-                placeholder="Admin Name"
                 id="name"
               />
             </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="email">Admin Email</label>
+            <div className="flex flex-col gap-4 w-full mb-6">
+              <label htmlFor="email">Email Address</label>
               <input
                 value={formDatauser.email}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-[#66B5A3] rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="email"
                 name="email"
-                placeholder="Admin Email"
                 id="email"
               />
             </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="password">Create Password</label>
+            <div className="flex flex-col gap-4 w-full mb-6">
+              <label htmlFor="password">Password</label>
               <input
                 value={formDatauser.password}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-[#66B5A3] rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="password"
                 name="password"
-                placeholder="Password"
                 id="password"
               />
             </div>
-
-            <div className="flex flex-col mb-2">
+            <div className="flex flex-col gap-4 w-full mb-6">
               <label htmlFor="re_password">Confirm Password</label>
               <input
                 value={formDatauser.re_password}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-[#66B5A3] rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="password"
                 name="re_password"
-                placeholder="Password"
                 id="re_password"
               />
             </div>
@@ -342,11 +354,10 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
                 className="flex justify-center px-3 py-2 text-lg rounded-md w-full text-white bg-[#66B5A3]"
               >
                 {userloading ? (
-                    <BiLoaderCircle className="animate-spin text-white text-2xl" />
+                  <BiLoaderCircle className="animate-spin text-white text-2xl" />
                 ) : (
-                    "Submit"
-                )
-                }
+                  "Submit"
+                )}
               </button>
             </div>
           </div>
@@ -354,38 +365,26 @@ function SignUp({registerData, userData, loading, error, userloading, usererror}
         {formNo === 3 && (
           <div>
             <div className="flex-col justify-center">
-
-              <LottieAnimation data={success}/>
+              <LottieAnimation data={success} />
               <p>Please check your mail for a Verification Link</p>
             </div>
           </div>
-        )}     
-
+        )}
       </div>
     </div>
   );
 }
 
+const mapStateToProps = (state) => ({
+  loading: state.register.loading,
+  error: state.register.error,
+  userloading: state.user.loading,
+  usererror: state.user.error,
+});
 
-const mapStoreToProps = (state) => {
-  console.log(state)
-  return {
-      loading: state.register.loading,
-      error: state?.register?.error,
-      userloading: state.user.loading,
-      usererror: state?.user?.error
-  };
+const mapDispatchToProps = {
+  registerData,
+  userData,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    registerData: (registerState, history, setErrorHandler)=>{
-      dispatch(registerData(registerState, history, setErrorHandler))
-    },
-    userData: (registerState, history, setErrorHandler)=>{
-      dispatch(userData(registerState, history, setErrorHandler))
-    },
-  };
-};
-
-export default connect(mapStoreToProps, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

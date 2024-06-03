@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { invoicesData } from "../../components/Datas";
 import { toast } from "react-hot-toast";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { MdOutlineCloudDownload } from "react-icons/md";
@@ -8,8 +7,6 @@ import { AiOutlinePrinter } from "react-icons/ai";
 import { RiShareBoxLine } from "react-icons/ri";
 import PaymentModal from "../../components/Modals/PaymentModal";
 import ShareModal from "../../components/Modals/ShareModal";
-import SenderReceverComp from "../../components/SenderReceverComp";
-import { ResultsTable } from "../../components/Tables";
 
 function LabResult() {
   const { id } = useParams();
@@ -17,20 +14,69 @@ function LabResult() {
   const [isShareOpen, setIsShareOpen] = useState(false);
 
   const buttonClass =
-    "bg-blue-500 text-white flex items-center gap-3 rounded-lg px-4 py-2 text-sm";
+    "bg-subMain text-white flex items-center gap-3 rounded-lg px-4 py-2 text-sm";
 
-  const results = invoicesData.find((invoice) => invoice.id.toString() === id);
+  // Mock data - replace with API call
+  const labResult = {
+    patientName: "Anami Ammasty",
+    animalType: "Dog",
+    species: "Rottweiler",
+    examinationRequest: "Blood Test",
+    investigationType: "Wide",
+    testDate: "2023-05-27",
+    results: [
+      {
+        test: "Pathogen Type",
+        result: "Bacteria",
+        unit: "",
+        reference: "4.5-11.0",
+      },
+      {
+        test: "SPP",
+        result: "Gingivitis",
+        unit: "mg/dL",
+        reference: "70-110",
+      },
+      {
+        test: "Susceptible AB",
+        result: "Pulse",
+        unit: "mg/dL",
+        reference: "7-20",
+      },
+      {
+        test: "Resistant AB",
+        result: "1.0",
+        unit: "mg/dL",
+        reference: "0.5-1.2",
+      },
+      {
+        test: "Alkaline Phosphatase",
+        result: "45",
+        unit: "U/L",
+        reference: "20-120",
+      },
+    ],
+    doctorNotes:
+      "No significant abnormalities detected. The dog is in good health.",
+  };
 
   return (
-    <div className="container mx-auto my-8 p-8 bg-white rounded-xl shadow-md border border-gray-200">
+    <div className=" ">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold">Lab Result Details</h1>
-        <Link to="/lab-results" className="text-blue-500 flex items-center">
+        <h1 className="text-sm font-medium sm:block hidden">
+          Investigation Result
+        </h1>
+        {/* <Link to="/lab-results" className="text-subMain flex items-center">
           <IoArrowBackOutline className="mr-2" /> Go Back
-        </Link>
+        </Link> */}
       </div>
 
       <div className="flex justify-between items-center mb-4">
+        <img
+          src="/images/logo.png"
+          alt="logo"
+          className="w-32 object-contain mb-4"
+        />
         <div className="flex gap-4">
           <button
             onClick={() => toast.error("This feature is not available yet")}
@@ -48,97 +94,93 @@ function LabResult() {
             Share <RiShareBoxLine />
           </button>
         </div>
-        <button
-          onClick={() => setIsOpen(true)}
-          className="bg-green-500 text-white rounded-lg px-6 py-3 text-sm"
-        >
-          Generate Payment
-        </button>
       </div>
 
       <div className="mb-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div>
-            <img
-              src="/images/logo.png"
-              alt="logo"
-              className="w-32 object-contain mb-4"
-            />
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <h2 className="text-lg font-semibold mb-4">
-                Patient Information
-              </h2>
+              <h2 className="text-sm font-medium mb-4">Patient Information</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {results.to && (
-                  <>
-                    <div>
-                      <p className="text-sm font-medium">Name</p>
-                      <p className="text-sm text-gray-700">{results.to.name}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium">Animal Type</p>
-                      <p className="text-sm text-gray-700">
-                        {results.to.animalType}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium">Species</p>
-                      <p className="text-sm text-gray-700">
-                        {results.to.species}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium">Examination Request</p>
-                      <p className="text-sm text-gray-700">
-                        {results.to.examinationRequest}
-                      </p>
-                    </div>
-                  </>
-                )}
+                <div>
+                  <p className="text-sm">Name</p>
+                  <p className="text-xs text-gray-700">
+                    {labResult.patientName}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm">Animal Type</p>
+                  <p className="text-xs text-gray-700">
+                    {labResult.animalType}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm">Species</p>
+                  <p className="text-xs text-gray-700">{labResult.species}</p>
+                </div>
+                <div>
+                  <p className="text-sm">Examination Request</p>
+                  <p className="text-xs text-gray-700">
+                    {labResult.examinationRequest}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm">Investiagation Type</p>
+                  <p className="text-xs text-gray-700">
+                    {labResult.investigationType}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm">Test Date</p>
+                  <p className="text-xs font-light text-gray-700">
+                    {labResult.testDate}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
           <div className="lg:col-span-2">
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <h2 className="text-lg font-semibold mb-4">Results</h2>
-              <ResultsTable data={results.items} />
+              <h2 className="text-sm font-medium mb-4">Results</h2>
+              <table className="w-full text-xs text-left text-gray-700">
+                <thead className="text-xs font-light text-gray-700 uppercase bg-gray-100">
+                  <tr>
+                    <th scope="col" className="px-4 py-2">
+                      Test
+                    </th>
+                    <th scope="col" className="px-4 py-2">
+                      Result
+                    </th>
+                    <th scope="col" className="px-4 py-2">
+                      Unit
+                    </th>
+                    <th scope="col" className="px-4 py-2">
+                      Reference Range
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {labResult.results.map((result, index) => (
+                    <tr key={index} className="bg-white border-b">
+                      <td className="px-4 py-2">{result.test}</td>
+                      <td className="px-4 py-2">{result.result}</td>
+                      <td className="px-4 py-2">{result.unit}</td>
+                      <td className="px-4 py-2">{result.reference}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <div className="lg:col-span-2">
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <h2 className="text-lg font-semibold mb-4">Notes</h2>
-            <p className="text-sm text-gray-700">
-              Thank you for your business. We hope to work with you again soon.
-              You can pay your invoice online at www.example.com/payments.
-            </p>
-          </div>
-        </div>
-        <div>
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-            <h2 className="text-lg font-semibold mb-4">Summary</h2>
-            <div className="flex justify-between items-center mb-2">
-              <p className="text-sm text-gray-700">Sub Total:</p>
-              <p className="text-sm font-medium">${results.subTotal}</p>
-            </div>
-            <div className="flex justify-between items-center mb-2">
-              <p className="text-sm text-gray-700">Discount:</p>
-              <p className="text-sm font-medium">${results.discount}</p>
-            </div>
-            <div className="flex justify-between items-center mb-2">
-              <p className="text-sm text-gray-700">Tax:</p>
-              <p className="text-sm font-medium">${results.tax}</p>
-            </div>
-            <div className="flex justify-between items-center mb-2">
-              <p className="text-sm text-gray-700">Grand Total:</p>
-              <p className="text-sm font-medium text-green-600">
-                ${results.total}
-              </p>
-            </div>
-          </div>
+      <div className="mb-6">
+        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <h2 className="text-sm font-medium mb-4">Doctor's Notes</h2>
+          <p className="text-sm font-light text-gray-700">
+            {labResult.doctorNotes}
+          </p>
         </div>
       </div>
 

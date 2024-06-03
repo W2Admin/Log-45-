@@ -2,65 +2,65 @@ import React, { useState, useEffect } from "react";
 import { Button, Input } from "../components/Form";
 import { BiLogInCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import OrgRegistrationForm from "./OrgRegistrationForm";
 import { LoginAuthAction } from "../Redux/Login/LoginAction";
 import { connect } from "react-redux";
 
-function Login({login, loading, errors}) {
+function Login({ login, loading, errors }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginState, setLoginState] = useState({})
-  const [error, seterror] = useState(false)
+  const [loginState, setLoginState] = useState({});
+  const [error, setError] = useState(false);
 
   const handleNumber = (e) => {
     const value = e.target.value;
     setEmail(value);
-    console.log(value)
-    setLoginState({ ...loginState, ...{email:email} });
+    setLoginState({ ...loginState, email: value });
   };
+
   const handlePassword = (e) => {
     const value = e.target.value;
     setPassword(value);
-    console.log(value)
-    setLoginState({ ...loginState, ...{password:password} });
-};
-
+    setLoginState({ ...loginState, password: value });
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try{
-        await login(loginState, ()=>{ 
-            // fetchgetprofile()
-            navigate(`/dashboard`)
-        // setPending(true);
-        }, ()=>{ 
-            seterror(true)
-            // setErrorHandler(error)
-            // setPending(false);
-        });
-    }catch(error){
+    try {
+      await login(
+        loginState,
+        () => {
+          navigate(`/dashboard`);
+        },
+        () => {
+          setError(true);
+        }
+      );
+    } catch (error) {
+      setError(true);
     }
   };
+
   useEffect(() => {
-    setLoginState({ ...loginState, email, password });
+    setLoginState({ email, password });
   }, [email, password]);
+
   return (
-    <div className="w-full h-screen flex-colo bg-dry">
+    <div className="w-full h-screen flex items-center justify-center bg-dry">
       <form
-        className="w-2/5 p-8 rounded-2xl mx-auto bg-white flex-colo"
+        className="w-full max-w-md p-8 rounded-2xl bg-white flex-colo shadow-md"
         onSubmit={handleLogin}
       >
         <img
           src="/images/logo.png"
           alt="logo"
-          className="w-48 h-16 object-contain"
+          className="w-48 h-16 object-contain mb-6"
         />
-          {error && (
-            <div className="error-message">
-              <p>{errors}</p>
-            </div>
-          )}
+        {error && (
+          <div className="error-message mb-4">
+            <p>{errors}</p>
+          </div>
+        )}
         <div className="flex flex-col gap-4 w-full mb-6">
           <Input
             label="Email"
@@ -68,8 +68,7 @@ function Login({login, loading, errors}) {
             color={true}
             placeholder="admin@gmail.com"
             value={email}
-            onChange={(e)=>{handleNumber(e)}}
-            // onBlur={handleNumber}
+            onChange={handleNumber}
           />
           <Input
             label="Password"
@@ -77,31 +76,33 @@ function Login({login, loading, errors}) {
             color={true}
             placeholder="*********"
             value={password}
-            onChange={(e)=>{handlePassword(e)}}
+            onChange={handlePassword}
           />
         </div>
-        <Button 
-          label="Login" 
-          Icon={BiLogInCircle} 
+        <Button
+          label="Login"
+          Icon={BiLogInCircle}
           type="submit"
-          loading={loading} 
+          loading={loading}
         />
       </form>
     </div>
   );
 }
-const mapStateToProps = state => {
-  return{
-      errors:state?.login?.error,
-      loading: state?.login?.dataAdded,
-  }
-}
 
-const mapDispatchToProps = dispatch => {
-  return{
-      login: (loginState, history, setErrorHandler) => {
-          dispatch(LoginAuthAction(loginState, history, setErrorHandler));
-      },
-  }
-}
+const mapStateToProps = (state) => {
+  return {
+    errors: state?.login?.error,
+    loading: state?.login?.dataAdded,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (loginState, history, setErrorHandler) => {
+      dispatch(LoginAuthAction(loginState, history, setErrorHandler));
+    },
+  };
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

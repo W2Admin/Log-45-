@@ -246,6 +246,12 @@ function NewMedicalRecode() {
                 <BiPlus /> Add Medicine
               </button>
             </div>
+            <Textarea
+              label="Doctor's Notes"
+              color={true}
+              rows={3}
+              placeholder={"Gingivitis, Periodontitis, ...."}
+            />
             {/* attachment */}
             <div className="flex w-full flex-col gap-4">
               <p className="text-black text-sm">Attachments</p>
@@ -271,13 +277,24 @@ function NewMedicalRecode() {
               <Uploader setImage={{}} />
             </div>
             {/* submit */}
-            <Button
-              label={"Save"}
-              Icon={HiOutlineCheckCircle}
-              onClick={() => {
-                toast.error("This feature is not available yet");
-              }}
-            />
+            <div className="flex items-center space-x-4">
+              {" "}
+              {/* Container to hold the buttons */}
+              <Button
+                label={"Save"}
+                Icon={HiOutlineCheckCircle}
+                onClick={() => {
+                  toast.error("This feature is not available yet");
+                }}
+              />
+              <Button
+                label={"Submit"}
+                Icon={HiOutlineCheckCircle}
+                onClick={() => {
+                  toast.error("This feature is not available yet");
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
