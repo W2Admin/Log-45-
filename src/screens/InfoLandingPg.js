@@ -1,79 +1,36 @@
-import React, { useState } from "react";
-import { ReactTyped } from "react-typed";
-import logo from "../images/logo.png";
+import React from "react";
 import { Link } from "react-router-dom";
-import RegistrationForm from "./RegistrationForm";
-import OrgRegistrationForm from "./OrgRegistrationForm";
+import logo from "../images/logo.png";
+import heroImage from "../images/Farmers.jpg";
 import SignUp from "./SignUp";
 
 const Header = () => {
-  const [showModal, setShowModal] = React.useState(false);
   return (
-    <header>
-      <nav className="bg-[#F6F6F6] border-gray-200 px-4 lg:px-6 py-2.5">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to="/" className="flex items-center">
-            <img src={logo} className="mr-3 h-6 sm:h-9" alt="Logo" />
-            {/* <span className="self-center text-xl font-semibold whitespace-nowrap text-grey-500">
-              Log45
-            </span> */}
+    <header className="bg-white shadow-md">
+      <nav className="container mx-auto p-4 flex justify-between items-center">
+        <Link to="/" className="flex items-center">
+          <div className="text-2xl font-bold text-gray-800">Log 45</div>
+          <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+            <nav className="space-x-6">
+              <a href="#features" className="text-gray-600 hover:text-gray-800">
+                Features
+              </a>
+              <a href="#about" className="text-gray-600 hover:text-gray-800">
+                About
+              </a>
+              <a href="#contact" className="text-gray-600 hover:text-gray-800">
+                Contact
+              </a>
+            </nav>
+          </div>
+        </Link>
+        <div className="flex space-x-4">
+          <Link to="/login" className="btn-primary">
+            Log in
           </Link>
-          <div className="flex items-center lg:order-2">
-            <Link
-              to="/login"
-              className="text-gray-800 bg-[#2d987f] dark:text-white hover:bg-green-600  focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 focus:outline-none"
-            >
-              Log in
-            </Link>
-            <Link
-              to="/signup"
-              className="text-white bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:bg-[#216c5a] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-            >
-              Get started
-            </Link>
-
-            {/* <button
-              onClick={() => setShowModal(true)}
-              className="text-white bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:bg-[#216c5a] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-            ></button> */}
-            {/* {showModal && (
-              <div className="fixed top-0 left-0 w-full h-screen flex-colo bg-dry bg-opacity-50 flex justify-center items-center">
-                <div className="rounded-lg"> */}
-            {/* Close button */}
-            {/* <button onClick={() => setShowModal(false)}>Close</button> */}
-
-            {/* Registration form */}
-            {/* <RegistrationForm /> */}
-            {/* <SignUp /> */}
-            {/* </div>
-              </div>
-            )} */}
-            <button
-              data-collapse-toggle="mobile-menu-2"
-              type="button"
-              className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="mobile-menu-2"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-            </button>
-          </div>
-          <div
-            className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
-            id="mobile-menu-2"
-          >
-            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              <li>
-                <Link
-                  to="/"
-                  className="block py-2 pr-4 pl-3 text-gray-900 rounded bg-gray-900 lg:bg-transparent lg:text-grey-900 lg:p-0 "
-                  aria-current="page"
-                >
-                  Home
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <Link to="/signup" className="btn-secondary">
+            Get started
+          </Link>
         </div>
       </nav>
     </header>
@@ -81,44 +38,24 @@ const Header = () => {
 };
 
 const HeroSection = () => {
-  const [showModal, setShowModal] = React.useState(false);
   return (
-    <section className="bg-white">
-      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-        <div className="mr-auto place-self-center mt-10 lg:col-span-7">
-          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl text-grey-70">
-            Your Solution for Streamlined Data Management
-          </h1>
-          <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-            At Log45, we understand the critical role data plays in modern
-            agriculture and scientific research.That's why we developed a
-            comprehensive application to streamline the data intake processes
-            for farms and laboratories.
-          </p>
-          <Link
-            to="/signup"
-            className="text-white bg-[#216c5a] hover:bg-green-600 focus:ring-4 focus:bg-[#216c5a] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-          >
-            Get started
-          </Link>
-          {showModal && (
-            <div className="fixed top-0 left-0 w-full h-screen flex-colo bg-dry bg-opacity-50 flex justify-center items-center">
-              <div className="rounded-lg">
-                {/* Close button */}
-                <button onClick={() => setShowModal(false)}>Close</button>
-                {/* Registration form */}
-                {/* <OrgRegistrationForm /> */}
-                <SignUp />
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-          <img
-            src="https://img.freepik.com/free-photo/full-shot-woman-holding-tablet_23-2149894709.jpg?t=st=1713769170~exp=1713772770~hmac=3228b1dc46c3153eb0c2704e57775ae5e82356fba581684abea59a8470e2c9db&w=2000"
-            alt="mockup"
-          />
-        </div>
+    <section className="relative bg-gradient-to-r from-green-600 to-blue-500 text-white">
+      <img
+        src={heroImage}
+        alt="Hero"
+        className="absolute inset-0 w-full h-full object-cover opacity-50"
+      />
+      <div className="container mx-auto relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
+        <h1 className="text-5xl font-bold mb-4">
+          Your Solution for Streamlined Data Management
+        </h1>
+        <p className="text-xl mb-8">
+          At Log45, we understand the critical role data plays in modern
+          agriculture and scientific research.
+        </p>
+        <Link to="/signup" className="btn-primary">
+          Get started
+        </Link>
       </div>
     </section>
   );
@@ -162,32 +99,32 @@ const CompanySection = () => {
     </section>
   );
 };
-const NewHero = () => {
-  return (
-    <div class="pt-24 bg-white">
-      <div class="px-12 mx-auto max-w-7xl">
-        <div class="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
-          <h1 class="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-800 md:text-6xl md:tracking-tight">
-            <span> Empowering</span>{" "}
-            <span class="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-[#216c5a] to-[#228870] lg:inline">
-              Agriculture & Research.
-            </span>{" "}
-            <span>
-              We are committed to your{" "}
-              <ReactTyped
-                className="text-[#216c5a] md:pl-4 pl-2"
-                strings={["soil", "livestock", "professionals."]}
-                typeSpeed={120}
-                backSpeed={140}
-                loop
-              />
-            </span>
-          </h1>
-        </div>
-      </div>
-    </div>
-  );
-};
+// const NewHero = () => {
+//   return (
+//     <div class="pt-24 bg-white">
+//       <div class="px-12 mx-auto max-w-7xl">
+//         <div class="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+//           <h1 class="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-800 md:text-6xl md:tracking-tight">
+//             <span> Empowering</span>{" "}
+//             <span class="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-[#216c5a] to-[#228870] lg:inline">
+//               Agriculture & Research.
+//             </span>{" "}
+//             <span>
+//               We are committed to your{" "}
+//               <ReactTyped
+//                 className="text-[#216c5a] md:pl-4 pl-2"
+//                 strings={["soil", "livestock", "professionals."]}
+//                 typeSpeed={120}
+//                 backSpeed={140}
+//                 loop
+//               />
+//             </span>
+//           </h1>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 const FeaturesSection = () => {
   return (
     <section className="bg-[#F6F6F6]">
@@ -483,11 +420,11 @@ const LandingPagePG = () => {
   return (
     <div>
       <Header />
-      <HeroSection />
-      <NewHero />
+      {/* <HeroSection /> */}
+      {/* <NewHero /> */}
       {/* <CompanySection /> */}
-      <FeaturesSection />
-      <Home />
+      {/* <FeaturesSection /> */}
+      {/* <Home /> */}
       <Footer />
     </div>
   );

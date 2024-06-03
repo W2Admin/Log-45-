@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { registerData, userData } from "../Redux/Registration/RegisterAction";
 import { BiLoaderCircle } from "react-icons/bi";
 import LottieAnimation from "../Lotties";
-import success from "../images/success.json"
+import success from "../images/success.json";
 
 function SignUp({
   registerData,
@@ -185,96 +185,70 @@ function SignUp({
   };
 
   return (
-    <div className="w-full h-screen flex-colo bg-dry">
+    <div className="min-h-screen flex">
       <ToastContainer />
-      <div className="card w-2/5 rounded-md shadow-md bg-white p-8">
-        <div className="flex justify-end mb-4">
-          <button
-            onClick={handleClose}
-            className="px-3 py-2 text-sm rounded-md text-white bg-red-100"
-          >
-            Close
-          </button>
+      <div className="w-1/3 bg-gray-100 flex flex-col items-center justify-center p-8">
+        <div className="text-3xl font-bold mb-2">Log45</div>
+        <div className="text-xl mb-4">Sign up your business on Log45</div>
+        <div className="text-gray-500">Create your account effortlessly.</div>
+      </div>
+      <div className="w-2/3 bg-white flex flex-col justify-center p-20">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-2xl mb-1 font-bold">
+              Organisation Information
+            </h2>
+            <p className="text-gray-500">
+              This information would be used to create your account.
+            </p>
+          </div>
+          {/* <button onClick={handleClose} className="text-red-500">
+            Log In
+          </button> */}
         </div>
-        <div className="flex justify-center items-center">
-          {formArray.map((v, i) => (
-            <React.Fragment key={i}>
-              <div
-                className={`w-[35px] my-3 text-white rounded-full ${
-                  formNo - 1 === i ||
-                  formNo - 1 === i + 1 ||
-                  formNo === formArray.length
-                    ? "bg-[#66B5A3]"
-                    : "bg-slate-400"
-                } h-[35px] flex justify-center items-center`}
-              >
-                {v}
-              </div>
-              {i !== formArray.length - 1 && (
-                <div
-                  className={`w-[85px] h-[2px] ${
-                    formNo === i + 2 || formNo === formArray.length
-                      ? "bg-[#66B5A3]"
-                      : "bg-slate-400"
-                  }`}
-                ></div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+
         {formNo === 1 && (
           <div>
-            <div className="flex flex-col gap-4 w-full mb-6">
+            <div className="flex flex-col mb-4">
               <label htmlFor="name">Organisation Name</label>
               <input
                 value={formData.name}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-[#216c5a] rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 type="text"
                 name="name"
                 id="name"
               />
             </div>
-            <div className="flex flex-col gap-4 w-full mb-6">
+            <div className="flex flex-col mb-4">
               <label htmlFor="contact_email">Organisation Email</label>
               <input
                 value={formData.contact_email}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-[#216c5a] rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 type="email"
                 name="contact_email"
                 id="contact_email"
               />
             </div>
-            <div className="flex flex-col gap-4 w-full mb-6">
+            <div className="flex flex-col mb-4">
               <label htmlFor="phone">Organisation Phone Number</label>
               <input
                 value={formData.phone}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-[#216c5a] rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 type="text"
                 maxLength={11}
                 name="phone"
                 id="phone"
               />
             </div>
-            <div className="flex flex-col gap-4 w-full mb-6">
-              <label htmlFor="address">Organisation Address</label>
-              <textarea
-                value={formData.address}
-                onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-[#216c5a]rounded-md"
-                name="address"
-                id="address"
-                rows="3"
-              ></textarea>
-            </div>
-            <div className="flex flex-col gap-4 w-full mb-6">
+            <div className="flex flex-col mb-4">
               <label htmlFor="industry">Industry Type</label>
               <select
                 value={formData.industry}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 focus:border-blue-500 rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 name="industry"
                 id="industry"
               >
@@ -286,13 +260,24 @@ function SignUp({
                 <option value="5">Poultry Farming</option>
                 <option value="6">Other</option>
               </select>
+            </div>{" "}
+            <div className="flex flex-col mb-4">
+              <label htmlFor="address">Organisation Address</label>
+              <textarea
+                value={formData.address}
+                onChange={handleChange}
+                className="border p-2 rounded mt-1"
+                name="address"
+                id="address"
+                rows="3"
+              ></textarea>
             </div>
-            <div className="flex flex-col gap-4 w-full mb-6">
+            <div className="flex flex-col mb-4">
               <label htmlFor="description">Description</label>
               <textarea
                 value={formData.description}
                 onChange={handleChange}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-blue-500 rounded-md"
+                className="p-5 block border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 rounded mt-1"
                 name="description"
                 id="description"
                 rows="3"
@@ -300,7 +285,7 @@ function SignUp({
             </div>
             <button
               onClick={handleOrgSubmit}
-              className="w-full p-2 text-white mt-2 bg-[#216c5a] rounded-md"
+              className="w-full p-2 text-white mt-2 bg-subMain rounded-md"
             >
               {loading ? (
                 <BiLoaderCircle className="animate-spin mx-auto" size={24} />
@@ -317,7 +302,7 @@ function SignUp({
               <input
                 value={formDatauser.name}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-[#216c5a]rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="text"
                 name="name"
                 id="name"
@@ -328,7 +313,7 @@ function SignUp({
               <input
                 value={formDatauser.email}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-[#216c5a]rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="email"
                 name="email"
                 id="email"
@@ -339,7 +324,7 @@ function SignUp({
               <input
                 value={formDatauser.password}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-blue-500 rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="password"
                 name="password"
                 id="password"
@@ -350,7 +335,7 @@ function SignUp({
               <input
                 value={formDatauser.re_password}
                 onChange={handleChange2}
-                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 focus:border-[#216c5a] rounded-md"
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="password"
                 name="re_password"
                 id="re_password"
@@ -369,11 +354,10 @@ function SignUp({
                 className="flex justify-center px-3 py-2 text-lg rounded-md w-full text-white bg-[#66B5A3]"
               >
                 {userloading ? (
-                    <BiLoaderCircle className="animate-spin text-white text-2xl" />
+                  <BiLoaderCircle className="animate-spin text-white text-2xl" />
                 ) : (
-                    "Submit"
-                )
-                }
+                  "Submit"
+                )}
               </button>
             </div>
           </div>
@@ -381,8 +365,7 @@ function SignUp({
         {formNo === 3 && (
           <div>
             <div className="flex-col justify-center">
-
-              <LottieAnimation data={success}/>
+              <LottieAnimation data={success} />
               <p>Please check your mail for a Verification Link</p>
             </div>
           </div>

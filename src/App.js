@@ -33,7 +33,7 @@ import PreviewInvoice from "./screens/Invoices/PreviewInvoice";
 import PreviewPayment from "./screens/Payments/PreviewPayment";
 import RegistrationForm from "./screens/RegistrationForm";
 import Services from "./screens/Services";
-import Settings from "./screens/Settings";
+import Profile from "./screens/Profile";
 import SignUp from "./screens/SignUp";
 import store from "./Redux/Store";
 
@@ -50,6 +50,7 @@ const App = () => {
         <Provider store={store}>
           <Routes>
             <Route path="/" element={<LandingPagePG />} />
+            {/* <Route path="/" element={<Dashboard />} /> */}
             <Route
               path="/addorganisation"
               element={<AddEditOrgainisationModal />}
@@ -84,9 +85,9 @@ const App = () => {
             <Route path="/payments" element={<Payments />} />
             <Route path="/payments/edit/:id" element={<EditPayment />} />
             <Route path="/payments/preview/:id" element={<PreviewPayment />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/registrationForm" element={<RegistrationForm />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/settings" element={<Settings />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
