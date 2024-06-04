@@ -95,7 +95,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
             medical_history: "",
             doctor_comment: "",
           });
-          setImages({})
+          setImages([])
           toast.success("Lab request created success");
         }, ()=>{
           // setShowError(true)
