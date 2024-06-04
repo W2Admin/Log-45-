@@ -67,12 +67,7 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
 
   return (
     <tr className="border-b bg-dry rounded-md overflow-hidden">
-      <td className="px-4 py-2 mt-8 text-sm font-medium">{name}</td>
-      <td className="px-4 py-2 mt-8 text-sm font-light">{animalType}</td>
-      <td className="px-4 py-2 mt-8 text-sm">{species}</td>
-      <td className="px-4 py-2 mt-8 text-sm">{examinationRequest}</td>
-      <td className="px-4 py-2 mt-8 text-sm">{investigationType}</td>
-      <td className="px-4 py-2 mt-8 text-xs">
+      {/* <td className="px-4 py-2 mt-8 text-xs">
         <span
           className={`py-1 px-4 ${
             status === "Ready to Test"
@@ -84,7 +79,7 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
         >
           {status}
         </span>
-      </td>
+      </td> */}
       <td className="border text-xs px-4 py-2">{animal_type}</td>
       <td className="border text-xs px-4 py-2">{species}</td>
       <td className="border text-xs px-4 py-2">
@@ -96,7 +91,7 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
       <td className="border px-4 py-2">
         <div className="flex items-center">{status}</div>
       </td>
-      <td className={tdclass}>
+      <td>
         <MenuSelect
           datas={[
             { title: "View", icon: FiEdit, onClick: () => onEdit(patient) },
@@ -292,9 +287,8 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
               <table className="table-auto w-full">
                 <thead>
                   <tr className="bg-gray-100">
-                    <th className="px-4 py-2">Name</th>
-                    <th className="px-4 py-2">Animal Type</th>
                     <th className="px-4 py-2">Species</th>
+                    <th className="px-4 py-2">Animal Type</th>
                     <th className="px-4 py-2">Examination Request</th>
                     <th className="px-4 py-2">Sample Type</th>
                     <th className="px-4 py-2">Status</th>
