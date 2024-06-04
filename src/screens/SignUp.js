@@ -19,7 +19,8 @@ function SignUp({
   const formArray = [1, 2, 3];
   const [formNo, setFormNo] = useState(formArray[0]);
   const initialFormData = {
-    name: "",
+    first_name: "",
+    last_name: "",
     contact_email: "",
     phone: "",
     industry: "",
@@ -152,7 +153,8 @@ function SignUp({
     e.preventDefault();
     if (
       formNo === 2 &&
-      formDatauser.name &&
+      formDatauser.first_name &&
+      formDatauser.last_name &&
       formDatauser.email &&
       formDatauser.password &&
       formDatauser.re_password
@@ -298,14 +300,25 @@ function SignUp({
         {formNo === 2 && (
           <div>
             <div className="flex flex-col gap-4 w-full mb-6">
-              <label htmlFor="name">Full Name</label>
+              <label htmlFor="first_name">First Name</label>
               <input
-                value={formDatauser.name}
+                value={formDatauser.first_name}
                 onChange={handleChange2}
                 className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
                 type="text"
-                name="name"
-                id="name"
+                name="first_name"
+                id="first_name"
+              />
+            </div>
+            <div className="flex flex-col gap-4 w-full mb-6">
+              <label htmlFor="last_name">Last Name</label>
+              <input
+                value={formDatauser.last_name}
+                onChange={handleChange2}
+                className="p-2 border border-slate-400 mt-1 outline-0 text-slate-500 rounded-md"
+                type="text"
+                name="last_name"
+                id="last_name"
               />
             </div>
             <div className="flex flex-col gap-4 w-full mb-6">
