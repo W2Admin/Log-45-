@@ -19,16 +19,16 @@ function SignUp({
   const formArray = [1, 2, 3];
   const [formNo, setFormNo] = useState(formArray[0]);
   const initialFormData = {
-    first_name: "",
-    last_name: "",
+    name: "",
     contact_email: "",
     phone: "",
-    industry: "",
+    industry: 1,
     address: "",
     description: "",
   };
   const initialFormDatauser = {
-    name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     re_password: "",
@@ -122,7 +122,6 @@ function SignUp({
       formData.name &&
       formData.contact_email &&
       formData.phone &&
-      formData.industry &&
       formData.address &&
       formData.description
     ) {
