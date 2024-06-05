@@ -48,7 +48,7 @@ function SignUp({
     organisationname: "",
     organisationemail: "",
     organisationaddress: "",
-    industrytype: "",
+    industrytype: 1,
     adminname: "",
     adminemail: "",
     password: "",
@@ -245,7 +245,7 @@ function SignUp({
                 id="phone"
               />
             </div>
-            <div className="flex flex-col mb-4">
+            {/* <div className="flex flex-col mb-4">
               <label htmlFor="industry">Industry Type</label>
               <select
                 value={formData.industry}
@@ -262,7 +262,7 @@ function SignUp({
                 <option value="5">Poultry Farming</option>
                 <option value="6">Other</option>
               </select>
-            </div>{" "}
+            </div>{" "} */}
             <div className="flex flex-col mb-4">
               <label htmlFor="address">Organisation Address</label>
               <textarea
