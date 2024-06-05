@@ -19,16 +19,16 @@ function SignUp({
   const formArray = [1, 2, 3];
   const [formNo, setFormNo] = useState(formArray[0]);
   const initialFormData = {
-    first_name: "",
-    last_name: "",
+    name: "",
     contact_email: "",
     phone: "",
-    industry: "",
+    industry: 1,
     address: "",
     description: "",
   };
   const initialFormDatauser = {
-    name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     re_password: "",
@@ -48,7 +48,7 @@ function SignUp({
     organisationname: "",
     organisationemail: "",
     organisationaddress: "",
-    industrytype: "",
+    industrytype: 1,
     adminname: "",
     adminemail: "",
     password: "",
@@ -122,7 +122,6 @@ function SignUp({
       formData.name &&
       formData.contact_email &&
       formData.phone &&
-      formData.industry &&
       formData.address &&
       formData.description
     ) {
@@ -245,7 +244,7 @@ function SignUp({
                 id="phone"
               />
             </div>
-            <div className="flex flex-col mb-4">
+            {/* <div className="flex flex-col mb-4">
               <label htmlFor="industry">Industry Type</label>
               <select
                 value={formData.industry}
@@ -262,7 +261,7 @@ function SignUp({
                 <option value="5">Poultry Farming</option>
                 <option value="6">Other</option>
               </select>
-            </div>{" "}
+            </div>{" "} */}
             <div className="flex flex-col mb-4">
               <label htmlFor="address">Organisation Address</label>
               <textarea

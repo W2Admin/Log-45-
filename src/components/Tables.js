@@ -769,7 +769,7 @@ export function DoctorsTable({ data, functions, doctor }) {
         </tr>
       </thead>
       <tbody>
-      {(data?.length === 0)?(
+      {(Object.entries(data)?.length === 0)?(
           <tr>
             <td colSpan="5">
               <div className="empty-animate">
@@ -780,7 +780,7 @@ export function DoctorsTable({ data, functions, doctor }) {
           </tr>
         ):(
           <>
-            {Object.values(data)?.map((item, index) => (
+            {Object.entries(data)?.map(([key, item], index) => (
               <tr
                 key={item.id}
                 className="border-b border-border hover:bg-greyed transitions"
@@ -795,10 +795,10 @@ export function DoctorsTable({ data, functions, doctor }) {
                         className="w-full h-12 rounded-full object-cover border border-border"
                       />
                     </span> */}
-                    <h4 className="text-sm font-medium">{item.first_name}</h4>
+                    {/* <h4 className="text-sm font-medium">{item.first_name}</h4> */}
                   </div>
                 </td>
-                <td className={tdclass}>{item.last_name}</td>
+                {/* <td className={tdclass}>{item.last_name}</td> */}
                 {/* <td className={tdclass}>12 May, 2021</td>
                 <td className={tdclass}>
                   <p className="text-textGray">{item.user.phone}</p>
