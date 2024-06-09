@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ALL_USER_FALIURE, ALL_USER_REQUEST, ALL_USER_SUCCESS, USER_FALIURE, USER_REQUEST, USER_SUCCESS } from "./UserType"
+import { ALL_USER_FALIURE, ALL_USER_REQUEST, ALL_USER_SUCCESS, CREATE_USER_FALIURE, CREATE_USER_REQUEST, CREATE_USER_SUCCESS, USER_FALIURE, USER_REQUEST, USER_SUCCESS } from "./UserType"
 
 //GET CURRENT LOGIN USER
 export const userRequest = () =>{
@@ -44,6 +44,26 @@ export const alluserFaliure = (error) =>{
     }
 }
 
+//CREATE A USER
+export const createuserRequest = () =>{
+    return{
+        type: CREATE_USER_REQUEST
+    }
+}
+
+export const createuserSuccess = (response) =>{
+    return{
+        type: CREATE_USER_SUCCESS,
+        payload: response
+    }
+}
+
+export const createuserFaliure = (error) =>{
+    return{
+        type: CREATE_USER_FALIURE,
+        payload: error
+    }
+}
 const baseURL = "https://med-farm.onrender.com/api"
 //GET Single user
 export const fetchuser = () => {
@@ -67,7 +87,7 @@ export const fetchuser = () => {
     }
 }
 
-//GET Single user
+//GET all users
 export const allfetchuser = () => {
     return(dispatch) => {
         dispatch(alluserRequest())
@@ -85,6 +105,30 @@ export const allfetchuser = () => {
             .catch(error =>{
                 const errorMsg = error.message
                 dispatch(alluserFaliure(errorMsg))
+            })
+    }
+}
+
+//CREATE A service
+export const postuser = (postdata, history, errors) => {
+    return(dispatch) => {
+        dispatch(createuserRequest())
+        
+        let datas = JSON.parse(localStorage.getItem("auth"))
+        const headers = {
+            "Content-Type": "application/json",
+            authorization: `JWT ${datas?.token?.access}`,
+        };
+        axios.post(`${baseURL}/receptionists/`, postdata, { headers: headers })
+            .then( response => {
+                const data = response.data
+                dispatch(createuserSuccess(data))
+                history()
+            })
+            .catch(error =>{
+                const errorMsg = error.response.data.message
+                dispatch(createuserFaliure(errorMsg))
+                errors()
             })
     }
 }

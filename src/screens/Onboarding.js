@@ -85,7 +85,7 @@ function Onboarding({fetchuser,loading,users}) {
               <div className="mt-8 w-full overflow-x-scroll">
                 <DoctorsTable
                   doctor={false}
-                  data={users }
+                  data={users}
                   functions={{
                     preview: preview,
                   }}

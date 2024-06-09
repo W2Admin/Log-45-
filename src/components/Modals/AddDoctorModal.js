@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
 import { Button, Input, Select } from '../Form';
 import { BiChevronDown } from 'react-icons/bi';
@@ -7,15 +7,105 @@ import { HiOutlineCheckCircle } from 'react-icons/hi';
 import { toast } from 'react-hot-toast';
 import Access from '../Access';
 import Uploader from '../Uploader';
+import { connect } from 'react-redux';
+import { postuser } from '../../Redux/User/UserAction';
 
-function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
+function AddDoctorModal({ closeModal,profile, isOpen, doctor, datas, postuser,loadingg, error, data }) {
   const [instraction, setInstraction] = useState(sortsDatas.title[0]);
   const [access, setAccess] = useState({});
-
-  const onSubmit = () => {
-    toast.error('This feature is not available yet');
+  const [formData, setFormData] = useState({
+    user: {
+      first_name: "",
+      last_name: "",
+      organisation: "",
+      email: "",
+      password: ""
+    },
+    title: "",
+    access_permissions: {
+      customer: {
+        can_read: true,
+        can_edit: true,
+        can_create: true,
+        can_delete: true
+      },
+      laboratory: {
+        can_read: true,
+        can_edit: true,
+        can_create: true,
+        can_delete: true
+      },
+      invoice: {
+        can_read: true,
+        can_edit: true,
+        can_create: true,
+        can_delete: true
+      },
+      payment: {
+        can_read: true,
+        can_edit: true,
+        can_create: true,
+        can_delete: true
+      }
+    }
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name in formData.user) {
+      setFormData((prevState) => ({
+        ...prevState,
+        user: {
+          ...prevState.user,
+          [name]: value
+        }
+      }));
+    }  else if (name in formData.access_permissions) {
+      setFormData((prevState) => ({
+        ...prevState,
+        access_permissions: {
+          ...prevState.access_permissions,
+          [name]: value
+        }
+      }));
+    }else {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value
+      }));
+    }
   };
+  const onSubmit = async (e) => {
+    console.log(formData)
+    e.preventDefault();
+    try{
+          await postuser(formData,()=>{
+            setFormData({
+              user: {
+                first_name: "",
+                last_name: "",
+                organisation: "",
+                email: "",
+                password: ""
+              },
+              title: ""
+            });
+            toast.success("User Added Successfully");
+          }, ()=>{
+            // setShowError(true)
+          })
+    }catch(error){
 
+    } 
+  }
+  useEffect(()=>{
+    setFormData((prevState) => ({
+      ...prevState,
+      user: {
+        ...prevState.user,
+        organisation: profile.organisation
+      }
+    }));
+  },[profile.organisation])
   return (
     <Modal
       closeModal={closeModal}
@@ -30,29 +120,52 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
 
       <div className="flex-colo gap-6">
         <div className="grid sm:grid-cols-2 gap-4 w-full">
-          <Input label="Full Name" color={true} placeholder="John Doe" />
+          <Input 
+            label="First Name" 
+            color={true} 
+            name="first_name"
+            value={formData.user.first_name}
+            placeholder="First Name" 
+            onChange={handleInputChange}
+          />
 
-          <div className="flex w-full flex-col gap-3">
-            <p className="text-black text-sm">Title</p>
-            <Select
-              selectedPerson={instraction}
-              setSelectedPerson={setInstraction}
-              datas={sortsDatas.title}
-            >
-              <div className="w-full flex-btn text-textGray text-sm p-4 border border-border font-light rounded-lg focus:border focus:border-subMain">
-                {instraction.name} <BiChevronDown className="text-xl" />
-              </div>
-            </Select>
-          </div>
+          <Input 
+            label="Last Name" 
+            color={true} 
+            placeholder="Last Name"
+            name="last_name"
+            value={formData.user.last_name}
+            onChange={handleInputChange}
+          />
         </div>
-
+        <div className="flex w-full flex-col gap-3">
+            <Input 
+              label=" Title" 
+              color={true} 
+              placeholder="Title"
+              name="title" 
+              value={formData.title}
+              onChange={handleInputChange}
+            />
+          </div>
         <div className="grid sm:grid-cols-2 gap-4 w-full">
-          <Input label="Email" color={true} />
-          <Input label="Phone Number" color={true} />
+          <Input 
+            label="Email" 
+            color={true}
+            name="email"
+            value={formData.user.email}
+            onChange={handleInputChange}
+          />
         </div>
 
         {/* password */}
-        <Input label="Password" color={true} />
+        <Input 
+          label="Password" 
+          color={true} 
+          name="password" 
+          value={formData.user.password}
+          onChange={handleInputChange}
+        />
 
         {/* table access */}
         <div className="w-full">
@@ -73,5 +186,20 @@ function AddDoctorModal({ closeModal, isOpen, doctor, datas }) {
     </Modal>
   );
 }
+const mapStateToProps = state => {
+  return{
+      errors:state?.createuser?.error,
+      loading: state?.createuser?.loading,
+      data: state?.createuser?.data,
+      profile: state?.profile?.data,
+  }
+}
 
-export default AddDoctorModal;
+const mapDispatchToProps = dispatch => {
+  return{
+      postuser: (loginState, history, setErrorHandler) => {
+          dispatch(postuser(loginState, history, setErrorHandler));
+      },
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddDoctorModal);

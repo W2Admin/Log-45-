@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { sortsDatas } from "../Datas";
+import { contactData, sortsDatas } from "../Datas";
 import { connect } from "react-redux";
 import { postpatient } from "../../Redux/Patients/PatientAction";
 import { BiLoaderCircle } from "react-icons/bi";
+import { Checkbox } from "../Form";
 function PersonalInformation({error, data, loading, postpatient}) {
   const [formData, setFormData] = useState({
     first_name: "",
@@ -13,8 +14,18 @@ function PersonalInformation({error, data, loading, postpatient}) {
     phone: "",
     gender: "",
     address: "",
+    business_name:"",
+    business_area:"",
+    nature_of_business:"",
   });
-
+  const [contacts, setContacts] = useState(
+    contactData.map((item) => {
+      return {
+        name: item.name,
+        checked: false,
+      };
+    })
+  );
   const [errors, setErrors] = useState({});
   const [showerror, setShowError] = useState(false);
   const handleInputChange = (e) => {
@@ -25,7 +36,20 @@ function PersonalInformation({error, data, loading, postpatient}) {
       organisation: data
     });
   };
-
+  const onChangeContact = (e) => {
+    const { name, checked } = e.target;
+    const newTreatmeants = contacts.map((item) => {
+      if (item.name === name) {
+        return {
+          ...item,
+          checked: checked,
+        };
+      }
+      return item;
+    });
+    setContacts(newTreatmeants);
+    console.log(contacts)
+  };
   const validateForm = () => {
     let formErrors = {};
     if (!formData.first_name.trim()) {
@@ -48,6 +72,15 @@ function PersonalInformation({error, data, loading, postpatient}) {
     }
     if (!formData.address.trim()) {
       formErrors.address = "Address is required";
+    }
+    if (!formData.business_name.trim()) {
+      formErrors.business_name = "Business Name is required";
+    }
+    if (!formData.business_area.trim()) {
+      formErrors.business_area = "Business Area is required";
+    }
+    if (!formData.nature_of_business.trim()) {
+      formErrors.nature_of_business = "Nature Of Business is required";
     }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
@@ -231,6 +264,67 @@ function PersonalInformation({error, data, loading, postpatient}) {
           </div>
         </div>
       </div>
+      <div className="-mx-3 flex flex-wrap">
+        <div className="w-full px-3 sm:w-1/2">
+          <div className="mb-5">
+            <label
+              htmlFor="business_name"
+              className="mb-3 block font-medium text-sm text-[#07074D]"
+            >
+              Business Name
+            </label>
+            <input
+              type="text"
+              name="business_name"
+              id="business_name"
+              value={formData.business_name}
+              onChange={handleInputChange}
+              className={`w-full rounded-md border ${
+                errors.first_name ? "border-red-500" : "border-[#e0e0e0]"
+              } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+            />
+            {errors.business_name && <p className="text-red-500">{errors.business_name}</p>}
+          </div>
+        </div>
+        <div className="w-full px-3 sm:w-1/2">
+          <div className="mb-5">
+            <label
+              htmlFor="business_area"
+              className="mb-3 block text-sm font-medium text-[#07074D]"
+            >
+              Business Area
+            </label>
+            <input
+              type="text"
+              name="business_area"
+              id="business_area"
+              value={formData.business_area}
+              onChange={handleInputChange}
+              className={`w-full rounded-md border ${
+                errors.last_name ? "border-red-500" : "border-[#e0e0e0]"
+              } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+
+            />
+            {errors.business_area && <p className="text-red-500">{errors.business_area}</p>}
+          </div>
+        </div>
+      </div>
+      <div className="mb-5">
+        <label htmlFor="nature_of_business" className="mb-3 block text-sm text-[#07074D]">
+        Nature of Business 
+        </label>
+        <input
+          type="text"
+          name="nature_of_businessddress"
+          id="nature_of_business"
+          value={formData.nature_of_business}
+          onChange={handleInputChange}
+          className={`w-full rounded-md border ${
+            errors.nature_of_business ? "border-red-500" : "border-[#e0e0e0]"
+          } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
+        />
+        {errors.nature_of_business && <p className="text-red-500">{errors.nature_of_business}</p>}
+      </div>
       <div className="mb-5">
         <label htmlFor="address" className="mb-3 block text-sm text-[#07074D]">
           Address
@@ -246,6 +340,80 @@ function PersonalInformation({error, data, loading, postpatient}) {
           } bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}
         />
         {errors.address && <p className="text-red-500">{errors.address}</p>}
+      </div>
+      <div className="flex w-full flex-col gap-4">
+        <p className="text-black text-sm">Contact Method</p>
+        <div className="grid xs:grid-cols-2 md:grid-cols-3 gap-6 pb-6">
+          {/* {contactData?.slice(1, 100).map((item) => (
+            <Checkbox
+              label={item.name}
+              checked={
+                contacts.find((i) => i.name === item.name).checked
+              }
+              onChange={onChangeContact}
+              name={item.name}
+              key={item.id}
+            />
+          ))} */}
+            <div className="text-sm w-full flex flex-row items-center">
+              {/* design checkbox */}
+              <label htmlFor="online" className="flex-colo cursor-pointer relative">
+                <input
+                  type="checkbox"
+                  name="online"
+                  // checked={checked}
+                  onChange={handleInputChange}
+                  className=""
+                />
+                {/* <span
+                  className={` border rounded  w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 ${
+                    checked ? 'border-subMain bg-subMain' : 'border-gray-300 bg-white'
+                  }`}
+                >
+                  <FaCheck
+                    className={`text-[10px] ${checked ? 'block text-white' : 'hidden'}`}
+                  />
+                </span> */}
+              </label>
+              <p className={'text-black text-xs ml-2'}>Online</p>
+            </div>
+            <div className="text-sm w-full flex flex-row items-center">
+              {/* design checkbox */}
+              <label htmlFor="online" className="flex-colo cursor-pointer relative">
+                <input
+                  type="checkbox"
+                  name="online"
+                  // checked={checked}
+                  onChange={handleInputChange}
+                  className=""
+                />
+                {/* <span
+                  className={` border rounded  w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 ${
+                    checked ? 'border-subMain bg-subMain' : 'border-gray-300 bg-white'
+                  }`}
+                >
+                  <FaCheck
+                    className={`text-[10px] ${checked ? 'block text-white' : 'hidden'}`}
+                  />
+                </span> */}
+              </label>
+              <p className={'text-black text-xs ml-2'}>Phone Call</p>
+            </div>
+            <div className="text-sm w-full flex flex-row items-center">
+              {/* design checkbox */}
+              <label htmlFor="online" className="flex-colo cursor-pointer relative">
+                <input
+                  type="checkbox"
+                  name="online"
+                  // checked={checked}
+                  onChange={handleInputChange}
+                  className=""
+                />
+           
+              </label>
+              <p className={'text-black text-xs ml-2'}>Onsite</p>
+            </div>
+        </div>
       </div>
       <div>
         <div className="flex justify-center">

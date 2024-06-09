@@ -1,4 +1,4 @@
-import { CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS } from "./LaboratoryType"
+import { CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS, SINGLE_LABORATORY_FALIURE, SINGLE_LABORATORY_REQUEST, SINGLE_LABORATORY_SUCCESS } from "./LaboratoryType"
 
 const initialState ={
     loading: false,
@@ -21,6 +21,30 @@ export const laboratoryReducer = (state = initialState, action) => {
                 error: ''
             }
         case LABORATORY_FALIURE:
+            return{
+                loading:false,
+                data: [],
+                error: action.payload
+            }
+        default: return state
+    }
+}
+
+//GET A SINGLE LAB REQUEST
+export const singlelaboratoryReducer = (state = initialState, action) => {
+    switch(action.type){
+        case SINGLE_LABORATORY_REQUEST:
+            return{
+                ... state,
+                loading: true
+            }
+        case SINGLE_LABORATORY_SUCCESS:
+            return{
+                loading: false,
+                data: action.payload,
+                error: ''
+            }
+        case SINGLE_LABORATORY_FALIURE:
             return{
                 loading:false,
                 data: [],

@@ -705,7 +705,27 @@ export const servicesData = [
     status: true,
   },
 ];
-
+export const contactData = [
+  {
+    id: 1,
+    name: "Select service.. ",
+  },
+  {
+    id: 2,
+    name: "Onsite",
+    status: true,
+  },
+  {
+    id: 3,
+    name: " Phone Call",
+    status: true,
+  },
+  {
+    id: 4,
+    name: "Online",
+    status: true,
+  },
+];
 export const invoicesData = [
   {
     id: 206719,
