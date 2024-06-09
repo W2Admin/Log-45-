@@ -270,6 +270,108 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
               </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <label
+                  htmlFor="age"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Age(Weeks)
+                </label>
+                <input
+                required
+                  type="text"
+                  name="age"
+                  id="age"
+                  value={formData2.weight}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <label
+                  htmlFor="breed"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Breed
+                </label>
+                <input
+                required
+                  type="text"
+                  name="breed"
+                  id="breed"
+                  value={formData2.weight}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <label
+                  htmlFor="mortality_rate"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Mortality Rate
+                </label>
+                <input
+                required
+                  type="text"
+                  name="mortality_rate"
+                  id="mortality_rate"
+                  value={formData2.weight}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <label
+                  htmlFor="flock_size"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Flock Size/Litter Size
+                </label>
+                <input
+                required
+                  type="text"
+                  name="flock_size"
+                  id="flock_size"
+                  value={formData2.weight}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <label
+                  htmlFor="chief_complaint"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Chief Complaint
+                </label>
+                <input
+                required
+                  type="text"
+                  name="chief_complaint"
+                  id="chief_complaint"
+                  value={formData2.weight}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <label
+                  htmlFor="sample_quantity"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Sample Quantity
+                </label>
+                <input
+                required
+                  type="text"
+                  name="sample_quantity"
+                  id="sample_quantity"
+                  value={formData2.weight}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
               <div className="w-full sm:w-1/2 px-3 mt-3">
                 <label
                   htmlFor="food_type"

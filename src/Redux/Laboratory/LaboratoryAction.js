@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS } from "./LaboratoryType"
+import { CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS, SINGLE_LABORATORY_FALIURE, SINGLE_LABORATORY_REQUEST, SINGLE_LABORATORY_SUCCESS } from "./LaboratoryType"
 
 export const laboratoryRequest = () =>{
     return{
@@ -20,6 +20,27 @@ export const laboratoryFaliure = (error) =>{
         payload: error
     }
 }
+
+export const singlelaboratoryRequest = () =>{
+    return{
+        type: SINGLE_LABORATORY_REQUEST
+    }
+}
+
+export const singlelaboratorySuccess = (response) =>{
+    return{
+        type: SINGLE_LABORATORY_SUCCESS,
+        payload: response
+    }
+}
+
+export const singlelaboratoryFaliure = (error) =>{
+    return{
+        type:  SINGLE_LABORATORY_FALIURE,
+        payload: error
+    }
+}
+
 
 export const createlaboratoryRequest = () =>{
     return{
@@ -61,6 +82,26 @@ export const fetchlabortory = (id) => {
             .catch(error =>{
                 const errorMsg = error.message
                 dispatch(laboratoryFaliure(errorMsg))
+            })
+    }
+}
+export const fetchsinglelabortory = (orgid, id) => {
+    return(dispatch) => {
+        dispatch(singlelaboratoryRequest())
+        let datas = JSON.parse(localStorage.getItem("auth"))
+        const headers = {
+            "Content-Type": "application/json",
+            authorization: `JWT ${datas?.token?.access}`,
+        };
+        // let datas = JSON.parse(localStorage.getItem("auth"))
+        axios.get(`${baseUrl}/lab_requests/${orgid}/${id}/`, { headers: headers })
+            .then( response => {
+                const data = response.data
+                dispatch(singlelaboratorySuccess(data))
+            })
+            .catch(error =>{
+                const errorMsg = error.message
+                dispatch(singlelaboratoryFaliure(errorMsg))
             })
     }
 }

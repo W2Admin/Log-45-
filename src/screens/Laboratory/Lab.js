@@ -94,7 +94,7 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
       <td>
         <MenuSelect
           datas={[
-            { title: "View", icon: FiEdit, onClick: () => onEdit(patient) },
+            { title: "View", icon: FiEdit, onClick: () => onEdit(id) },
           ]}
         >
           <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
@@ -208,7 +208,7 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
   ];
 
   const onEdit = (patient) => {
-    navigate(`/labtech`);
+    navigate(`/labtech/${patient}`);
   };
 
   const updateStatus = (id) => {
