@@ -712,18 +712,21 @@ export const contactData = [
   },
   {
     id: 2,
-    name: "Onsite",
-    status: true,
+    label: "Onsite",
+    name:"cm_onsite",
+    status: false,
   },
   {
     id: 3,
-    name: " Phone Call",
-    status: true,
+    label: "Phone Call",
+    name:"cm_phone",
+    status: false,
   },
   {
     id: 4,
-    name: "Online",
-    status: true,
+    label: "Online",
+    name:"cm_online",
+    status: false,
   },
 ];
 export const invoicesData = [

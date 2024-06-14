@@ -3,6 +3,7 @@ import Layout from "../../Layout";
 import { Link, useParams } from "react-router-dom";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { Button, Checkbox, Select, Textarea } from "../../components/Form";
+import AsyncSelect from "react-select/async"
 import { BiChevronDown, BiPlus } from "react-icons/bi";
 import {
   laboratoryData,
@@ -17,7 +18,7 @@ import { FaTimes } from "react-icons/fa";
 import Uploader from "../../components/Uploader";
 import { HiOutlineCheckCircle } from "react-icons/hi";
 import { connect } from "react-redux";
-import { fetchsinglelabortory } from "../../Redux/Laboratory/LaboratoryAction";
+import { fetchantibiotics, fetchsinglelabortory } from "../../Redux/Laboratory/LaboratoryAction";
 import { fetchuser } from "../../Redux/User/UserAction";
 import LottieAnimation from "../../Lotties";
 import loading2 from '../../images/loading2.json'
@@ -30,10 +31,39 @@ const TechnicianData = memberData.map((item) => {
   };
 });
 
-function NewMedicalRecode({singlefetchpatient,fetchsinglelabortory,fetchuser,profile,loading,error,labdata,labloading,singlepatient,customerloading}) {
+function NewMedicalRecode({
+  singlefetchpatient,
+  fetchsinglelabortory,
+  fetchuser,
+  profile,
+  loading,
+  error,
+  labdata,
+  labloading,
+  singlepatient,
+  customerloading,
+  fetchantibiotics,
+  antiloading,
+  antibiotics
+}) {
   const {id} = useParams()
   const [technicians, setTechnician] = useState(technicianData[0]);
   const [isOpen, setIsOpen] = useState(false);
+  const options = [
+    { value: "jack", label: "Jack" },
+    { value: "john", label: "John" },
+    { value: "mike", label: "Mike" },
+    ];
+    const handleChange = (selectedOption) => {
+    console.log("handleChange", selectedOption);
+    };
+    const loadOptions = (searchValue, callback) => {
+      // setTimeout(() => {
+      const filteredOptions = antibiotics.filter(option => option.name.toLowerCase().includes(searchValue.toLowerCase()))
+      callback(filteredOptions)
+      // }, 2000)
+    }
+    console.log(antibiotics)
   const [treatmeants, setTreatmeants] = useState(
     servicesData.map((item) => {
       return {
@@ -62,6 +92,9 @@ function NewMedicalRecode({singlefetchpatient,fetchsinglelabortory,fetchuser,pro
     fetchuser()
     fetchsinglelabortory(profile.organisation, id)
   },[profile.organisation])
+  useEffect(()=>{
+    fetchantibiotics()
+  },[])
   useEffect(()=>{
     singlefetchpatient(labdata.customer)
   },[labdata.customer]) 
@@ -189,7 +222,7 @@ function NewMedicalRecode({singlefetchpatient,fetchsinglelabortory,fetchuser,pro
               >
                 <div className="flex w-full flex-col gap-5">
                   {/* doctor */}
-                  <div className="flex w-full flex-col gap-3">
+                  {/* <div className="flex w-full flex-col gap-3">
                     <p className="text-black text-sm">Technician</p>
                     <Select
                       selectedPerson={technicians}
@@ -200,7 +233,7 @@ function NewMedicalRecode({singlefetchpatient,fetchsinglelabortory,fetchuser,pro
                         {technicians.name} <BiChevronDown className="text-xl" />
                       </div>
                     </Select>
-                  </div>
+                  </div> */}
                   {/* complains */}
                   <Textarea
                     label="Pathogen Type"
@@ -216,14 +249,32 @@ function NewMedicalRecode({singlefetchpatient,fetchsinglelabortory,fetchuser,pro
                     placeholder={"Gingivitis, Periodontitis, ...."}
                   />
                   {/* Vital Signs */}
-                  <Textarea
+                  <div className="flex w-full flex-col gap-3">
+                    <p className="text-black text-sm">Susceptible AB</p>
+                    <AsyncSelect 
+                      defaultOptions
+                      loadOptions={loadOptions} 
+                      onChange={handleChange} 
+                      isMulti
+                    />
+                  </div>
+                  {/* <Textarea
                     label="Susceptible AB"
                     color={true}
                     rows={3}
                     placeholder={"Blood pressure, Pulse, ...."}
-                  />
+                  /> */}
                   {/* Treatment */}
-                  <div className="flex w-full flex-col gap-4">
+                  <div className="flex w-full flex-col gap-3">
+                    <p className="text-black text-sm">Resistance AB</p>
+                    <AsyncSelect 
+                      defaultOptions
+                      loadOptions={loadOptions} 
+                      onChange={handleChange} 
+                      isMulti
+                    />
+                  </div>
+                  {/* <div className="flex w-full flex-col gap-4">
                     <p className="text-black text-sm">Ressistant AB</p>
                     <div className="grid xs:grid-cols-2 md:grid-cols-3 gap-6 pb-6">
                       {servicesData?.slice(1, 100).map((item) => (
@@ -238,9 +289,9 @@ function NewMedicalRecode({singlefetchpatient,fetchsinglelabortory,fetchuser,pro
                         />
                       ))}
                     </div>
-                  </div>
+                  </div> */}
                   {/* medicine */}
-                  <div className="flex w-full flex-col gap-4 mb-6">
+                  {/* <div className="flex w-full flex-col gap-4 mb-6">
                     <p className="text-black text-sm">Medicine</p>
                     <div className="w-full overflow-x-scroll">
                       <MedicineDosageTable
@@ -261,7 +312,7 @@ function NewMedicalRecode({singlefetchpatient,fetchsinglelabortory,fetchuser,pro
                     >
                       <BiPlus /> Add Medicine
                     </button>
-                  </div>
+                  </div> */}
                   <Textarea
                     label="Doctor's Notes"
                     color={true}
@@ -327,13 +378,16 @@ const mapStoreToProps = (state) => {
     labloading: state?.singlelabrequest.loading,
     labdata:state?.singlelabrequest?.data,
     singlepatient: state?.singlepatient?.data,
-    customerloading: state?.singlepatient?.loading
+    customerloading: state?.singlepatient?.loading,
+    antiloading: state?.antibiotics?.loading,
+    antibiotics: state?.antibiotics?.data
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchuser: () => dispatch(fetchuser()),
+    fetchantibiotics: () => dispatch(fetchantibiotics()),
     fetchsinglelabortory: (orgid, id) => dispatch(fetchsinglelabortory(orgid, id)),
     singlefetchpatient: (id) => dispatch(singlefetchpatient(id)),
   };

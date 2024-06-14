@@ -1,4 +1,4 @@
-import { CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS, SINGLE_LABORATORY_FALIURE, SINGLE_LABORATORY_REQUEST, SINGLE_LABORATORY_SUCCESS } from "./LaboratoryType"
+import { ANTIBIOTICS_FALIURE, ANTIBIOTICS_REQUEST, ANTIBIOTICS_SUCCESS, CREATE_ANTIBIOTICS_FALIURE, CREATE_ANTIBIOTICS_REQUEST, CREATE_ANTIBIOTICS_SUCCESS, CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS, SINGLE_LABORATORY_FALIURE, SINGLE_LABORATORY_REQUEST, SINGLE_LABORATORY_SUCCESS } from "./LaboratoryType"
 
 const initialState ={
     loading: false,
@@ -79,3 +79,50 @@ export const createlaboratoryReducer = (state = initialState, action) => {
 }
 
 
+//GET ALL ANTIBIOTICS
+export const antibioticsReducer = (state = initialState, action) => {
+    switch(action.type){
+        case ANTIBIOTICS_REQUEST:
+            return{
+                ... state,
+                loading: true
+            }
+        case ANTIBIOTICS_SUCCESS:
+            return{
+                loading: false,
+                data: action.payload,
+                error: ''
+            }
+        case ANTIBIOTICS_FALIURE:
+            return{
+                loading:false,
+                data: [],
+                error: action.payload
+            }
+        default: return state
+    }
+}
+
+//GET ALL ANTIBIOTICS
+export const createantibioticsReducer = (state = initialState, action) => {
+    switch(action.type){
+        case CREATE_ANTIBIOTICS_REQUEST:
+            return{
+                ... state,
+                loading: true
+            }
+        case CREATE_ANTIBIOTICS_SUCCESS:
+            return{
+                loading: false,
+                data: action.payload,
+                error: ''
+            }
+        case CREATE_ANTIBIOTICS_FALIURE:
+            return{
+                loading:false,
+                data: [],
+                error: action.payload
+            }
+        default: return state
+    }
+}

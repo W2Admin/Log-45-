@@ -17,6 +17,9 @@ function PersonalInformation({error, data, loading, postpatient}) {
     business_name:"",
     business_area:"",
     nature_of_business:"",
+    cm_phone: false,
+    cm_online: false,
+    cm_onsite: false,
   });
   const [contacts, setContacts] = useState(
     contactData.map((item) => {
@@ -38,17 +41,10 @@ function PersonalInformation({error, data, loading, postpatient}) {
   };
   const onChangeContact = (e) => {
     const { name, checked } = e.target;
-    const newTreatmeants = contacts.map((item) => {
-      if (item.name === name) {
-        return {
-          ...item,
-          checked: checked,
-        };
-      }
-      return item;
+    setFormData({
+      ...formData,
+      [name]: checked,
     });
-    setContacts(newTreatmeants);
-    console.log(contacts)
   };
   const validateForm = () => {
     let formErrors = {};
@@ -315,7 +311,7 @@ function PersonalInformation({error, data, loading, postpatient}) {
         </label>
         <input
           type="text"
-          name="nature_of_businessddress"
+          name="nature_of_business"
           id="nature_of_business"
           value={formData.nature_of_business}
           onChange={handleInputChange}
@@ -344,75 +340,30 @@ function PersonalInformation({error, data, loading, postpatient}) {
       <div className="flex w-full flex-col gap-4">
         <p className="text-black text-sm">Contact Method</p>
         <div className="grid xs:grid-cols-2 md:grid-cols-3 gap-6 pb-6">
-          {/* {contactData?.slice(1, 100).map((item) => (
+        <div className="w-full px-3 sm:w-1/3">
             <Checkbox
-              label={item.name}
-              checked={
-                contacts.find((i) => i.name === item.name).checked
-              }
+              label="Phone"
+              name="cm_phone"
+              checked={formData.cm_phone}
               onChange={onChangeContact}
-              name={item.name}
-              key={item.id}
             />
-          ))} */}
-            <div className="text-sm w-full flex flex-row items-center">
-              {/* design checkbox */}
-              <label htmlFor="online" className="flex-colo cursor-pointer relative">
-                <input
-                  type="checkbox"
-                  name="online"
-                  // checked={checked}
-                  onChange={handleInputChange}
-                  className=""
-                />
-                {/* <span
-                  className={` border rounded  w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 ${
-                    checked ? 'border-subMain bg-subMain' : 'border-gray-300 bg-white'
-                  }`}
-                >
-                  <FaCheck
-                    className={`text-[10px] ${checked ? 'block text-white' : 'hidden'}`}
-                  />
-                </span> */}
-              </label>
-              <p className={'text-black text-xs ml-2'}>Online</p>
-            </div>
-            <div className="text-sm w-full flex flex-row items-center">
-              {/* design checkbox */}
-              <label htmlFor="online" className="flex-colo cursor-pointer relative">
-                <input
-                  type="checkbox"
-                  name="online"
-                  // checked={checked}
-                  onChange={handleInputChange}
-                  className=""
-                />
-                {/* <span
-                  className={` border rounded  w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 ${
-                    checked ? 'border-subMain bg-subMain' : 'border-gray-300 bg-white'
-                  }`}
-                >
-                  <FaCheck
-                    className={`text-[10px] ${checked ? 'block text-white' : 'hidden'}`}
-                  />
-                </span> */}
-              </label>
-              <p className={'text-black text-xs ml-2'}>Phone Call</p>
-            </div>
-            <div className="text-sm w-full flex flex-row items-center">
-              {/* design checkbox */}
-              <label htmlFor="online" className="flex-colo cursor-pointer relative">
-                <input
-                  type="checkbox"
-                  name="online"
-                  // checked={checked}
-                  onChange={handleInputChange}
-                  className=""
-                />
-           
-              </label>
-              <p className={'text-black text-xs ml-2'}>Onsite</p>
-            </div>
+          </div>
+          <div className="w-full px-3 sm:w-1/3">
+            <Checkbox
+              label="Online"
+              name="cm_online"
+              checked={formData.cm_online}
+              onChange={onChangeContact}
+            />
+          </div>
+          <div className="w-full px-3 sm:w-1/3">
+            <Checkbox
+              label="Onsite"
+              name="cm_onsite"
+              checked={formData.cm_onsite}
+              onChange={onChangeContact}
+            />
+          </div>
         </div>
       </div>
       <div>
