@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ANTIBIOTICS_FALIURE, ANTIBIOTICS_REQUEST, ANTIBIOTICS_SUCCESS, CREATE_ANTIBIOTICS_FALIURE, CREATE_ANTIBIOTICS_REQUEST, CREATE_ANTIBIOTICS_SUCCESS, CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS, SINGLE_LABORATORY_FALIURE, SINGLE_LABORATORY_REQUEST, SINGLE_LABORATORY_SUCCESS } from "./LaboratoryType"
+import { ANTIBIOTICS_FALIURE, ANTIBIOTICS_REQUEST, ANTIBIOTICS_SUCCESS, CREATE_ANTIBIOTICS_FALIURE, CREATE_ANTIBIOTICS_REQUEST, CREATE_ANTIBIOTICS_SUCCESS, CREATE_INVESTIGATION_FALIURE, CREATE_INVESTIGATION_REQUEST, CREATE_INVESTIGATION_SUCCESS, CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS, SINGLE_LABORATORY_FALIURE, SINGLE_LABORATORY_REQUEST, SINGLE_LABORATORY_SUCCESS } from "./LaboratoryType"
 
 
 // GET ALL LABORATORY REQUEST
@@ -65,6 +65,28 @@ export const createlaboratoryFaliure = (error) =>{
         payload: error
     }
 }
+
+// CREATE INVESTIGATION REQURST
+export const createinvestigationRequest = () =>{
+    return{
+        type: CREATE_INVESTIGATION_REQUEST
+    }
+}
+
+export const createinvestigationSuccess = (response) =>{
+    return{
+        type: CREATE_INVESTIGATION_SUCCESS,
+        payload: response
+    }
+}
+
+export const createinvestigationFaliure = (error) =>{
+    return{
+        type: CREATE_INVESTIGATION_FALIURE,
+        payload: error
+    }
+}
+
 
 //GET ALL ANTIBIOTICS
 export const antibioticsRequest = () =>{
@@ -169,6 +191,29 @@ export const createlabortory = (id,postdata, history, errors) => {
             .catch(error =>{
                 const errorMsg = error.message
                 dispatch(createlaboratoryFaliure(errorMsg))
+                errors()
+            })
+    }
+}
+
+export const createinvestigation = (id,postdata, history, errors) => {
+    return(dispatch) => {
+        dispatch(createinvestigationRequest())
+        let datas = JSON.parse(localStorage.getItem("auth"))
+        const headers = {
+            'content-type': 'multipart/form-data',
+            authorization: `JWT ${datas?.token?.access}`,
+        };
+        // let datas = JSON.parse(localStorage.getItem("auth"))
+        axios.post(`${baseUrl}/lab_requests/${id}/investigations/`, postdata, { headers: headers })
+            .then( response => {
+                const data = response.data
+                dispatch(createinvestigationSuccess(data))
+                history()
+            })
+            .catch(error =>{
+                const errorMsg = error.message
+                dispatch(createinvestigationFaliure(errorMsg))
                 errors()
             })
     }

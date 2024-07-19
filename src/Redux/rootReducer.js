@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import {registerReducer, userReducer} from './Registration/RegisterReducer';
 import authReducer from './Login/LoginReducer';
 import { createpatientReducer, patientReducer, singlepatientReducer } from './Patients/PatientReducer';
-import { antibioticsReducer, createantibioticsReducer, createlaboratoryReducer, laboratoryReducer, singlelaboratoryReducer } from './Laboratory/LaboratoryReducer';
+import { antibioticsReducer, createantibioticsReducer, createinvestigationReducer, createlaboratoryReducer, laboratoryReducer, singlelaboratoryReducer } from './Laboratory/LaboratoryReducer';
 import { Profiler } from 'react';
 import { createusersReducer, profileReducer, usersReducer } from './User/UserReducer';
 import { createserviceReducer, serviceReducer, singleserviceReducer } from './Service/ServiceReducer';
@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
     laboratory: laboratoryReducer,
     profile: profileReducer,
     createlab: createlaboratoryReducer,
+    createinv: createinvestigationReducer, 
     onboardedusers: usersReducer,
     services: serviceReducer,
     createservice: createserviceReducer,

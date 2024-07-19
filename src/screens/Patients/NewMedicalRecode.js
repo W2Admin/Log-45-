@@ -79,7 +79,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
     for (const key in formData2) {
       formData.append(key, formData2[key]);
     }
-    formData.append("organisation", singlepatient.organisation);
+    formData. append("organisation", singlepatient.organisation);
     formData.append("is_active", singlepatient.is_active);
     formData.append("customer", id);
     images.forEach((image, index) => {

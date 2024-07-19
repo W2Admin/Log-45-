@@ -1,4 +1,4 @@
-import { ANTIBIOTICS_FALIURE, ANTIBIOTICS_REQUEST, ANTIBIOTICS_SUCCESS, CREATE_ANTIBIOTICS_FALIURE, CREATE_ANTIBIOTICS_REQUEST, CREATE_ANTIBIOTICS_SUCCESS, CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS, SINGLE_LABORATORY_FALIURE, SINGLE_LABORATORY_REQUEST, SINGLE_LABORATORY_SUCCESS } from "./LaboratoryType"
+import { ANTIBIOTICS_FALIURE, ANTIBIOTICS_REQUEST, ANTIBIOTICS_SUCCESS, CREATE_ANTIBIOTICS_FALIURE, CREATE_ANTIBIOTICS_REQUEST, CREATE_ANTIBIOTICS_SUCCESS, CREATE_INVESTIGATION_FALIURE, CREATE_INVESTIGATION_REQUEST, CREATE_INVESTIGATION_SUCCESS, CREATE_LABORATORY_FALIURE, CREATE_LABORATORY_REQUEST, CREATE_LABORATORY_SUCCESS, LABORATORY_FALIURE, LABORATORY_REQUEST, LABORATORY_SUCCESS, SINGLE_LABORATORY_FALIURE, SINGLE_LABORATORY_REQUEST, SINGLE_LABORATORY_SUCCESS } from "./LaboratoryType"
 
 const initialState ={
     loading: false,
@@ -78,6 +78,30 @@ export const createlaboratoryReducer = (state = initialState, action) => {
     }
 }
 
+//CREATE A INVESTGATION REQUEST
+export const createinvestigationReducer = (state = initialState, action) => {
+    switch(action.type){
+        case CREATE_INVESTIGATION_REQUEST:
+            return{
+                ... state,
+                loading: true
+            }
+        case CREATE_INVESTIGATION_SUCCESS:
+            return{
+                loading: false,
+                data: action.payload,
+                error: ''
+            }
+        case CREATE_INVESTIGATION_FALIURE:
+            return{
+                loading:false,
+                data: [],
+                error: action.payload
+            }
+        default: return state
+    }
+}
+
 
 //GET ALL ANTIBIOTICS
 export const antibioticsReducer = (state = initialState, action) => {
@@ -103,7 +127,7 @@ export const antibioticsReducer = (state = initialState, action) => {
     }
 }
 
-//GET ALL ANTIBIOTICS
+//CREATE A ANTIBIOTICS
 export const createantibioticsReducer = (state = initialState, action) => {
     switch(action.type){
         case CREATE_ANTIBIOTICS_REQUEST:
