@@ -54,7 +54,13 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
     typeOfFeed: "",
     food_type: "",
     last_feed: "",
+    age: "",
+    breed: "",
     sample_type: "",
+    // sample_quanity: "",
+    mortality_rate:"",
+    flock_size: "",
+    chief_complaint:"",
     investigationRequest: "",
     symptoms: "",
     medical_history: "",
@@ -73,7 +79,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
     for (const key in formData2) {
       formData.append(key, formData2[key]);
     }
-    formData.append("organisation", singlepatient.organisation);
+    formData. append("organisation", singlepatient.organisation);
     formData.append("is_active", singlepatient.is_active);
     formData.append("customer", id);
     images.forEach((image, index) => {
@@ -87,9 +93,14 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
             species: "",
             gender: "",
             weight: "",
+            age: "",
+            breed: "",
             typeOfFeed: "",
             food_type: "",
             sample_type: "",
+            mortality_rate:"",
+            flock_size: "",
+            chief_complaint:"",
             investigationRequest: "",
             symptoms: "",
             medical_history: "",
@@ -203,6 +214,23 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
                   <option value="Tissue">Tissue</option>
                 </select>
               </div>
+              <div className="w-full sm:w-1/2 px-3">
+                <label
+                  htmlFor="sample_quantity"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Sample Quantity
+                </label>
+                <input
+                required
+                  type="text"
+                  name="sample_quantity"
+                  id="sample_quantity"
+                  value={formData2.weight}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
               <div className="w-full sm:w-1/2 px-3 mt-3">
                 <label
                   htmlFor="animal_type"
@@ -282,7 +310,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
                   type="text"
                   name="age"
                   id="age"
-                  value={formData2.weight}
+                  value={formData2.age}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
@@ -299,7 +327,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
                   type="text"
                   name="breed"
                   id="breed"
-                  value={formData2.weight}
+                  value={formData2.breed}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
@@ -316,7 +344,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
                   type="text"
                   name="mortality_rate"
                   id="mortality_rate"
-                  value={formData2.weight}
+                  value={formData2.mortality_rate}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
@@ -333,41 +361,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
                   type="text"
                   name="flock_size"
                   id="flock_size"
-                  value={formData2.weight}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                />
-              </div>
-              <div className="w-full sm:w-1/2 px-3">
-                <label
-                  htmlFor="chief_complaint"
-                  className="mb-3 block text-sm font-medium text-[#07074D]"
-                >
-                  Chief Complaint
-                </label>
-                <input
-                required
-                  type="text"
-                  name="chief_complaint"
-                  id="chief_complaint"
-                  value={formData2.weight}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
-                />
-              </div>
-              <div className="w-full sm:w-1/2 px-3">
-                <label
-                  htmlFor="sample_quantity"
-                  className="mb-3 block text-sm font-medium text-[#07074D]"
-                >
-                  Sample Quantity
-                </label>
-                <input
-                required
-                  type="text"
-                  name="sample_quantity"
-                  id="sample_quantity"
-                  value={formData2.weight}
+                  value={formData2.flock_size}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />
@@ -421,6 +415,23 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
                   name="symptoms"
                   id="symptoms"
                   value={formData2.symptoms}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
+                />
+              </div>
+              <div className="w-full mt-3 px-3">
+                <label
+                  htmlFor="chief_complaint"
+                  className="mb-3 block text-sm font-medium text-[#07074D]"
+                >
+                  Chief Complaint
+                </label>
+                <input
+                required
+                  type="text"
+                  name="chief_complaint"
+                  id="chief_complaint"
+                  value={formData2.chief_complaint}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />

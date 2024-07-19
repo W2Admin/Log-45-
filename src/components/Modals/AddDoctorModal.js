@@ -24,53 +24,72 @@ function AddDoctorModal({ closeModal,profile, isOpen, doctor, datas, postuser,lo
     title: "",
     access_permissions: {
       customer: {
-        can_read: true,
-        can_edit: true,
-        can_create: true,
-        can_delete: true
+        can_read: false,
+        can_edit:false,
+        can_create: false,
+        can_delete: false     
       },
       laboratory: {
-        can_read: true,
-        can_edit: true,
-        can_create: true,
-        can_delete: true
+        can_read: false,
+        can_edit:false,
+        can_create: false,
+        can_delete: false   
       },
       invoice: {
-        can_read: true,
-        can_edit: true,
-        can_create: true,
-        can_delete: true
+        can_read: false,
+        can_edit:false,
+        can_create: false,
+        can_delete: false   
       },
       payment: {
-        can_read: true,
-        can_edit: true,
-        can_create: true,
-        can_delete: true
+        can_read: false,
+        can_edit:false,
+        can_create: false,
+        can_delete: false   
       }
     }
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const [mainKey, subKey] = name.split('.');
+    // c else if (name in formData.access_permissions) {
+    //   setFormData((prevState) => ({
+    //     ...prevState,
+    //     access_permissions: {
+    //       ...prevState.access_permissions,
+    //       [name]: value
+    //     }
+    //   }));
+    // }else {
+    //   setFormData((prevState) => ({
+    //     ...prevState,
+    //     [name]: value
+    //   }));
+    // }
     if (name in formData.user) {
-      setFormData((prevState) => ({
-        ...prevState,
-        user: {
-          ...prevState.user,
-          [name]: value
-        }
-      }));
-    }  else if (name in formData.access_permissions) {
+        setFormData((prevState) => ({
+          ...prevState,
+          user: {
+            ...prevState.user,
+            [name]: value
+          }
+        }));
+      } else if (mainKey === 'access_permissions') {
+      const [section, permission] = subKey.split('_');
       setFormData((prevState) => ({
         ...prevState,
         access_permissions: {
           ...prevState.access_permissions,
-          [name]: value
+          [section]: {
+            ...prevState.access_permissions[section],
+            [permission]: value === 'true' || value === 'false' ? value === 'true' : value
+          }
         }
       }));
-    }else {
+    } else {
       setFormData((prevState) => ({
         ...prevState,
-        [name]: value
+        [mainKey]: value
       }));
     }
   };
@@ -169,7 +188,7 @@ function AddDoctorModal({ closeModal,profile, isOpen, doctor, datas, postuser,lo
 
         {/* table access */}
         <div className="w-full">
-          <Access setAccess={setAccess} />
+          <Access setFormData={setFormData} formData={formData} />
         </div>
 
         {/* buttones */}
