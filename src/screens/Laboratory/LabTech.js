@@ -18,7 +18,7 @@ import { FaTimes } from "react-icons/fa";
 import Uploader from "../../components/Uploader";
 import { HiOutlineCheckCircle } from "react-icons/hi";
 import { connect } from "react-redux";
-import { createinvestigation, fetchantibiotics, fetchsinglelabortory } from "../../Redux/Laboratory/LaboratoryAction";
+import { createantibiotics, createinvestigation, fetchantibiotics, fetchsinglelabortory } from "../../Redux/Laboratory/LaboratoryAction";
 import { fetchuser } from "../../Redux/User/UserAction";
 import LottieAnimation from "../../Lotties";
 import loading2 from '../../images/loading2.json'
@@ -45,6 +45,7 @@ function NewMedicalRecode({
   fetchantibiotics,
   antiloading,
   antibiotics,
+  createAntibiotics,
   createinvestigation
 }) {
   const {id} = useParams()
@@ -57,24 +58,32 @@ function NewMedicalRecode({
     intermediate_ab: [],
     pathogen_type: '',
     spp: '',
-    lab_request: 0,
-    technician: 0
+    lab_request: parseInt(id),
+    technician: parseInt(profile.id)
   })
   const removeImage = (index) => {
     setImages(images.filter((_, i) => i !== index));
   };
-  const options = [
-    { value: "jack", label: "Jack" },
-    { value: "john", label: "John" },
-    { value: "mike", label: "Mike" },
-    ];
-    const handleChange = (selectedOption, actionMeta) => {
+    const handleChange = async (selectedOption, actionMeta) => {
       const { name } = actionMeta;
+      // const newOptions = selectedOption.filter(option => !antibiotics.some(antibiotic => antibiotic.value === option.value));
+      // for (const option of newOptions) {
+      //   try {
+      //     await createAntibiotics({ name : option.value },()=>{
+      //       fetchantibiotics();
+      //     },()=>{
+            
+      //     });
+      //     toast.success(`Antibiotic ${option.value} created successfully`);
+      //     fetchantibiotics();  // Refresh the antibiotics list
+      //   } catch (error) {
+      //     toast.error(`Failed to create antibiotic ${option.value}`);
+      //   }
+      // }
       setFormData2({
         ...formData2,
         [name]: selectedOption,
       });
-      console.log(selectedOption)
     };
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -85,11 +94,11 @@ function NewMedicalRecode({
     };
     const loadOptions = (searchValue, callback) => {
       // setTimeout(() => {
-      const filteredOptions = antibiotics.filter(option => option.name.toLowerCase().includes(searchValue.toLowerCase()))
+      const filteredOptions = antibiotics.filter(option => option.value.toLowerCase().includes(searchValue?.toLowerCase()))
       callback(filteredOptions)
       // }, 2000)
     }
-    console.log(antibiotics)
+   console.log("this is labrequest", labdata)
   const [treatmeants, setTreatmeants] = useState(
     servicesData.map((item) => {
       return {
@@ -116,9 +125,16 @@ function NewMedicalRecode({
   };
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    // Create a deep copy of formData2 to avoid modifying the state directly
+    let dataToSend = JSON.parse(JSON.stringify(formData2));
+
+    // Remove the id field from susceptible_ab, resistant_ab, and intermediate_ab
+    dataToSend.susceptible_ab = dataToSend.susceptible_ab.map(item => item.id)
+    dataToSend.resistant_ab = dataToSend.resistant_ab.map(item => item.id)
+    dataToSend.intermediate_ab = dataToSend.intermediate_ab.map(item => item.id)
     let formData = new FormData();
-    for (const key in formData2) {
-      formData.append(key, formData2[key]);
+    for (const key in dataToSend) {
+      formData.append(key, JSON.stringify(dataToSend[key]));
     }
     images.forEach((image, index) => {
       formData.append(`attachment${index + 1}`, image.file);
@@ -155,7 +171,7 @@ function NewMedicalRecode({
   },[labdata.customer]) 
   return (
     <Layout>
-       {labloading||loading||customerloading ? (
+       {labloading||loading||customerloading || antiloading ? (
           <div className="preloader">
            <LottieAnimation data={loading2}/>
          </div>
@@ -213,7 +229,7 @@ function NewMedicalRecode({
                   </div>
                   <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
                     <p className="text-sm text-gray-600">Age (weeks) </p>
-                    <p className="text-xs font-medium text-navy-700">14</p>
+                    <p className="text-xs font-medium text-navy-700">{singlepatient.age}</p>
                   </div>
                   <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
                     <p className="text-sm text-gray-600">Address </p>
@@ -379,30 +395,6 @@ function NewMedicalRecode({
                     rows={3}
                     placeholder={"Gingivitis, Periodontitis, ...."}
                   />
-                  {/* attachment */}
-                  {/* <div className="flex w-full flex-col gap-4">
-                    <p className="text-black text-sm">Attachments</p>
-                    <div className="grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 w-full">
-                      {[1, 2, 3, 4].map((_, i) => (
-                        <div className="relative w-full">
-                          <img
-                            src={`https://placehold.it/300x300?text=${i}`}
-                            alt="patient"
-                            className="w-full  md:h-40 rounded-lg object-cover"
-                          />
-                          <button
-                            onClick={() =>
-                              toast.error("This feature is not available yet.")
-                            }
-                            className="bg-white rounded-full w-8 h-8 flex-colo absolute -top-1 -right-1"
-                          >
-                            <FaTimes className="text-red-500" />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                    <Uploader setImage={{}} />
-                  </div> */}
                   <div className="flex w-full flex-col gap-4">
                     <p className="text-black text-sm font-medium">
                       Attach Sample Images
@@ -476,7 +468,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchantibiotics: () => dispatch(fetchantibiotics()),
     fetchsinglelabortory: (orgid, id) => dispatch(fetchsinglelabortory(orgid, id)),
     singlefetchpatient: (id) => dispatch(singlefetchpatient(id)),
-    createinvestigation: (id, postdata, history, errors) => dispatch(createinvestigation(id, postdata, history, errors))
+    createinvestigation: (id, postdata, history, errors) => dispatch(createinvestigation(id, postdata, history, errors)),
+    createAntibiotics: (postdata, history, errors) => dispatch(createantibiotics(postdata, history, errors))
   };
 };
 export default connect(mapStoreToProps, mapDispatchToProps)(NewMedicalRecode);

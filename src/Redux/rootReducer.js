@@ -6,6 +6,8 @@ import { antibioticsReducer, createantibioticsReducer, createinvestigationReduce
 import { Profiler } from 'react';
 import { createusersReducer, profileReducer, usersReducer } from './User/UserReducer';
 import { createserviceReducer, serviceReducer, singleserviceReducer } from './Service/ServiceReducer';
+import { statisticsReducer } from './Statistics/StatisticsReducer';
+import { createinvoiceReducer, invoiceserviceReducer } from './Invoice/invoiceReducer';
 
 
 const rootReducer = combineReducers({
@@ -26,7 +28,10 @@ const rootReducer = combineReducers({
     createuser: createusersReducer,
     singlelabrequest: singlelaboratoryReducer,
     antibiotics: antibioticsReducer,
-    createantibiotics: createantibioticsReducer
+    createantibiotics: createantibioticsReducer,
+    statistics: statisticsReducer,
+    createinvoice: createinvoiceReducer,
+    invoiceService: invoiceserviceReducer
 })
 
 export default rootReducer;

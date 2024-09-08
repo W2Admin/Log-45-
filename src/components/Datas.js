@@ -248,14 +248,14 @@ export const sortsDatas = {
     },
     {
       id: 2,
-      name: "USD (US Dollar)",
+      name: "USD",
     },
     {
       id: 3,
-      name: "Naira (Naira)",
+      name: "NGN",
     },
     // {
-    //   id: 4,
+  //   id: 4,
     //   name: "TSH (Tanzanian Shilling)",
     // },
   ],

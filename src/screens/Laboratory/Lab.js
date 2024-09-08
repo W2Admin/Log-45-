@@ -20,6 +20,7 @@ import { fetchlabortory } from "../../Redux/Laboratory/LaboratoryAction";
 import LottieAnimation from "../../Lotties";
 import loading2 from '../../images/loading2.json'
 import empty from "../../images/Empty.json"
+import { fetchstatistics } from "../../Redux/Statistics/StatisticsAction";
 
 const Box = ({ title, value, color, icon: Icon }) => (
   <div className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5">
@@ -106,7 +107,16 @@ const PatientRow = ({ patient, onEdit, updateStatus }) => {
   );
 };
 
-function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
+function Patients({
+  fetchlabortory, 
+  fetchuser, 
+  profile, 
+  labloading, 
+  labdata,
+  statLoading,
+  fetchstatistics,
+  stat
+}) {
   const [status, setStatus] = useState(sortsDatas.filterPatient[0]);
   const [gender, setGender] = useState(sortsDatas.genderFilter[0]);
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
@@ -229,6 +239,7 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
   useEffect(()=>{
     fetchuser()
     fetchlabortory(profile.organisation)
+    fetchstatistics()
   },[profile.organisation])
 
   return (
@@ -241,9 +252,39 @@ function Patients({fetchlabortory, fetchuser, profile, labloading, labdata}) {
         <>
           <h1 className="text-xl font-semibold">Laboratory Data</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-            {boxes.map((box) => (
-              <Box key={box.id} {...box} />
-            ))}
+            <div className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5">
+              <div className="w-3/4">
+                <h2 className="text-sm font-medium">Today Lab Request</h2>
+                <h2 className="text-xl my-6 font-medium">{stat.total_requests_today}</h2>
+              </div>
+              <div
+                className={`w-10 h-10 flex-colo rounded-md text-white text-md bg-subMain`}
+              >
+                <BiTime/>
+              </div>
+            </div>
+            <div className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5">
+              <div className="w-3/4">
+                <h2 className="text-sm font-medium">Monthly Lab Request</h2>
+                <h2 className="text-xl my-6 font-medium">{stat.total_requests_monthly}</h2>
+              </div>
+              <div
+                className={`w-10 h-10 flex-colo rounded-md text-white text-md bg-orange-500`}
+              >
+                <BsCalendarMonth/>
+              </div>
+            </div>
+            <div className="bg-white flex-btn gap-4 rounded-xl border-[1px] border-border p-5">
+              <div className="w-3/4">
+                <h2 className="text-sm font-medium">Yearly Lab Request</h2>
+                <h2 className="text-xl my-6 font-medium">{stat.total_requests_yearly}</h2>
+              </div>
+              <div
+                className={`w-10 h-10 flex-colo rounded-md text-white text-md bg-green-500`}
+              >
+                <BsCalendarMonth/>
+              </div>
+            </div>
           </div>
           <div
             data-aos="fade-up"
@@ -331,6 +372,8 @@ const mapStoreToProps = (state) => {
   return {    
     loading: state?.profile?.loading, 
     profile: state?.profile?.data,
+    stat: state?.statistics?.data,
+    statLoading: state?.statistics?.loading,
     labloading: state?.laboratory?.loading,
     labdata:state?.laboratory?.data
   };
@@ -339,6 +382,7 @@ const mapStoreToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchuser: () => dispatch(fetchuser()),
+    fetchstatistics: () => dispatch(fetchstatistics()),
     fetchlabortory: (id) => dispatch(fetchlabortory(id)),
   };
 };

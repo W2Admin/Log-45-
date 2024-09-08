@@ -428,6 +428,7 @@ export function ServiceTable({ data, onEdit }) {
     </table>
   );
 }
+
 // organisation table
 export function OrganisationTable({ data, onEdit }) {
   const navigate = useNavigate();
@@ -628,6 +629,7 @@ export function PatientTable({ data, functions, used }) {
     </table>
   );
 }
+
 // labboratory table
 export function LaboratoryTable({ data, functions, used }) {
   const DropDown1 = !used

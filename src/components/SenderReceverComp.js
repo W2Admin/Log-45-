@@ -27,7 +27,7 @@ function SenderReceverComp({ item, functions, button }) {
           )}
         </div>
         <div className="flex flex-col gap-2 mt-4">
-          <h6 className="text-xs font-medium">{item?.title}</h6>
+          <h6 className="text-xs font-medium">{item?.first_name}{item?.last_name}</h6>
           <p className="text-xs text-textGray">{item?.email}</p>
           <p className="text-xs text-textGray">{item?.phone}</p>
         </div>

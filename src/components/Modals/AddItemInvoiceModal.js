@@ -4,47 +4,28 @@ import { BiPlus } from 'react-icons/bi';
 import PatientMedicineServiceModal from './PatientMedicineServiceModal';
 import { Button, Input } from '../Form';
 
-function AddItemModal({ closeModal, isOpen }) {
+function AddItemModal({ closeModal, isOpen, selectedItem, setSelectedItem, selectedService, setSelectedService }) {
   const [open, setOpen] = useState(false);
-
-  const summery = [
-    {
-      title: 'Service Name',
-      value: 'Paracetamol',
-      color: false,
-    },
-    {
-      title: 'Item Price',
-      value: `$ 5500`,
-      color: false,
-    },
-    {
-      title: 'Quantity',
-      value: 6,
-      color: false,
-    },
-    {
-      title: 'Total',
-      value: `$ 33000`,
-      color: true,
-    },
-  ];
-
+  console.log(selectedItem)
   return (
     <>
       {open && (
         <PatientMedicineServiceModal
           closeModal={() => setOpen(!open)}
           isOpen={open}
-          patient={false}
+          patient={false }
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+          selectedService={selectedService}
+          setSelectedService={setSelectedService}
         />
       )}
-      <Modal
+      {/* <Modal
         closeModal={closeModal}
         isOpen={isOpen}
         title="Add Item"
         width={'max-w-xl'}
-      >
+      > */}
         <div className="flex-colo gap-6">
           {/* title */}
           <div className="flex flex-col gap-4 w-full">
@@ -62,12 +43,12 @@ function AddItemModal({ closeModal, isOpen }) {
           <div className="flex flex-col gap-4 w-full">
             <p className="text-black text-sm">Summary</p>
             <div className="flex flex-col gap-4">
-              {summery.map((item, index) => (
+              {selectedItem.map((item, index) => (
                 <div
                   key={index}
                   className="flex flex-row justify-between items-center"
                 >
-                  <p className="text-xs text-textGray">{item.title}</p>
+                  <p className="text-xs text-textGray">{item.name}</p>
                   <p
                     className={
                       item.color
@@ -75,7 +56,7 @@ function AddItemModal({ closeModal, isOpen }) {
                         : 'text-sm font-medium text-textGray'
                     }
                   >
-                    {item.value}
+                    {item.price}
                   </p>
                 </div>
               ))}
@@ -85,7 +66,7 @@ function AddItemModal({ closeModal, isOpen }) {
           {/* button */}
           <Button onClick={closeModal} label="Add" Icon={BiPlus} />
         </div>
-      </Modal>
+      {/* </Modal> */}
     </>
   );
 }

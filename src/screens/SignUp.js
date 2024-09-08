@@ -137,7 +137,7 @@ function SignUp({
           },
           () => {
             setsubmiterror(true);
-            toast.error({ error });
+            toast.error( error );
           }
         );
       } catch (error) {
@@ -387,12 +387,14 @@ function SignUp({
   );
 }
 
-const mapStateToProps = (state) => ({
-  loading: state.register.loading,
-  error: state.register.error,
-  userloading: state.user.loading,
-  usererror: state.user.error,
-});
+const mapStateToProps = (state) => (
+  {
+    loading: state.register.loading,
+    error: state.register.error,
+    userloading: state.user.loading,
+    usererror: state.user.error,
+  }
+);
 
 const mapDispatchToProps = {
   registerData,
