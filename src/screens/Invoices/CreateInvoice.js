@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../Layout";
 import {
   Button,
@@ -17,22 +17,102 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { InvoiceProductsTable } from "../../components/Tables";
 import SenderReceverComp from "../../components/SenderReceverComp";
+import { fetchpatient } from "../../Redux/Patients/PatientAction";
+import { connect } from "react-redux";
+import { Createinvoice } from "../../Redux/Invoice/InvoiceAction";
 
-function CreateInvoice() {
+function CreateInvoice({
+  fetchpatient,
+  loading, 
+  patient,
+  createInvoice,
+  createloading,
+  profile,
+  InvoiceServiceData
+}) {
   const [dateRange, setDateRange] = useState([
     new Date(),
     new Date(new Date().setDate(new Date().getDate() + 7)),
   ]);
+  const [selectedTo, setSelectedTo] = useState([])
+  const [selectedItem, setSelectedItem] = useState([])
+  const [selectedService, setSelectedService] = useState(InvoiceServiceData)
+  const [postState, setPostState] = useState([])
   const [startDate, endDate] = dateRange;
   const [isOpen, setIsOpen] = useState(false);
   const [itemOpen, setItemOpen] = useState(false);
   const [currency, setCurrency] = useState(sortsDatas.currency[0]);
-
+  const [subtotal, setSubtotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [vat, setVat] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
   // date picker
   const onChangeDates = (update) => {
     setDateRange(update);
   };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "discount") {
+      setDiscount(parseFloat(value));
+      setPostState({
+        ...postState,
+        [name]: parseInt(value),
+      });
+    }else if (name === "vat") {
+      setVat(parseFloat(value));
+      console.log("vat", value)
+      setPostState({
+        ...postState,
+        [name]: parseInt(value),
+      });
+    }else{
+      setPostState({
+        ...postState,
+        [name]: value,
+      });
+    }
+  };
+  const handleSubmit = async(e) =>{
+    e.preventDefault();
+    try{
+      await createInvoice(postState, ()=>{
+        toast.success("Invoice created successfully")
+      },()=>{
+        
+      })
+    }catch(e){
+      console.log(e)
+    }
+  }
+  useEffect(()=>{
+    fetchpatient()
+  },[])
+  useEffect(()=>{
+    setPostState({...postState, ...{currency: currency.name, organisation:profile.organisation}})
+    if (selectedTo.length > 0) {
+      setPostState((prev) => ({ ...prev, customer: selectedTo[0]?.id }));
+    }
 
+    if (selectedService.length > 0) {
+      const filteredServices = selectedService.slice(1); // Exclude the first item
+      setPostState((prev) => ({
+        ...prev,
+        invoice_services: filteredServices.map((item) => item.id),
+      }));
+  
+      console.log(filteredServices);  
+      const newSubtotal = filteredServices.reduce((acc, item) => acc + item.total_amount, 0);
+      setSubtotal(parseFloat(newSubtotal));
+      console.log("subtotal", newSubtotal)
+    }
+  },[selectedTo, profile, currency, selectedItem])
+  useEffect(() => {
+    const discountedTotal = subtotal - discount;
+    const calculatedVat = (discountedTotal * vat) / 100;
+    setGrandTotal(discountedTotal + calculatedVat);
+    console.log("grand", discountedTotal + calculatedVat)
+    setPostState({...postState, ...{total_amount:grandTotal, due_date:"2024-08-30"}})
+  }, [subtotal, discount, vat]);
   return (
     <Layout>
       {isOpen && (
@@ -40,12 +120,18 @@ function CreateInvoice() {
           closeModal={() => setIsOpen(!isOpen)}
           isOpen={isOpen}
           patient={true}
+          setSelectedTo={setSelectedTo}
+          selectedTo={selectedTo}
         />
       )}
       {itemOpen && (
         <AddItemModal
           closeModal={() => setItemOpen(!itemOpen)}
           isOpen={itemOpen}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+          selectedService={selectedService}
+          setSelectedService={setSelectedService}
         />
       )}
       <div className="flex items-center gap-4">
@@ -85,7 +171,7 @@ function CreateInvoice() {
         </div>
         {/* sender and recever */}
         <SenderReceverComp
-          item={invoicesData?.[1].to}
+          item={selectedTo[0]}
           functions={{
             openModal: () => {
               setIsOpen(!isOpen);
@@ -97,7 +183,7 @@ function CreateInvoice() {
         <div className="grid grid-cols-6 gap-6 mt-8">
           <div className="col-span-6 lg:col-span-4 p-6 border border-border rounded-xl overflow-hidden">
             <InvoiceProductsTable
-              data={invoicesData[1].items}
+              data={selectedItem}
               functions={{
                 deleteItem: (id) => {
                   toast.error("This feature is not available yet");
@@ -130,51 +216,70 @@ function CreateInvoice() {
                 label="Discount"
                 color={true}
                 type="number"
+                name="discount"
+                onChange={handleInputChange}
                 placeholder={"3000"}
               />
               <Input
                 label="VAT(%)"
                 color={true}
                 type="number"
+                name="vat"
+                onChange={handleInputChange}
                 placeholder={"3"}
               />
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Sub Total:</p>
-              <h6 className="text-sm font-medium">#459</h6>
+              <h6 className="text-sm font-medium">#{subtotal.toFixed(2)}</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Discount:</p>
-              <h6 className="text-sm font-medium">#49</h6>
+              <h6 className="text-sm font-medium">#{discount.toFixed(2)}</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">VAT:</p>
-              <h6 className="text-sm font-medium">#4.90</h6>
+              <h6 className="text-sm font-medium">#{((subtotal - discount) * (vat / 100)).toFixed(2)}</h6>
             </div>
             <div className="flex-btn gap-4">
               <p className="text-sm font-extralight">Grand Total:</p>
-              <h6 className="text-sm font-medium text-green-600">#6000</h6>
+              <h6 className="text-sm font-medium text-green-600">#{grandTotal.toFixed(2)}</h6>
             </div>
             {/* notes */}
             <Textarea
               label="Notes"
               placeholder="Thank you for your business. We hope to work with you again soon!"
               color={true}
+              name="note"
               rows={3}
+              onChange={handleInputChange}
             />
             {/* button */}
             <Button
               label="Save & Send"
-              onClick={() => {
-                toast.error("This feature is not available yet");
-              }}
+              onClick={handleSubmit}
               Icon={BsSend}
             />
           </div>
         </div>
       </div>
-    </Layout>
+    </Layout> 
   );
 }
+const mapStoreToProps = (state) => {
+  return {
+    loading: state.patient.loading,
+    patient: state.patient.data,
+    profile:state.profile.data,
+    invoiceloading: state.createinvoice.loading,
+    InvoiceServiceData:state.invoiceService.data,
+  };
+};
 
-export default CreateInvoice;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchpatient: () => dispatch(fetchpatient()),
+    createInvoice: (postData, history, error)=>dispatch(Createinvoice(postData, history, error))
+  };
+};
+export default connect(mapStoreToProps, mapDispatchToProps)(CreateInvoice);

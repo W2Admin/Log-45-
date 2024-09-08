@@ -57,7 +57,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
     age: "",
     breed: "",
     sample_type: "",
-    // sample_quanity: "",
+    sample_quanity: "",
     mortality_rate:"",
     flock_size: "",
     chief_complaint:"",
@@ -83,7 +83,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
     formData.append("is_active", singlepatient.is_active);
     formData.append("customer", id);
     images.forEach((image, index) => {
-      formData.append(`attachment${index + 1}`, image.file);
+      formData.append(`attachment_${index + 1}`, image.file);
     });
     try{
         await createlabortory(idorg, formData,()=>{
@@ -226,7 +226,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
                   type="text"
                   name="sample_quantity"
                   id="sample_quantity"
-                  value={formData2.weight}
+                  value={formData2.sample_quantity}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-sm font-medium text-[#6B7280] outline-none focus:shadow-md"
                 />

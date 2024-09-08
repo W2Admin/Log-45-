@@ -13,8 +13,15 @@ import { connect } from "react-redux";
 import Loading2 from "../../images/loading2.json";
 import empty from "../../images/Empty.json";
 import LottieAnimation from "../../Lotties";
+import { fetchstatistics } from "../../Redux/Statistics/StatisticsAction";
 
-function Patients({ patient, fetchpatient, loading }) {
+function Patients({ 
+  patient, 
+  fetchpatient, 
+  loading,
+  stat,
+  statLoading
+}) {
   const [status, setStatus] = useState(sortsDatas.filterPatient[0]);
   const [gender, setGender] = useState(sortsDatas.genderFilter[0]);
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
@@ -71,7 +78,7 @@ function Patients({ patient, fetchpatient, loading }) {
     <>
       <Layout>
         {/* add button */}
-        {loading ? (
+        {loading||statLoading ? (
           <div className="preloader">
             <LottieAnimation data={Loading2} />
           </div>
@@ -183,12 +190,15 @@ const mapStoreToProps = (state) => {
   return {
     loading: state.patient.loading,
     patient: state.patient.data,
+    stat: state?.statistics?.data,
+    statLoading: state?.statistics?.loading,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchpatient: () => dispatch(fetchpatient()),
+    fetchstatistics: () => dispatch(fetchstatistics()),
   };
 };
 export default connect(mapStoreToProps, mapDispatchToProps)(Patients);
