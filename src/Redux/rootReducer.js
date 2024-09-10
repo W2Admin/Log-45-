@@ -7,7 +7,7 @@ import { Profiler } from 'react';
 import { createusersReducer, profileReducer, usersReducer } from './User/UserReducer';
 import { createserviceReducer, serviceReducer, singleserviceReducer } from './Service/ServiceReducer';
 import { statisticsReducer } from './Statistics/StatisticsReducer';
-import { createinvoiceReducer, invoiceserviceReducer } from './Invoice/invoiceReducer';
+import { createinvoiceReducer, invoiceReducer, invoiceserviceReducer } from './Invoice/invoiceReducer';
 
 
 const rootReducer = combineReducers({
@@ -30,6 +30,7 @@ const rootReducer = combineReducers({
     antibiotics: antibioticsReducer,
     createantibiotics: createantibioticsReducer,
     statistics: statisticsReducer,
+    invoice: invoiceReducer,
     createinvoice: createinvoiceReducer,
     invoiceService: invoiceserviceReducer
 })
