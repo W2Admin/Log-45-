@@ -92,7 +92,7 @@ function PersonalInformation({error, data, loading, postpatient}) {
             setFormData({
               first_name: "",
               last_name: "",
-              dateOfBirth: "",
+              date_of_birth: "",
               email: "",
               phone: "",
               gender: "",
@@ -223,6 +223,7 @@ function PersonalInformation({error, data, loading, postpatient}) {
               id="phone"
               value={formData.phone}
               onChange={handleInputChange}
+              maxLength={11}
               className={`w-full rounded-md border ${
                 errors.phoneNumber ? "border-red-500" : "border-[#e0e0e0]"
               } bg-white py-3 px-6 text-sm text-[#6B7280] outline-none focus:border-[#66B5A3] focus:shadow-md`}

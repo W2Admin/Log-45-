@@ -46,12 +46,16 @@ function NewMedicalRecode({
   antiloading,
   antibiotics,
   createAntibiotics,
-  createinvestigation
+  createinvestigation,
+  investigationLoading,
+  investigationError
 }) {
   const {id} = useParams()
   const [technicians, setTechnician] = useState(technicianData[0]);
+  const [attachment, setAttachment] = useState([])
   const [isOpen, setIsOpen] = useState(false);
   const [images, setImages] = useState([]);
+  const [showerror, setShowError] = useState(false);
   const [formData2, setFormData2] = useState({
     susceptible_ab: [],
     resistant_ab: [],
@@ -151,9 +155,9 @@ function NewMedicalRecode({
           technician: 0
         })
         setImages([])
-        toast.success("Laboratory investigati created success");
+        toast.success("Laboratory investigation created success");
       },()=>{
-
+        setShowError(true);
       })
     }catch(error){
 
@@ -167,8 +171,19 @@ function NewMedicalRecode({
     fetchantibiotics()
   },[])
   useEffect(()=>{
-    singlefetchpatient(labdata.customer)
+    if(labdata){
+      singlefetchpatient(labdata.customer)
+    }
   },[labdata.customer]) 
+
+  useEffect(()=>{
+    if(labdata){
+      const filteredAttachments = Object.entries(labdata)
+          .filter(([key, value]) => key.includes('attachment') && value) // Filter for attachment keys that are not null
+          .map(([key, value]) => value); // Map to get just the URLs
+      setAttachment(filteredAttachments)
+    }
+  },[labdata]) 
   return (
     <Layout>
        {labloading||loading||customerloading || antiloading ? (
@@ -229,7 +244,7 @@ function NewMedicalRecode({
                   </div>
                   <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
                     <p className="text-sm text-gray-600">Age (weeks) </p>
-                    <p className="text-xs font-medium text-navy-700">{singlepatient.age}</p>
+                    <p className="text-xs font-medium text-navy-700">{labdata.age}</p>
                   </div>
                   <div className="flex flex-col items-start justify-center rounded-2xl bg-white px-3 py-4 shadow-3xl dark:bg-navy-700 dark:shadow-none">
                     <p className="text-sm text-gray-600">Address </p>
@@ -280,17 +295,35 @@ function NewMedicalRecode({
                    {labdata.medical_history}
                   </p>
                 </div>
+                <div className="w-full px-4">
+                  <p className="text-sm text-gray-600">Attachment Images</p>
+                  <div className="overflow-auto max-h-[150px]">
+                    {attachment.map((attachment, index) => (
+                      <img
+                        key={index}
+                        src={`https://res.cloudinary.com/dxvycrrts/${attachment}`}
+                        alt={`Attachment ${index + 1}`}
+                        className="w-[150px] h-[150px] object-cover"
+                      />
+                    ))}
+                  </div>
+                </div>
                 {/* <p className="text-xs text-subMain bg-text font-medium py-1 px-4 rounded-full border-[0.5px] border-subMain">
                     45 yrs{" "}
                   </p> */}
               </div>
-              <div
+              <form
                 data-aos="fade-left"
                 data-aos-duration="1000"
                 data-aos-delay="100"
                 data-aos-offset="200"
                 className="col-span-12 lg:col-span-8 bg-white rounded-xl border-[1px] border-border p-6"
               >
+                {showerror && (
+                  <div className="error-message">
+                    <p>{investigationError}</p>
+                  </div>
+                )}
                 <div className="flex w-full flex-col gap-5">
                   <Textarea
                     label="Pathogen Type"
@@ -425,23 +458,24 @@ function NewMedicalRecode({
                   <div className="flex items-center space-x-4">
                     {" "}
                     {/* Container to hold the buttons */}
-                    <Button
+                    {/* <Button
                       label={"Save"}
                       Icon={HiOutlineCheckCircle}
                       onClick={() => {
                         toast.error("This feature is not available yet");
                       }}
-                    />
+                    /> */}
                     <Button
                       label={"Submit"}
                       Icon={HiOutlineCheckCircle}
+                      loading={investigationLoading}
                       onClick={(e) => {
                         handleSubmit(e )
                       }}
                     />
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </>
         )}
@@ -458,7 +492,9 @@ const mapStoreToProps = (state) => {
     singlepatient: state?.singlepatient?.data,
     customerloading: state?.singlepatient?.loading,
     antiloading: state?.antibiotics?.loading,
-    antibiotics: state?.antibiotics?.data
+    antibiotics: state?.antibiotics?.data,
+    investigationLoading: state?.createinv?.loading,
+    investigationError: state?.createinv?.error
   };
 };
 

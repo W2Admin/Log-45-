@@ -3,6 +3,7 @@ import Modal from './Modal';
 import { BiPlus } from 'react-icons/bi';
 import PatientMedicineServiceModal from './PatientMedicineServiceModal';
 import { Button, Input } from '../Form';
+import Modal2 from './Modal2';
 
 function AddItemModal({ closeModal, isOpen, selectedItem, setSelectedItem, selectedService, setSelectedService }) {
   const [open, setOpen] = useState(false);
@@ -20,12 +21,12 @@ function AddItemModal({ closeModal, isOpen, selectedItem, setSelectedItem, selec
           setSelectedService={setSelectedService}
         />
       )}
-      {/* <Modal
+      <Modal2
         closeModal={closeModal}
         isOpen={isOpen}
         title="Add Item"
         width={'max-w-xl'}
-      > */}
+      > 
         <div className="flex-colo gap-6">
           {/* title */}
           <div className="flex flex-col gap-4 w-full">
@@ -66,7 +67,7 @@ function AddItemModal({ closeModal, isOpen, selectedItem, setSelectedItem, selec
           {/* button */}
           <Button onClick={closeModal} label="Add" Icon={BiPlus} />
         </div>
-      {/* </Modal> */}
+      </Modal2>
     </>
   );
 }

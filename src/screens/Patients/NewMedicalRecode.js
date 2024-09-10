@@ -26,6 +26,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
   const [doctors, setDoctors] = useState(doctorsData[0]);
   const [isOpen, setIsOpen] = useState(false);
   const [images, setImages] = useState([]);
+  const [showerror, setShowError] = useState(false);
   const {id} = useParams()
   useEffect(()=>{
     singlefetchpatient(id)
@@ -109,7 +110,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
           setImages([])
           toast.success("Lab request created success");
         }, ()=>{
-          // setShowError(true)
+          setShowError(true)
         })
   }catch(error){
 
@@ -179,6 +180,11 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
             onSubmit={handleFormSubmit}
             className="flex w-full flex-col gap-5"
           >
+              {showerror && (
+                <div className="error-message">
+                  <p>{errors}</p>
+                </div>
+              )}
             <div className="flex flex-wrap">
               <div className="w-full sm:w-1/2 px-3">
                 <p className="text-black text-sm font-medium">
@@ -518,6 +524,7 @@ function NewMedicalRecord({errors, loading, createlabortory,idorg, singlepatient
               label={"Submit"}
               Icon={HiOutlineCheckCircle}
               type="submit"
+              loading={loading}
             />
           </form>
         </div>

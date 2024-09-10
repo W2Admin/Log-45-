@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
 import Layout from "../../Layout";
 import {
   Button,
@@ -27,6 +27,7 @@ function CreateInvoice({
   patient,
   createInvoice,
   createloading,
+  invoiceloading,
   profile,
   InvoiceServiceData
 }) {
@@ -258,6 +259,7 @@ function CreateInvoice({
             <Button
               label="Save & Send"
               onClick={handleSubmit}
+              loading={invoiceloading}
               Icon={BsSend}
             />
           </div>

@@ -265,9 +265,9 @@ export function InvoiceTable({ data }) {
                 </div>
               </div>
             </td>
-            <td className={tdclass}>{item?.createdDate}</td>
-            <td className={tdclass}>{item?.dueDate}</td>
-            <td className={`${tdclass} font-semibold`}>{item?.total}</td>
+            <td className={tdclass}>{item?.created_at.slice(0, 9)}</td>
+            <td className={tdclass}>{item?.due_date}</td>
+            <td className={`${tdclass} font-semibold`}>{item?.total_amount}</td>
             <td className={tdclass}>
               <MenuSelect datas={DropDown1} item={item}>
                 <div className="bg-dry border text-main text-xl py-2 px-4 rounded-lg">
